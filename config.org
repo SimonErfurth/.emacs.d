@@ -3,16 +3,18 @@
 #+CREATOR: Simon Skjernaa Erfurth
 #+EMAIL: simon@serfurth.dk
 #+LANGUAGE: en
+[[./dashLogo.png]]
 * About this file
 This configuration is supposed to be loaded as the sole configuration file. It
-is made up of code stolen from configurations found all around, and a (small)
-amount of code that I have written myself. The =init.el=, as well as most of the
-original base of this file is stolen from *Uncle Dave's Emacs*.
+is made up of code stolen from configurations that other people have been nice
+enough to share (some of it I even give credit for) and a (small) amount of code
+that I have written myself. The =init.el=, as well as most of the original base
+of this file is stolen from *Uncle Dave's Emacs*.
 ** Dependencies
-For flyspell we need a language, like ~aspell-en~ (me think). For All the icons
-we need to run ~all-the-icons-install-fonts~ after downloading the package.
-~pdftk~ for being able to rotate pdf-files. or python we need ~pip install jedi
-rope isort falke8 autopep8~.
+For flyspell we need a language, like ~aspell-en~. For All the icons we need to
+run ~all-the-icons-install-fonts~ after downloading the package. ~pdftk~ for
+being able to rotate pdf-files. For python we need ~pip install jedi rope isort
+falke8 autopep8~.
 ** Notes that should not need to be included
 According to Uncle Dave the following is dependencies for programming in this Emacs.
 *** Programming
@@ -21,8 +23,6 @@ According to Uncle Dave the following is dependencies for programming in this Em
 - =sbcl=, for clisp completion and repl.
 - =virtualenv=, for python completion.
 - =lua=, for obvious reasons.
-**** pip
-- =pip install jedi flake8 autopep8=, here, a one line install.
 * Theme
 Clearly the most important part of any configuration!
 ** A theme
@@ -76,46 +76,7 @@ Customization from Uncle Dave.
         (diff-current-background (if (true-color-p) "#29457b" "#29457b"))
         (diff-current-refined-background (if (true-color-p) "#4174ae" "#4174ae")))
 
-    (custom-theme-set-faces
-     'zerodark
-
-     ;; ;; mode line stuff
-     ;; `(mode-line ((,class (:background ,background-blue :height 1.0 :foreground ,blue
-     ;;                                   :distant-foreground ,background-blue
-     ;;                                   :box ,(when zerodark-use-paddings-in-mode-line
-     ;;                                           (list :line-width 6 :color background-blue))))))
-
-     ;; `(mode-line-inactive ((,class (:background ,background-blue :height 1.0 :foreground ,default
-     ;;                                            :distant-foreground ,background-blue
-     ;;                                            :box ,(when zerodark-use-paddings-in-mode-line
-     ;;                                                    (list :line-width 6 :color background-blue))))))
-
-     ;; `(header-line ((,class (:inherit mode-line-inactive))))
-
-     ;; `(powerline-active0 ((,class (:height 1.0 :foreground ,blue :background ,background-blue
-     ;;                                       :distant-foreground ,background-blue))))
-     ;; `(powerline-active1 ((,class (:height 1.0 :foreground ,blue :background ,background-blue
-     ;;                                       :distant-foreground ,background-blue))))
-     ;; `(powerline-active2 ((,class (:height 1.0 :foreground ,blue :background ,background-blue
-     ;;                                       :distant-foreground ,background-blue))))
-     ;; `(powerline-inactive0 ((,class (:height 1.0 :foreground ,blue :background ,background-blue
-     ;;                                         :distant-foreground ,background-blue))))
-     ;; `(powerline-inactive1 ((,class (:height 1.0 :foreground ,blue :background ,background-blue
-     ;;                                         distant-foreground ,background-blue))))
-     ;; `(powerline-inactive2 ((,class (:height 1.0 :foreground ,blue :background ,background-blue
-     ;;                                         :distant-foreground ,background-blue))))
-
-     ;; `(dashboard-heading-face ((,class (:background ,background :foreground ,blue
-     ;;                                                :bold t :height 1.2))))
-     ;; `(dashboard-banner-logo-title-face ((,class (:background ,background :foreground ,blue
-     ;;                                                          :bold t :height 1.2))))
-     ;; `(widget-button ((,class (:background ,background :foreground ,default :bold nil
-     ;;                                       :underline t :height 0.9))))
-
-     ;; ;; erc stuff
-     ;; `(erc-nick-default-face ((,class :foreground ,blue :background ,background :weight bold)))
-
-     ;; org stuff
+    ;; org stuff
      `(outline-1 ((,class (:foreground ,blue :weight bold :height 1.5 :bold nil))))
      `(outline-2 ((,class (:foreground ,purple :weight bold :height 1.4 :bold nil))))
      `(outline-3 ((,class (:foreground ,peach :weight bold :height 1.3 :bold nil))))
@@ -134,7 +95,7 @@ Customization from Uncle Dave.
 ** font
 Configures Emacs to use source-code-pro in size 12.
 #+begin_src emacs-lisp
-  (set-frame-font "Source Code Pro 12")
+  (set-frame-font "Source Code Pro 11")
 #+end_src
 
 * Basic Interface Settings
@@ -228,7 +189,6 @@ Lets us use asynchronous processes wherever possible, pretty useful.
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Simon Skjernaa Erfurth")
   (setq user-mail-address "simon@serfurth.dk")
-
 #+END_SRC
 
 * Killing Emacs
@@ -251,7 +211,7 @@ all-the-icons-install-fonts~ which installs the needed fonts.
   (use-package all-the-icons
     :ensure t)
 #+END_SRC
-** All the icons dired
+*** All the icons dired
 Gives dired some nice icons for folders etc.
 #+BEGIN_SRC emacs-lisp
   (use-package all-the-icons-dired
@@ -319,30 +279,6 @@ liking, I find 10 to be enough.
 The modeline is the heart of Emacs, it offers information at all times, it's
 persistent and verbose enough to gain a full understanding of modes and states
 you are in.
-
-** Winum
-A basic windows number package, which allows us to navigate to any workspace
-with =C-x w n= where =n= is the number of the window. Should also be configured
-to let =M-n= work the same way.
-#+BEGIN_SRC emacs-lisp
-  (use-package winum
-    :ensure t
-    :init
-    (setq winum-auto-setup-mode-line nil)
-
-    :config
-    (winum-mode)
-    :bind (("M-0" . winum-select-window-0-or-10)
-           ("M-1" . winum-select-window-1)
-           ("M-2" . winum-select-window-2)
-           ("M-3" . winum-select-window-3)
-           ("M-4" . winum-select-window-4)
-           ("M-5" . winum-select-window-5)
-           ("M-6" . winum-select-window-6)
-           ("M-7" . winum-select-window-7)
-           ("M-8" . winum-select-window-8)
-           ("M-9" . winum-select-window-9)))
-#+END_SRC
 
 ** nyan-mode
 To cite pyrocrasty;
@@ -415,7 +351,6 @@ use Emacs for you /will/ be jumping around buffers like it's serious business,
 the following set of enhancements aims to make it easier.
 
 As a great Emacs user once said:
-
 #+BEGIN_QUOTE
 Do me the favor, do me the biggest favor, matter of fact do yourself the biggest
 favor and integrate those into your workflow.
@@ -438,7 +373,7 @@ And a pre-prerequisite for this
     :ensure t)
 #+END_SRC
 
-** Moving around with H
+** Moving around with hyper
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "H-a") 'left-word)
   (global-set-key (kbd "H-s") 'right-word)
@@ -486,7 +421,8 @@ elsewhere.
       "M-m q" "exit-emacs"
       "M-m b" "manipulate-entire-buffer"
       "M-m y" "yasnippet"
-      "C-x w" "eyebrowse"
+      "C-c C-w" "eyebrowse"
+      "C-x n" "narrow"
       "C-x w" "winum-menu"))
 #+END_SRC
 
@@ -558,6 +494,30 @@ efficient.
   (use-package swiper
     :ensure t
     :bind ("C-s" . 'swiper))
+#+END_SRC
+
+** Winum
+A basic windows number package, which allows us to navigate to any workspace
+with =C-x w n= where =n= is the number of the window. Should also be configured
+to let =M-n= work the same way.
+#+BEGIN_SRC emacs-lisp
+  (use-package winum
+    :ensure t
+    :init
+    (setq winum-auto-setup-mode-line nil)
+
+    :config
+    (winum-mode)
+    :bind (("M-0" . winum-select-window-0-or-10)
+           ("M-1" . winum-select-window-1)
+           ("M-2" . winum-select-window-2)
+           ("M-3" . winum-select-window-3)
+           ("M-4" . winum-select-window-4)
+           ("M-5" . winum-select-window-5)
+           ("M-6" . winum-select-window-6)
+           ("M-7" . winum-select-window-7)
+           ("M-8" . winum-select-window-8)
+           ("M-9" . winum-select-window-9)))
 #+END_SRC
 
 ** buffers
@@ -702,7 +662,7 @@ And this quickly deletes a line.
   (global-set-key (kbd "H-p") 'kill-whole-line)
 #+END_SRC
 
-** Kill a sexp or char
+** Kill a word or char
 Quicker than using ~C-DEL~ and backspace.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "H-o") 'delete-forward-char)
@@ -725,6 +685,17 @@ If the region is active still kills region, if it is not kills word at point.
         (call-interactively #'kill-region)
       (backward-kill-word arg)))
   (global-set-key (kbd "C-w") 'backward-kill-word-or-region)
+#+END_SRC
+
+** Zapping to char
+A nifty little package that kills all text between your cursor and a selected
+character. A lot more useful than you might think. If you wish to include the
+selected character in the killed region, change =zzz-up-to-char= into
+=zzz-to-char=.
+#+BEGIN_SRC emacs-lisp
+  (use-package zzz-to-char
+    :ensure t
+    :bind ("M-z" . zzz-up-to-char))
 #+END_SRC
 
 ** Undo-tree
@@ -980,17 +951,6 @@ language using them, especially lisp.
     :ensure t
     :init
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-#+END_SRC
-
-** Zapping to char
-A nifty little package that kills all text between your cursor and a selected
-character. A lot more useful than you might think. If you wish to include the
-selected character in the killed region, change =zzz-up-to-char= into
-=zzz-to-char=.
-#+BEGIN_SRC emacs-lisp
-  (use-package zzz-to-char
-    :ensure t
-    :bind ("M-z" . zzz-up-to-char))
 #+END_SRC
 
 ** Spellchecking
