@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org-align
+# key: al
+# --
+\begin{align}
+$1
+\end{align}

@@ -1029,7 +1029,6 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
   (use-package yasnippet
     :ensure t
     :config
-    (setq yas-snippet-dirs (append yas-snippet-dirs '("/home/ss-blackthorn/ss-config/emacs/snippets")))
     (yas-reload-all))
   (use-package yasnippet-snippets
     :ensure t
