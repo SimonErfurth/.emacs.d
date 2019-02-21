@@ -9,3 +9,16 @@
 
 # Undo-tree save-files
 *.~undo-tree
+
+# Elisp configuration file
+config.el
+
+#Multiple small files
+.historian
+bookmarks
+elpa/*
+places
+projectile-bookmarks.eld
+recentf
+url/*
+xkcd/*
