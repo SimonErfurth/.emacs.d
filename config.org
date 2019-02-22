@@ -77,6 +77,8 @@ Customization from Uncle Dave.
         (diff-current-refined-background (if (true-color-p) "#4174ae" "#4174ae")))
 
     ;; org stuff
+    (custom-theme-set-faces
+     'zerodark
      `(outline-1 ((,class (:foreground ,blue :weight bold :height 1.5 :bold nil))))
      `(outline-2 ((,class (:foreground ,purple :weight bold :height 1.4 :bold nil))))
      `(outline-3 ((,class (:foreground ,peach :weight bold :height 1.3 :bold nil))))
@@ -1659,7 +1661,7 @@ Emacs can do everything!
   (use-package xkcd
     :ensure t
     :defer t
-    :bind ("C-x x" . xkcd)
+    :bind ("M-m x" . xkcd)
     :config
     (progn
       (bind-keys
@@ -1670,6 +1672,7 @@ Emacs can do everything!
        ("p" . xkcd-prev)
        ("n" . xkcd-next)
        ("v" . xkcd-open-browser)
+       ("r" . xkcd-rand)
        ("w" . xkcd-copy-link)
        ("?" . xkcd-open-explanation-browser))))
 #+END_SRC
