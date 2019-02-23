@@ -1294,12 +1294,6 @@ Code for syncing between LaTeX buffer and PDF file.
     (progn
       (setq reftex-plug-into-AUCTeX t)
       (setq reftex-cite-prompt-optional-args t)
-      ;; So that RefTeX also recognizes \addbibresource. Note that you
-      ;; can't use $HOME in path for \addbibresource but that "~"
-      ;; works.
-      (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
-                                          ;     (setq reftex-default-bibliography '("UNCOMMENT LINE AND INSERT PATH TO YOUR BIBLIOGRAPHY HERE")); So that RefTeX in Org-mode knows bibliography
-      ;; (setcdr (assoc 'caption reftex-default-context-regexps) "\\\\\\(rot\\|sub\\)?caption\\*?[[{]"); Recognize \subcaptions, e.g. reftex-citation
       (setq reftex-cite-format; Get ReTeX with biblatex, see https://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992
             '((?t . "\\textcite[]{%l}")
               (?a . "\\autocite[]{%l}")
@@ -1308,85 +1302,7 @@ Code for syncing between LaTeX buffer and PDF file.
               (?f . "\\footcite[]{%l}")
               (?n . "\\nocite{%l}")
               (?b . "\\blockcquote[]{%l}{}")))))
-
-  ;; Fontification (remove unnecessary entries as you notice them)
-  ;; http://lists.gnu.org/archive/html/emacs-orgmode/2009-05/msg00236.html
-  ;; http://www.gnu.org/software/auctex/manual/auctex/Fontification-of-macros.html
-  (setq font-latex-match-reference-keywords
-        '(
-          ;; biblatex
-          ("printbibliography" "[{")
-          ("addbibresource" "[{")
-          ;; Standard commands
-          ;; ("cite" "[{")
-          ("Cite" "[{")
-          ("parencite" "[{")
-          ("Parencite" "[{")
-          ("footcite" "[{")
-          ("footcitetext" "[{")
-          ;; ;; Style-specific commands
-          ("textcite" "[{")
-          ("Textcite" "[{")
-          ("smartcite" "[{")
-          ("Smartcite" "[{")
-          ("cite*" "[{")
-          ("parencite*" "[{")
-          ("supercite" "[{")
-                                          ; Qualified citation lists
-          ("cites" "[{")
-          ("Cites" "[{")
-          ("parencites" "[{")
-          ("Parencites" "[{")
-          ("footcites" "[{")
-          ("footcitetexts" "[{")
-          ("smartcites" "[{")
-          ("Smartcites" "[{")
-          ("textcites" "[{")
-          ("Textcites" "[{")
-          ("supercites" "[{")
-          ;; Style-independent commands
-          ("autocite" "[{")
-          ("Autocite" "[{")
-          ("autocite*" "[{")
-          ("Autocite*" "[{")
-          ("autocites" "[{")
-          ("Autocites" "[{")
-          ;; Text commands
-          ("citeauthor" "[{")
-          ("Citeauthor" "[{")
-          ("citetitle" "[{")
-          ("citetitle*" "[{")
-          ("citeyear" "[{")
-          ("citedate" "[{")
-          ("citeurl" "[{")
-          ;; Special commands
-          ("fullcite" "[{")))
-
-  (setq font-latex-match-textual-keywords
-        '(
-          ;; biblatex brackets
-          ("parentext" "{")
-          ("brackettext" "{")
-          ("hybridblockquote" "[{")
-          ;; Auxiliary Commands
-          ("textelp" "{")
-          ("textelp*" "{")
-          ("textins" "{")
-          ("textins*" "{")
-          ;; supcaption
-          ("subcaption" "[{")))
-
-  (setq font-latex-match-variable-keywords
-        '(
-          ;; amsmath
-          ("numberwithin" "{")
-          ;; enumitem
-          ("setlist" "[{")
-          ("setlist*" "[{")
-          ("newlist" "{")
-          ("renewlist" "{")
-          ("setlistdepth" "{")
-          ("restartlist" "{")))
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 #+END_SRC
 
 ** autofill
@@ -1695,7 +1611,6 @@ Edit this list as you see fit!
     (diminish 'beacon-mode)
     (diminish 'irony-mode)
     (diminish 'page-break-lines-mode)
-    (diminish 'auto-revert-mode)
     (diminish 'rainbow-delimiters-mode)
     (diminish 'undo-tree-mode)
     (diminish 'rainbow-mode)
@@ -1705,6 +1620,7 @@ Edit this list as you see fit!
     (diminish 'flyspell-mode)
     (diminish 'helm-mode)
     (diminish 'org-cdlatex-mode)
+    (diminish 'cdlatex-mode)
     (diminish 'company-mode)
     (diminish 'git-gutter-mode)
     (diminish 'anzu-mode)
