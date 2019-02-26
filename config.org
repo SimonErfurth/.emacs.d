@@ -1026,10 +1026,6 @@ Loads company-mode, and adds yas-snippets to them
     ;; is displayed on top (happens near the bottom of windows)
     (setq company-tooltip-flip-when-above t)
     (global-company-mode))
-
-  (use-package company-box
-    :ensure t
-    :hook (company-mode . company-box-mode))
 #+END_SRC
 
 ** specific languages
@@ -1102,6 +1098,7 @@ Requires libclang to be installed.
     :config
     (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
 #+end_src
+
 **** company
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'company
