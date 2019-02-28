@@ -1,3 +1,4 @@
+
 #+STARTUP: overview
 #+TITLE: Sorcery Emacs
 #+CREATOR: Simon Skjernaa Erfurth
@@ -374,6 +375,9 @@ And a pre-prerequisite for this
     :ensure t)
   (use-package ivy-historian
     :ensure t)
+  (use-package ivy-hydra
+    :ensure t
+    :after hydra ivy)
 #+END_SRC
 
 Further, we are also going to use hydra to make something more elegant
@@ -381,10 +385,12 @@ Further, we are also going to use hydra to make something more elegant
   (use-package hydra
     :ensure t
     :config
-    (defhydra hydra-zoom (global-map "C-+")
+    (defhydra hydra-zoom (global-map "M-m z")
       "zoom"
       ("+" text-scale-increase "in")
-      ("-" text-scale-decrease "out")))
+      ("-" text-scale-decrease "out")
+      ("q" nil "quit")
+      ("RET" nil "done" :color blue)))
 
   (defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
                               :hint nil)
