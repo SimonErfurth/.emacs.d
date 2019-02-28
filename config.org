@@ -385,6 +385,35 @@ Further, we are also going to use hydra to make something more elegant
       "zoom"
       ("+" text-scale-increase "in")
       ("-" text-scale-decrease "out")))
+
+  (defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
+                              :hint nil)
+    "
+  Git gutter:
+    _n_: next hunk        _s_tage hunk     _q_uit
+    _p_: previous hunk    _k_evert hunk    _Q_uit and deactivate git-gutter
+    ^ ^                   _P_opup hunk
+    _b_: first hunk
+    _f_: last hunk        set start _R_evision
+  "
+    ("n" git-gutter:next-hunk)
+    ("p" git-gutter:previous-hunk)
+    ("b" (progn (goto-char (point-min))
+                (git-gutter:next-hunk 1)))
+    ("f" (progn (goto-char (point-min))
+                (git-gutter:previous-hunk 1)))
+    ("s" git-gutter:stage-hunk)
+    ("k" git-gutter:revert-hunk)
+    ("P" git-gutter:popup-hunk)
+    ("R" git-gutter:set-start-revision)
+    ("q" nil :color blue)
+    ("Q" (progn (git-gutter-mode -1)
+                ;; git-gutter-fringe doesn't seem to
+                ;; clear the markup right away
+                (sit-for 0.1)
+                (git-gutter:clear))
+     :color blue))
+  (global-set-key (kbd "M-m h g") 'hydra-git-gutter/body)
 #+end_src
 
 ** Moving around with hyper
@@ -632,6 +661,27 @@ now =M-s= is moving by searching characters.
     :bind
     (("M-s" . avy-goto-char)
      ("C-M-s" . avy-goto-word-or-subword-1)))
+
+  (defhydra hydra-avy (:exit t :hint nil)
+    "
+   Line^^       Region^^        Goto
+  ----------------------------------------------------------
+   [_y_] yank   [_Y_] yank      [_c_] timed char  [_C_] char
+   [_m_] move   [_M_] move      [_w_] word        [_W_] any word
+   [_k_] kill   [_K_] kill      [_l_] line        [_L_] end of line"
+    ("c" avy-goto-char-timer)
+    ("C" avy-goto-char)
+    ("w" avy-goto-word-1)
+    ("W" avy-goto-word-0)
+    ("l" avy-goto-line)
+    ("L" avy-goto-end-of-line)
+    ("m" avy-move-line)
+    ("M" avy-move-region)
+    ("k" avy-kill-whole-line)
+    ("K" avy-kill-region)
+    ("y" avy-copy-line)
+    ("Y" avy-copy-region))
+  (global-set-key (kbd "M-m h a") 'hydra-avy/body)
 #+END_SRC
 
 ** dired, neotree and files
