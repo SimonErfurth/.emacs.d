@@ -358,7 +358,8 @@ Do me the favor, do me the biggest favor, matter of fact do yourself the biggest
 favor and integrate those into your workflow.
 #+END_QUOTE
 
-** a prerequisite or two for others packages
+** 
+a prerequisite or two for others packages
 And a pre-prerequisite for this
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
@@ -374,6 +375,17 @@ And a pre-prerequisite for this
   (use-package ivy-historian
     :ensure t)
 #+END_SRC
+
+Further, we are also going to use hydra to make something more elegant
+#+begin_src emacs-lisp
+  (use-package hydra
+    :ensure t
+    :config
+    (defhydra hydra-zoom (global-map "C-+")
+      "zoom"
+      ("+" text-scale-increase "in")
+      ("-" text-scale-decrease "out")))
+#+end_src
 
 ** Moving around with hyper
 #+BEGIN_SRC emacs-lisp
@@ -1026,6 +1038,7 @@ Loads company-mode, and adds yas-snippets to them
     ;; is displayed on top (happens near the bottom of windows)
     (setq company-tooltip-flip-when-above t)
     (global-company-mode))
+
 #+END_SRC
 
 ** specific languages
@@ -1243,6 +1256,9 @@ editor. Hold tight.
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
     (setq reftex-plug-into-AUCTeX t)
     (setq TeX-PDF-mode t)
+    (setq TeX-clean-confirm nil)
+    (setq TeX-master 'dwim)
+    (setq TeX-command-default "LatexMk")
     (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
 
   (use-package company-math
