@@ -479,6 +479,7 @@ elsewhere.
       "M-m z" "zoom"
       "M-m h" "hydras"
       "M-m m" "modes"
+      "M-m l" "lorem-ipsum"
       "C-c C-w" "eyebrowse"
       "C-x n" "narrow"
       "C-x w" "winum-menu"))
@@ -1000,6 +1001,16 @@ install ~aspell-en~ for this to work.
     :config
     (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
 #+END_SRC
+
+** lorem-ipsum
+Just a quick way to insert sample text
+#+begin_src emacs-lisp
+  (use-package lorem-ipsum
+    :ensure t
+    :bind (("M-m l l" . lorem-ipsum-insert-list)
+           ("M-m l p" . lorem-ipsum-insert-paragraphs)
+           ("M-m l s" . lorem-ipsum-insert-sentences)))
+#+end_src
 
 * Kill ring
 ** Maximum entries on the ring
