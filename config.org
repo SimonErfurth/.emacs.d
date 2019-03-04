@@ -938,8 +938,7 @@ You can easily add and remove pairs yourself, have a look.
   (use-package smartparens
     :ensure t
     :config
-    (smartparens-global-mode 1)
-    )
+    (smartparens-global-mode 1))
 #+END_SRC
 
 ** Beacon
@@ -1299,7 +1298,11 @@ editor. Hold tight.
     (add-hook 'LaTeX-mode-hook 'my-latex-mode-setup))
 
   (use-package cdlatex
-    :ensure t)
+    :ensure t
+    :config
+    (define-key cdlatex-mode-map  "(" 'LaTeX-insert-left-brace)
+    (define-key cdlatex-mode-map  "{" 'LaTeX-insert-left-brace)
+    (define-key cdlatex-mode-map "[" 'LaTeX-insert-left-brace))
   (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 
   (use-package auctex-latexmk
