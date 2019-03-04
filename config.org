@@ -983,9 +983,9 @@ you may think.
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
     :ensure t
-    :init
-    (add-hook 'text-mode-hook 'rainbow-mode)
-    (add-hook 'prog-mode-hook 'rainbow-mode))
+    :bind ("M-m m r" . rainbow-mode)
+    :config
+    (add-hook 'LaTeX-mode-hook 'rainbow-mode))
 #+END_SRC
 
 ** Show parens
