@@ -376,7 +376,7 @@ it's rather similar to ido-vertical though.
     :bind
     (("C-x C-f" . 'helm-find-files)
      ("C-x b" . 'helm-buffers-list)
-     ("C-x f" . 'helm-recentf)
+     ("C-x f" . 'helm-mini)
      ("M-x" . 'helm-M-x))
     :config
     (defun daedreth/helm-hide-minibuffer ()
@@ -388,7 +388,7 @@ it's rather similar to ido-vertical though.
                          `(:background ,bg-color :foreground ,bg-color)))
           (setq-local cursor-type nil))))
     (add-hook 'helm-minibuffer-set-up-hook 'daedreth/helm-hide-minibuffer)
-    (setq helm-autoresize-max-height 0
+    (setq helm-autoresize-max-height 30
           helm-autoresize-min-height 5
           helm-M-x-fuzzy-match t
           helm-buffers-fuzzy-matching t
@@ -400,12 +400,11 @@ it's rather similar to ido-vertical though.
           helm-ff-search-library-in-sexp t
           helm-scroll-amount 8 
           helm-echo-input-in-header-line t)
-    :init
-    (helm-mode 1))
+    (helm-mode 1)
+    (helm-autoresize-mode 1))
 
   ;; DO NOT CHANGE THIS TO USE-PACKAGE! BREAKS!
   (require 'helm-config)
-  (helm-autoresize-mode 1)
   (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
   (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 #+END_SRC
@@ -544,7 +543,7 @@ A way to use multiple different work spaces. Default change is ~C-c C-w 1~ and
     (eyebrowse-mode t))
 #+END_SRC
 
-** swiper
+** swiper/swoop
 I like me some searching, the default search is very meh. In Emacs, you mostly
 use search to get around your buffer, much like with avy, but sometimes it
 doesn't hurt to search for entire words or mode, swiper makes sure this is more
@@ -554,9 +553,10 @@ efficient.
     :disabled
     :ensure t
     :bind ("C-s" . 'swiper-helm))
+
   (use-package helm-swoop
     :ensure t
-    :bind ("C-s" . 'helm-swoop)
+    :bind ("C-s" . 'helm-swoop-without-pre-input)
     :config
     (setq helm-swoop-speed-or-color t))
 #+END_SRC
