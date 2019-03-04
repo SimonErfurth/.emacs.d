@@ -51,6 +51,7 @@
      (output-dvi "xdvi")
      (output-pdf "PDF Tools")
      (output-html "xdg-open"))))
+ '(cdlatex-paired-parens "$[{(")
  '(eyebrowse-mode t)
  '(git-gutter:hide-gutter t)
  '(git-gutter:update-interval 2)
