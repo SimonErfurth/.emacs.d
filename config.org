@@ -251,7 +251,7 @@ This makes sure that everything can be a project.
   (use-package projectile
     :ensure t
     :init
-    (setq projectile-completion-system 'ivy)
+    (setq projectile-completion-system 'helm)
     (setq projectile-keymap-prefix (kbd "C-z"))
     (setq projectile-mode-line
           '(:eval (format "[%s]" (projectile-project-name))))
@@ -366,26 +366,51 @@ Do me the favor, do me the biggest favor, matter of fact do yourself the biggest
 favor and integrate those into your workflow.
 #+END_QUOTE
 
-** a prerequisite or two for others packages
-And a pre-prerequisite for this
+** helm
+Sometimes, you don't realize how good something is until you try it extensively.
+I give in, helm is awesome. I'll end up customizing it more eventually,
+it's rather similar to ido-vertical though.
 #+BEGIN_SRC emacs-lisp
-  (use-package ivy
+  (use-package helm
     :ensure t
-    :init
-    (ivy-mode +1)
-    (historian-mode +1)
+    :bind
+    (("C-x C-f" . 'helm-find-files)
+     ("C-x b" . 'helm-buffers-list)
+     ("C-x f" . 'helm-recentf)
+     ("M-x" . 'helm-M-x))
     :config
-    (ivy-historian-mode +1))
-  (setq ivy-historian-recent-boost most-positive-fixnum)
-  (use-package historian
-    :ensure t)
-  (use-package ivy-historian
-    :ensure t)
-  (use-package ivy-hydra
-    :ensure t
-    :after hydra ivy)
+    (defun daedreth/helm-hide-minibuffer ()
+      (when (with-helm-buffer helm-echo-input-in-header-line)
+        (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+          (overlay-put ov 'window (selected-window))
+          (overlay-put ov 'face
+                       (let ((bg-color (face-background 'default nil)))
+                         `(:background ,bg-color :foreground ,bg-color)))
+          (setq-local cursor-type nil))))
+    (add-hook 'helm-minibuffer-set-up-hook 'daedreth/helm-hide-minibuffer)
+    (setq helm-autoresize-max-height 0
+          helm-autoresize-min-height 5
+          helm-M-x-fuzzy-match t
+          helm-buffers-fuzzy-matching t
+          helm-recentf-fuzzy-match t
+          helm-semantic-fuzzy-match t
+          helm-imenu-fuzzy-match t
+          helm-split-window-in-side-p nil
+          helm-move-to-line-cycle-in-source nil
+          helm-ff-search-library-in-sexp t
+          helm-scroll-amount 8 
+          helm-echo-input-in-header-line t)
+    :init
+    (helm-mode 1))
+
+  ;; DO NOT CHANGE THIS TO USE-PACKAGE! BREAKS!
+  (require 'helm-config)
+  (helm-autoresize-mode 1)
+  (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
+  (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 #+END_SRC
 
+** hydra before other packages
 Further, we are also going to use hydra to make something more elegant
 #+begin_src emacs-lisp
   (use-package hydra
@@ -582,50 +607,6 @@ to add something to get it to be relative.
                 display-line-numbers-widen t)
   (add-hook 'text-mode-hook #'display-line-numbers-mode)
   (add-hook 'prog-mode-hook #'display-line-numbers-mode)
-#+END_SRC
-
-** helm
-Sometimes, you don't realize how good something is until you try it extensively.
-I give in, helm is awesome. I'll end up customizing it more eventually,
-it's rather similar to ido-vertical though.
-#+BEGIN_SRC emacs-lisp
-  (use-package helm
-    :ensure t
-    :bind
-    (("C-x C-f" . 'helm-find-files)
-     ("C-x b" . 'helm-buffers-list)
-     ("C-x f" . 'helm-recentf)
-     ("M-x" . 'helm-M-x))
-    :config
-    (defun daedreth/helm-hide-minibuffer ()
-      (when (with-helm-buffer helm-echo-input-in-header-line)
-        (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
-          (overlay-put ov 'window (selected-window))
-          (overlay-put ov 'face
-                       (let ((bg-color (face-background 'default nil)))
-                         `(:background ,bg-color :foreground ,bg-color)))
-          (setq-local cursor-type nil))))
-    (add-hook 'helm-minibuffer-set-up-hook 'daedreth/helm-hide-minibuffer)
-    (setq helm-autoresize-max-height 0
-          helm-autoresize-min-height 40
-          helm-M-x-fuzzy-match t
-          helm-buffers-fuzzy-matching t
-          helm-recentf-fuzzy-match t
-          helm-semantic-fuzzy-match t
-          helm-imenu-fuzzy-match t
-          helm-split-window-in-side-p nil
-          helm-move-to-line-cycle-in-source nil
-          helm-ff-search-library-in-sexp t
-          helm-scroll-amount 8 
-          helm-echo-input-in-header-line t)
-    :init
-    (helm-mode 1))
-
-  ;; DO NOT CHANGE THIS TO USE-PACKAGE! BREAKS!
-  (require 'helm-config)
-  (helm-autoresize-mode 1)
-  (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
-  (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 #+END_SRC
 
 ** avy
@@ -1716,7 +1697,6 @@ Edit this list as you see fit!
     (diminish 'undo-tree-mode)
     (diminish 'rainbow-mode)
     (diminish 'auto-dictionary-mode)
-    (diminish 'ivy-mode)
     (diminish 'yas-minor-mode)
     (diminish 'flyspell-mode)
     (diminish 'helm-mode)
