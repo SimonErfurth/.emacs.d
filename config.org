@@ -521,9 +521,9 @@ use search to get around your buffer, much like with avy, but sometimes it
 doesn't hurt to search for entire words or mode, swiper makes sure this is more
 efficient.
 #+BEGIN_SRC emacs-lisp
-  (use-package swiper
+  (use-package swiper-helm
     :ensure t
-    :bind ("C-s" . 'swiper))
+    :bind ("C-s" . 'swiper-helm))
 #+END_SRC
 
 ** Winum
