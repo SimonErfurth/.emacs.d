@@ -1286,6 +1286,18 @@ editor. Hold tight.
     (setq TeX-command-default "LatexMk")
     (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
 
+  (use-package auctex-latexmk
+    :ensure t 
+    :config
+    (setq auctex-latexmk-inherit-TeX-PDF-mode t))
+  (auctex-latexmk-setup)
+
+  (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+#+END_SRC
+
+** company-math
+company backend for auctex
+#+begin_src emacs-lisp
   (use-package company-math
     :ensure t
     :config
@@ -1296,23 +1308,22 @@ editor. Hold tight.
       (setq company-tooltip-align-annotations t))
 
     (add-hook 'LaTeX-mode-hook 'my-latex-mode-setup))
+#+end_src
 
+** cd-latex
+A very nice package for inserting environments, symbols using ` and formatting
+using '.
+#+begin_src emacs-lisp
   (use-package cdlatex
     :ensure t
     :config
     (define-key cdlatex-mode-map  "(" 'LaTeX-insert-left-brace)
     (define-key cdlatex-mode-map  "{" 'LaTeX-insert-left-brace)
-    (define-key cdlatex-mode-map "[" 'LaTeX-insert-left-brace))
-  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
-
-  (use-package auctex-latexmk
-    :ensure t 
-    :config
-    (setq auctex-latexmk-inherit-TeX-PDF-mode t))
-  (auctex-latexmk-setup)
-
-  (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
-#+END_SRC
+    (define-key cdlatex-mode-map "[" 'LaTeX-insert-left-brace)
+    (define-key cdlatex-mode-map "|" 'self-insert-command)
+    (define-key cdlatex-mode-map "<" 'self-insert-command)
+    (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex))
+#+end_src
 
 ** bibtex 
 Bibtex, and auto complete for bibtex.
@@ -1717,7 +1728,8 @@ Edit this list as you see fit!
     (diminish 'git-gutter-mode)
     (diminish 'anzu-mode)
     (diminish 'volatile-highlights-mode)
-    (diminish 'org-indent-mode)
+    (diminish 'Org-Indent)
+    (diminish 'smartparens-mode)
     (diminish 'auto-revert-mode))
 #+END_SRC
 
