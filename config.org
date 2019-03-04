@@ -551,8 +551,14 @@ doesn't hurt to search for entire words or mode, swiper makes sure this is more
 efficient.
 #+BEGIN_SRC emacs-lisp
   (use-package swiper-helm
+    :disabled
     :ensure t
     :bind ("C-s" . 'swiper-helm))
+  (use-package helm-swoop
+    :ensure t
+    :bind ("C-s" . 'helm-swoop)
+    :config
+    (setq helm-swoop-speed-or-color t))
 #+END_SRC
 
 ** Winum
