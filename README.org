@@ -1,2 +1,2 @@
 * emacs.d
-Repo of Sorcery Emacs. 
+Repo of Sorcery Emacs. See ~config.org~ for a more in-depth description. 

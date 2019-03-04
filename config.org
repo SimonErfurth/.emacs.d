@@ -8,10 +8,11 @@
 * About this file
 This configuration is supposed to be loaded as the sole configuration file. It
 is made up of code stolen from configurations that other people have been nice
-enough to share (some of it I even give credit for) and a (small) amount of code
-that I have written myself. The =init.el=, as well as most of the original base
-of this file is stolen from *Uncle Dave's Emacs*.
-** Dependencies
+enough to share (some of it I even give credit for) and some amount of code that
+I have written myself. The =init.el=, as well as most of the original base of
+this file is stolen from *Uncle Dave's Emacs*.
+
+* Dependencies
 For flyspell we need a language, like ~aspell-en~. For All the icons we need to
 run ~all-the-icons-install-fonts~ after downloading the package. ~pdftk~ for
 being able to rotate pdf-files. For python we need ~pip install jedi rope isort
@@ -1732,5 +1733,3 @@ Edit this list as you see fit!
 
 * TODO
 - Fix <> in org-mode.
-
-#  LocalWords:  Modeline LaTeX
