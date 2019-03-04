@@ -359,8 +359,7 @@ Do me the favor, do me the biggest favor, matter of fact do yourself the biggest
 favor and integrate those into your workflow.
 #+END_QUOTE
 
-** 
-a prerequisite or two for others packages
+** a prerequisite or two for others packages
 And a pre-prerequisite for this
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
@@ -384,42 +383,17 @@ Further, we are also going to use hydra to make something more elegant
 #+begin_src emacs-lisp
   (use-package hydra
     :ensure t
-    :config
-    (defhydra hydra-zoom (global-map "M-m z")
-      "zoom"
-      ("+" text-scale-increase "in")
-      ("-" text-scale-decrease "out")
-      ("q" nil "quit")
-      ("RET" nil "done" :color blue)))
+    :config)
+#+end_src
 
-  (defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
-                              :hint nil)
-    "
-  Git gutter:
-    _n_: next hunk        _s_tage hunk     _q_uit
-    _p_: previous hunk    _k_evert hunk    _Q_uit and deactivate git-gutter
-    ^ ^                   _P_opup hunk
-    _b_: first hunk
-    _f_: last hunk        set start _R_evision
-  "
-    ("n" git-gutter:next-hunk)
-    ("p" git-gutter:previous-hunk)
-    ("b" (progn (goto-char (point-min))
-                (git-gutter:next-hunk 1)))
-    ("f" (progn (goto-char (point-min))
-                (git-gutter:previous-hunk 1)))
-    ("s" git-gutter:stage-hunk)
-    ("k" git-gutter:revert-hunk)
-    ("P" git-gutter:popup-hunk)
-    ("R" git-gutter:set-start-revision)
-    ("q" nil :color blue)
-    ("Q" (progn (git-gutter-mode -1)
-                ;; git-gutter-fringe doesn't seem to
-                ;; clear the markup right away
-                (sit-for 0.1)
-                (git-gutter:clear))
-     :color blue))
-  (global-set-key (kbd "M-m h g") 'hydra-git-gutter/body)
+** hydra-zoom
+#+begin_src emacs-lisp
+  (defhydra hydra-zoom (global-map "M-m z")
+        "zoom"
+        ("+" text-scale-increase "in")
+        ("-" text-scale-decrease "out")
+        ("q" nil "quit")
+        ("RET" nil "done" :color blue))
 #+end_src
 
 ** Moving around with hyper
@@ -1501,6 +1475,39 @@ Adds symbols to show what has been changed since the last commit.
   (add-hook 'prog-mode-hook 'git-gutter-mode)
   (add-hook 'text-mode-hook 'git-gutter-mode)
 #+END_SRC
+
+*** git-gutter-hydra
+#+begin_src emacs-lisp
+  (defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
+                                :hint nil)
+      "
+    Git gutter:
+      _n_: next hunk        _s_tage hunk     _q_uit
+      _p_: previous hunk    _k_evert hunk    _Q_uit and deactivate git-gutter
+      ^ ^                   _P_opup hunk
+      _f_: first hunk
+      _l_: last hunk        set start _R_evision
+    "
+      ("n" git-gutter:next-hunk)
+      ("p" git-gutter:previous-hunk)
+      ("f" (progn (goto-char (point-min))
+                  (git-gutter:next-hunk 1)))
+      ("l" (progn (goto-char (point-min))
+                  (git-gutter:previous-hunk 1)))
+      ("s" git-gutter:stage-hunk)
+      ("k" git-gutter:revert-hunk)
+      ("P" git-gutter:popup-hunk)
+      ("R" git-gutter:set-start-revision)
+      ("q" nil :color blue)
+      ("Q" (progn (git-gutter-mode -1)
+                  ;; git-gutter-fringe doesn't seem to
+                  ;; clear the markup right away
+                  (sit-for 0.1)
+                  (git-gutter:clear))
+       :color blue))
+    (global-set-key (kbd "M-m h g") 'hydra-git-gutter/body)
+    (global-set-key (kbd "H-S-g") 'hydra-git-gutter/body)
+#+end_src
 
 * Remote editing
 I have no need to directly edit files over SSH, but what I do need is a way to
