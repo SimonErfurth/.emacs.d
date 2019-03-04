@@ -11,7 +11,7 @@
 
 (defun startup/reset-gc ()
   (setq gc-cons-threshold 16777216
-	gc-cons-percentage 0.1))
+        gc-cons-percentage 0.1))
 
 (add-hook 'emacs-startup-hook 'startup/revert-file-name-handler-alist)
 (add-hook 'emacs-startup-hook 'startup/reset-gc)
@@ -23,9 +23,9 @@
 
 ;;; remove SC if you are not using sunrise commander and org if you like outdated packages
 (setq package-archives '(("ELPA"  . "http://tromey.com/elpa/")
-			 ("gnu"   . "http://elpa.gnu.org/packages/")
-			 ("melpa" . "https://melpa.org/packages/")
-			 ("org"   . "https://orgmode.org/elpa/")))
+                         ("gnu"   . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("org"   . "https://orgmode.org/elpa/")))
 (package-initialize)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -1,4 +1,3 @@
-
 #+STARTUP: overview
 #+TITLE: Sorcery Emacs
 #+CREATOR: Simon Skjernaa Erfurth
