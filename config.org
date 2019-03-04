@@ -15,15 +15,22 @@ of this file is stolen from *Uncle Dave's Emacs*.
 For flyspell we need a language, like ~aspell-en~. For All the icons we need to
 run ~all-the-icons-install-fonts~ after downloading the package. ~pdftk~ for
 being able to rotate pdf-files. For python we need ~pip install jedi rope isort
-falke8 autopep8~.
-** Notes that should not need to be included
-According to Uncle Dave the following is dependencies for programming in this Emacs.
-*** Programming
-**** Package manager
-- =clang=, for c/c++ completion.
-- =sbcl=, for clisp completion and repl.
-- =virtualenv=, for python completion.
-- =lua=, for obvious reasons.
+falke8 autopep8~. Further we need some more language packs for various
+programming languages.
+
+So to sum up, the following need to be done manually.
+- From your package manager
+  - ~aspell-en~ for spell-checking.
+  - ~pdftk~ for being able to rotate pdf's in pdf-view.
+  - ~clang~ for c/c++ completion.
+  - ~sbcl~ for clisp completion and repl.
+  - ~virtualenv~ for python completion.
+  - ~lua~ for obvious reasons.
+- From pip
+  - ~pip install jedi rope isort falke8 autopep8~
+- Inside Emacs. Call the following:
+  - ~all-the-icons-install-fonts~
+
 * Theme
 Clearly the most important part of any configuration!
 ** A theme
