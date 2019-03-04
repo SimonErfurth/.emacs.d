@@ -476,6 +476,9 @@ elsewhere.
       "M-m q" "exit-emacs"
       "M-m b" "manipulate-entire-buffer"
       "M-m y" "yasnippet"
+      "M-m z" "zoom"
+      "M-m h" "hydras"
+      "M-m m" "modes"
       "C-c C-w" "eyebrowse"
       "C-x n" "narrow"
       "C-x w" "winum-menu"))
