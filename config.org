@@ -471,7 +471,6 @@ elsewhere.
     (which-key-mode)
     (which-key-add-key-based-replacements
       "M-m c" "configure-Emacs"
-      "M-m f" "file-menu"
       "M-m q" "exit-emacs"
       "M-m b" "manipulate-entire-buffer"
       "M-m y" "yasnippet"
@@ -1550,7 +1549,7 @@ Pretty self-explanatory, useful as hell if you use exwm.
   (use-package sudo-edit
     :ensure t
     :bind
-    ("M-m f s" . sudo-edit))
+    ("M-m b s" . sudo-edit))
 #+END_SRC
 
 * Org
