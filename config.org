@@ -407,7 +407,6 @@ it's rather similar to ido-vertical though.
   (require 'helm-config)
   (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
   (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-s") 'helm-next-line)
 #+END_SRC
 
 ** hydra before other packages
@@ -557,7 +556,11 @@ ability to work on multiple lines with a prefix.
     :ensure t
     :bind ("C-s" . 'helm-swoop-without-pre-input)
     :config
-    (setq helm-swoop-speed-or-color t))
+    (setq helm-swoop-speed-or-color t)
+    (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+    (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
+    (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+    (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line))
 #+END_SRC
 
 ** winum workspaces
