@@ -619,6 +619,22 @@ to add something to get it to be relative.
   (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 #+END_SRC
 
+** highlight-symbols and jump to next
+Allows us to highlight a symbol with one click (if the mode is active). Further
+~highlight-symbol-nav-mode~ allows us to jump to the next/prev occurrence using
+~M-n~ and ~M-p~. This last mode is enabled by default.
+#+begin_src emacs-lisp
+  (use-package highlight-symbol
+    :ensure t
+    :bind (("M-m m h" . highlight-symbol-mode)
+           ("M-m m H" . highlight-symbol-nav-mode)
+           ("C-M-;" . highlight-symbol-at-point)
+           ("C-M-<right>" . highlight-symbol-next)
+           ("C-M-<left>" . highlight-symbol-prev)))
+    (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+    (add-hook 'text-mode-hook 'highlight-symbol-nav-mode)
+#+end_src
+
 ** avy
 Many times have I pondered how I can move around buffers even quicker.
 I'm glad to say, that avy is precisely what I needed, and it's
@@ -1026,7 +1042,6 @@ install ~aspell-en~ for this to work.
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   (use-package auto-dictionary
     :ensure t
-    :bind ("C-;" . ispell-word)
     :config
     (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
 #+END_SRC
