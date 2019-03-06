@@ -209,8 +209,7 @@ Kill and restart Emacs, from within Emacs.
     :ensure t
     :bind ("M-m q r" . restart-emacs)
     :config 
-    (setq restart-emac
-          s-restore-frames t))
+    (setq restart-emacs-restore-frames t))
 #+END_SRC
 
 * Visual
@@ -1585,6 +1584,22 @@ Locate my default org directory, and default notes file.
   (setq org-default-notes-file (concat org-directory "/notes.org"))
 #+END_SRC
 
+** Keybindings
+#+BEGIN_SRC emacs-lisp
+  (define-key org-mode-map (kbd "C-c '") 'org-edit-src-code)
+  (define-key org-mode-map (kbd "C-c o") 'org-overview)
+  (define-key org-mode-map (kbd "C-c w") 'org-insert-structure-template)
+#+END_SRC
+
+** org-table
+Minor mode for editing org-tables in other major modes, and org-keybindings for inserting columns and rows.
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-m m t") 'orgtbl-mode)
+  (define-key org-mode-map (kbd "C-c t r") 'org-table-insert-row)
+  (define-key org-mode-map (kbd "C-c t c") 'org-table-insert-column)
+  (define-key org-mode-map (kbd "C-c t d") 'org-table-delete-column)
+#+end_src
+
 ** Syntax highlighting for documents exported to HTML
 #+BEGIN_SRC emacs-lisp
   (use-package htmlize
@@ -1596,13 +1611,6 @@ Locate my default org directory, and default notes file.
   (add-hook 'org-mode-hook
             '(lambda ()
                (visual-line-mode 1)))
-#+END_SRC
-
-** Keybindings
-#+BEGIN_SRC emacs-lisp
-  (define-key org-mode-map (kbd "C-c '") 'org-edit-src-code)
-  (define-key org-mode-map (kbd "C-c o") 'org-overview)
-  (define-key org-mode-map (kbd "C-c w") 'org-insert-structure-template)
 #+END_SRC
 
 ** Org Bullets
