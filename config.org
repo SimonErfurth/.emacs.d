@@ -1764,5 +1764,3 @@ Edit this list as you see fit!
     (diminish 'auto-revert-mode))
 #+END_SRC
 
-* TODO
-- Fix <> in org-mode.
