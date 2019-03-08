@@ -1032,9 +1032,12 @@ language using them, especially lisp.
 Enables spellchecking using ~flyspell~ and ~auto-dictionary~. Remember to
 install ~aspell-en~ for this to work.
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook 'flyspell-mode)
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-  (diminish 'flyspell-mode)
+  (use-package flyspell
+    :ensure t
+    :diminish (flyspell-mode "")
+    :config
+    (add-hook 'text-mode-hook 'flyspell-mode)
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode))
   (use-package auto-dictionary
     :ensure t
     :diminish (auto-dictionary-mode "")
@@ -1366,7 +1369,8 @@ using '.
 #+begin_src emacs-lisp
   (use-package cdlatex
     :ensure t
-    :diminish (cdlatex-mode "δ")
+    :diminish ((cdlatex-mode . "δ")
+               (org-cdlatex-mode . "δ"))
     :config
     (define-key cdlatex-mode-map  "(" 'LaTeX-insert-left-brace)
     (define-key cdlatex-mode-map  "{" 'LaTeX-insert-left-brace)
@@ -1595,6 +1599,10 @@ Those are all rather self-explanatory.
 
 ** Common settings
 #+BEGIN_SRC emacs-lisp 
+  (use-package org-indent
+    :diminish (org-indent-mode " ")
+    :config
+    (add-hook 'org-mode-hook 'org-cdlatex-mode))
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
   (setq org-confirm-babel-evaluate nil)
@@ -1604,9 +1612,6 @@ Those are all rather self-explanatory.
   (setq org-return-follows-link t)
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
-  (add-hook 'org-mode-hook 'org-cdlatex-mode)
-  (diminish 'org-indent-mode)
-  (diminish 'org-cdlatex-mode)
 #+END_SRC
 
 Locate my default org directory, and default notes file.
