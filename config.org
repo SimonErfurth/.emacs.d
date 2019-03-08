@@ -31,6 +31,19 @@ So to sum up, the following need to be done manually.
 - Inside Emacs. Call the following:
   - ~all-the-icons-install-fonts~
 
+** Diminish
+Your modeline is sacred, and if you have a lot of modes enabled, as you will if
+you use this configuration, you might end up with a lot of clutter there, the
+package =diminish= disables modes on the mode line but keeps them running, it
+just prevents them from showing up and taking up space. 
+
+And we require diminish before we start loading packages, since we use diminish
+to hide modeline-symbols, hence we load it here.
+#+begin_src emacs-lisp
+  (use-package diminish
+    :ensure t)
+#+end_src
+
 * Theme
 Clearly the most important part of any configuration!
 ** A theme
@@ -173,7 +186,7 @@ Changes =lambda= to an actual symbol and a few others as well, only in the GUI v
   (setq-default fill-column 80)
   (global-visual-line-mode)
   (setq line-move-visual t) ;; move via visual lines
-  ;; (global-visual-fill-column-mode)
+  (diminish 'visual-line-mode)
 #+END_SRC
 
 ** Functionality
@@ -235,6 +248,7 @@ Highlight recent changes from yanking etc.
 #+begin_src emacs-lisp
   (use-package volatile-highlights
     :ensure t
+    :diminish (volatile-highlights-mode "")
     :config
     (volatile-highlights-mode +1))
 #+end_src
@@ -372,6 +386,7 @@ it's rather similar to ido-vertical though.
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :ensure t
+    :diminish (helm-mode "⎈")
     :bind
     (("C-x C-f" . 'helm-find-files)
      ("C-x b" . 'helm-buffers-list)
@@ -466,6 +481,7 @@ elsewhere.
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
+    :diminish (which-key-mode "")
     :config
     (which-key-mode)
     (which-key-add-key-based-replacements
@@ -537,6 +553,7 @@ A way to use multiple different work spaces. Default change is ~C-c C-w 1~ and
 #+BEGIN_SRC emacs-lisp
   (use-package eyebrowse
     :ensure t
+    :diminish (eyebrowse-mode "")
     :config
     (eyebrowse-mode t))
 #+END_SRC
@@ -569,9 +586,9 @@ to let =M-n= work the same way.
 #+BEGIN_SRC emacs-lisp
   (use-package winum
     :ensure t
+    :diminish (winum-mode "")
     :init
     (setq winum-auto-setup-mode-line nil)
-
     :config
     (winum-mode)
     :bind (("M-0" . winum-select-window-0-or-10)
@@ -764,6 +781,7 @@ in our undo history we are.
 #+BEGIN_SRC emacs-lisp 
   (use-package undo-tree
     :ensure t
+    :diminish (undo-tree-mode "")
     :bind (("C-/" . undo-tree-undo)
            ("C-?" . undo-tree-redo)))
   (global-undo-tree-mode 1)
@@ -815,6 +833,7 @@ instances we are going to replace.
 #+BEGIN_SRC emacs-lisp
   (use-package anzu
     :ensure t
+    :diminish (anzu-mode "")
     :config
     (global-anzu-mode +1)
     (setq anzu-cons-mode-line-p nil)
@@ -949,6 +968,7 @@ Emacs treats camelCase strings as a single word by default, this changes said
 behaviour.
 #+BEGIN_SRC emacs-lisp
   (global-subword-mode 1)
+  (diminish 'subword-mode)
 #+END_SRC
 
 ** smartparens
@@ -960,6 +980,7 @@ You can easily add and remove pairs yourself, have a look.
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
     :ensure t
+    :diminish (smartparens-mode "")
     :config
     (smartparens-global-mode 1))
 #+END_SRC
@@ -971,6 +992,7 @@ time you change buffers, the current position of your cursor will be briefly
 highlighted now.
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
+    :diminish (beacon-mode "")
     :ensure t
     :config
     (beacon-mode 1))
@@ -1001,6 +1023,7 @@ language using them, especially lisp.
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
+    :diminish (rainbow-delimiters-mode "")
     :init
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
@@ -1011,8 +1034,10 @@ install ~aspell-en~ for this to work.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  (diminish 'flyspell-mode)
   (use-package auto-dictionary
     :ensure t
+    :diminish (auto-dictionary-mode "")
     :config
     (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
 #+END_SRC
@@ -1049,6 +1074,7 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
+    :diminish (yas-minor-mode "Y")
     :config
     (yas-reload-all))
   (use-package yasnippet-snippets
@@ -1070,6 +1096,7 @@ Loads company-mode, and adds yas-snippets to them
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
+    :diminish (company-mode "")
     :bind 
     (("M-m y c" . company-mode)
      :map company-active-map
@@ -1131,6 +1158,7 @@ Requires libclang to be installed.
 
   (use-package irony
     :ensure t
+    ; :diminish (irony-mode "")
     :config
     (add-hook 'c++-mode-hook 'irony-mode)
     (add-hook 'c-mode-hook 'irony-mode)
@@ -1338,6 +1366,7 @@ using '.
 #+begin_src emacs-lisp
   (use-package cdlatex
     :ensure t
+    :diminish (cdlatex-mode "δ")
     :config
     (define-key cdlatex-mode-map  "(" 'LaTeX-insert-left-brace)
     (define-key cdlatex-mode-map  "{" 'LaTeX-insert-left-brace)
@@ -1375,8 +1404,7 @@ Code for syncing between LaTeX buffer and PDF file.
   (setq TeX-source-correlate-method 'synctex)
 
   ;; Update PDF buffers after successful LaTeX runs
-  (add-hook 'TeX-after-compilation-finished-functions
-             #'TeX-revert-document-buffer)
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 #+END_SRC
 
 ** reftex
@@ -1488,7 +1516,7 @@ Takes todo's from the source code comments and org files, and add them to the
 magit buffer.
 #+BEGIN_SRC emacs-lisp
   (use-package magit-todos
-    :ensure ;TODO: 
+    :ensure t
     :after magit
     :config
     (magit-todos-mode))
@@ -1499,6 +1527,7 @@ Adds symbols to show what has been changed since the last commit.
 #+BEGIN_SRC emacs-lisp
   (use-package git-gutter-fringe
     :ensure t
+    :diminish (git-gutter-mode "")
     :config
     (setq git-gutter-fr:side 'right-fringe)
     (custom-set-variables
@@ -1576,6 +1605,8 @@ Those are all rather self-explanatory.
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
   (add-hook 'org-mode-hook 'org-cdlatex-mode)
+  (diminish 'org-indent-mode)
+  (diminish 'org-cdlatex-mode)
 #+END_SRC
 
 Locate my default org directory, and default notes file.
@@ -1726,41 +1757,5 @@ Emacs can do everything!
        ("r" . xkcd-rand)
        ("w" . xkcd-copy-link)
        ("?" . xkcd-open-explanation-browser))))
-#+END_SRC
-
-* Diminishing modes
-Your modeline is sacred, and if you have a lot of modes enabled, as you will if
-you use this configuration, you might end up with a lot of clutter there, the
-package =diminish= disables modes on the mode line but keeps them running, it
-just prevents them from showing up and taking up space.
-
-Edit this list as you see fit!
-#+BEGIN_SRC emacs-lisp
-  (use-package diminish
-    :ensure t
-    :init
-    (diminish 'which-key-mode)
-    (diminish 'hungry-delete-mode)
-    (diminish 'visual-line-mode)
-    (diminish 'subword-mode)
-    (diminish 'beacon-mode)
-    (diminish 'irony-mode)
-    (diminish 'page-break-lines-mode)
-    (diminish 'rainbow-delimiters-mode)
-    (diminish 'undo-tree-mode)
-    (diminish 'rainbow-mode)
-    (diminish 'auto-dictionary-mode)
-    (diminish 'yas-minor-mode)
-    (diminish 'flyspell-mode)
-    (diminish 'helm-mode)
-    (diminish 'org-cdlatex-mode)
-    (diminish 'cdlatex-mode)
-    (diminish 'company-mode)
-    (diminish 'git-gutter-mode)
-    (diminish 'anzu-mode)
-    (diminish 'volatile-highlights-mode)
-    (diminish 'Org-Indent)
-    (diminish 'smartparens-mode)
-    (diminish 'auto-revert-mode))
 #+END_SRC
 
