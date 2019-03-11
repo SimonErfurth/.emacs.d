@@ -1514,7 +1514,7 @@ It's =magit=!
     :ensure t
     :config
     (setq magit-push-always-verify nil)
-    (setq git-commit-summary-max-length 50)
+    (setq git-commit-summary-max-length 72)
     (global-git-commit-mode t) 
     :bind
     ("H-g" . magit-status)
@@ -1620,6 +1620,9 @@ Those are all rather self-explanatory.
   (setq org-return-follows-link t)
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
+
+  (use-package org-tempo
+    )
 #+END_SRC
 
 Locate my default org directory, and default notes file.
