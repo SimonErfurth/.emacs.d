@@ -386,7 +386,7 @@ it's rather similar to ido-vertical though.
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :ensure t
-    :diminish (helm-mode "⎈")
+    :diminish (helm-mode " ⎈ ")
     :bind
     (("C-x C-f" . 'helm-find-files)
      ("C-x b" . 'helm-buffers-list)
@@ -1369,8 +1369,8 @@ using '.
 #+begin_src emacs-lisp
   (use-package cdlatex
     :ensure t
-    :diminish ((cdlatex-mode . "δ")
-               (org-cdlatex-mode . "δ"))
+    :diminish ((cdlatex-mode . " δ ")
+               (org-cdlatex-mode . " δ "))
     :config
     (define-key cdlatex-mode-map  "(" 'LaTeX-insert-left-brace)
     (define-key cdlatex-mode-map  "{" 'LaTeX-insert-left-brace)
@@ -1435,6 +1435,14 @@ Auto fill makes the code more readable, and easier to share on GitHub etc.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
 #+END_SRC
+
+** latex pretty symbols
+#+begin_src emacs-lisp
+  (use-package latex-pretty-symbols
+    :ensure t
+    :config
+    (add-hook 'LaTeX-mode-hook 'latex-unicode-simplified))
+#+end_src
 
 * pdf-tools
 #+BEGIN_SRC emacs-lisp
