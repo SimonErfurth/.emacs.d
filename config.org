@@ -1034,10 +1034,11 @@ install ~aspell-en~ for this to work.
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
     :ensure t
-    :diminish (flyspell-mode "")
+    :diminish (flyspell-mode "✓")
     :config
     (add-hook 'text-mode-hook 'flyspell-mode)
     (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+
   (use-package auto-dictionary
     :ensure t
     :diminish (auto-dictionary-mode "")
@@ -1198,7 +1199,7 @@ Requires libclang to be installed.
   (use-package company-jedi
     :ensure t
     :config
-    (require 'company)
+    :after company
     (add-to-list 'company-backends 'company-jedi)
     (add-hook 'python-mode-hook 'python-mode-company-init))
 
@@ -1369,8 +1370,8 @@ using '.
 #+begin_src emacs-lisp
   (use-package cdlatex
     :ensure t
-    :diminish ((cdlatex-mode . " δ ")
-               (org-cdlatex-mode . " δ "))
+    :diminish ((cdlatex-mode . "")
+               (org-cdlatex-mode . ""))
     :config
     (define-key cdlatex-mode-map  "(" 'LaTeX-insert-left-brace)
     (define-key cdlatex-mode-map  "{" 'LaTeX-insert-left-brace)
@@ -1621,8 +1622,8 @@ Those are all rather self-explanatory.
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
 
-  (use-package org-tempo
-    )
+  ;; Make org-tempo allows us to use <% to insert blocks.
+  (use-package org-tempo)
 #+END_SRC
 
 Locate my default org directory, and default notes file.
