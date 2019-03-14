@@ -1033,6 +1033,11 @@ language using them, especially lisp.
     :diminish (rainbow-delimiters-mode "")
     :init
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  (use-package highlight-parentheses
+    :ensure t
+    :diminish (highlight-parentheses-mode "")
+    :config
+    (add-hook 'prog-mode-hook 'highlight-parentheses-mode))
 #+END_SRC
 
 ** Spellchecking
