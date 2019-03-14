@@ -395,6 +395,7 @@ This makes sure that everything can be a project.
     :init
     (setq projectile-completion-system 'helm)
     (setq projectile-keymap-prefix (kbd "C-z"))
+    (setq projectile-mode-line-lighter "")
     (setq projectile-mode-line
           '(:eval (format "[%s]" (projectile-project-name))))
     (projectile-mode 1))
@@ -1821,4 +1822,3 @@ Emacs can do everything!
        ("w" . xkcd-copy-link)
        ("?" . xkcd-open-explanation-browser))))
 #+END_SRC
-
