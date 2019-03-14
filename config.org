@@ -707,8 +707,13 @@ in the terminal.
   (setq dired-listing-switches "-alh")
 
   (define-key dired-mode-map (kbd "C-a") 'dired-back-to-start-of-files)
-
   (define-key dired-mode-map (kbd "C-x k") 'dired-do-delete)
+
+  (use-package stripe-buffer
+    :ensure t
+    :config
+    (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
+    (add-hook 'org-mode-hook 'turn-on-stripe-table-mode))
 #+END_SRC
 
 And neotree for a nice, tree-style directory structure.
