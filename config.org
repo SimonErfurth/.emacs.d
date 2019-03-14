@@ -626,13 +626,12 @@ rename buffer, move buffers, organize buffers etc.
 
 ** Line numbers
 As this configuration is only supposed to be used with Emacs 26 or newer, we use
-the new native line-numbering mode, instead of =linum=. Possibly we still need
-to add something to get it to be relative.
+the new native line-numbering mode, instead of =linum=. 
 #+BEGIN_SRC emacs-lisp
   (setq-default display-line-numbers-type 'visual
                 display-line-numbers-current-absolute t
                 display-line-numbers-width 3
-                display-line-numbers-widen t)
+                display-line-numbers-widen nil)
   (add-hook 'text-mode-hook #'display-line-numbers-mode)
   (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 #+END_SRC
@@ -789,9 +788,12 @@ in our undo history we are.
 
 ** comment-or-uncomment-region
 Instead of having ~M-;~ call ~comment-dwim~, which rarely does what I mean we
-make it call ~comment-or-uncomment-region~.
+instead use evil-nerd-commenter's ~evilnc-comment-or-uncomment-lines~, which
+supports prefixes to take multiple lines with us.
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "M-;") 'comment-or-uncomment-region)
+  (use-package evil-nerd-commenter
+    :ensure t
+    :bind ("M-;" . evilnc-comment-or-uncomment-lines))
 #+END_SRC
 
 ** open line below and open above
