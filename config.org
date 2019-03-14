@@ -1122,8 +1122,13 @@ Loads company-mode, and adds yas-snippets to them
     ;; invert the navigation direction if the the completion popup-isearch-match
     ;; is displayed on top (happens near the bottom of windows)
     (setq company-tooltip-flip-when-above t)
+    (add-to-list 'company-backends 'company-ispell)
     (global-company-mode))
 
+  (use-package company-quickhelp
+    :ensure t
+    :config
+    (company-quickhelp-mode))
 #+END_SRC
 
 ** specific languages
