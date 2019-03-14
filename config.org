@@ -1069,16 +1069,30 @@ Just a quick way to insert sample text
            ("M-m l s" . lorem-ipsum-insert-sentences)))
 #+end_src
 
+* Better Emacs help
+** Helpful
+A much better help function than the build in.
+#+begin_src emacs-lisp
+  (use-package helpful
+    :ensure t
+    :bind (("C-h f" . helpful-callable)
+           ("C-h v" . helpful-variable)
+           ("C-h k" . helpful-key)
+           ("C-c C-d" . helpful-at-point)
+           ("C-h F" . helpful-function)
+           ("C-h C" . helpful-command)))
+#+end_src
+
 ** elisp-demos
 Demos for how to use Emacs API.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package elisp-demos
     :ensure t
     :config
-    (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
-
-#+END_SRC
+    (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update)
+    )
+#+end_src
 
 * Kill ring
 ** Maximum entries on the ring
