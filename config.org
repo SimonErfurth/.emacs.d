@@ -1037,7 +1037,8 @@ language using them, especially lisp.
     :ensure t
     :diminish (highlight-parentheses-mode "")
     :config
-    (add-hook 'prog-mode-hook 'highlight-parentheses-mode))
+    (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
+    (add-hook 'text-mode-hook 'highlight-parentheses-mode))
 #+END_SRC
 
 ** Spellchecking
@@ -1067,6 +1068,17 @@ Just a quick way to insert sample text
            ("M-m l p" . lorem-ipsum-insert-paragraphs)
            ("M-m l s" . lorem-ipsum-insert-sentences)))
 #+end_src
+
+** elisp-demos
+Demos for how to use Emacs API.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elisp-demos
+    :ensure t
+    :config
+    (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
+
+#+END_SRC
 
 * Kill ring
 ** Maximum entries on the ring
