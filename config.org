@@ -1129,6 +1129,16 @@ elsewhere.
       "C-x w" "winum-menu"))
 #+END_SRC
 
+** key-bindings
+Keybindings for major and minor mode.
+#+begin_src emacs-lisp
+  (use-package discover-my-major
+    :ensure t
+    :bind
+    ("M-m m m" . discover-my-mode)
+    ("M-m m M" . discover-my-major))
+#+end_src
+
 * Programming
 Minor, non-completion related settings and plugins for writing code.
 
