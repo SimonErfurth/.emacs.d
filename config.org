@@ -906,10 +906,10 @@ https://github.com/nivekuil/corral
     :ensure t
     :bind (("H-9" . corral-parentheses-backward)
            ("H-0" . corral-parentheses-forward)
-           ("H-[" . corral-braces-backward)
-           ("H-]" . corral-braces-forward)
-           ("H-{" . corral-brackets-backward)
-           ("H-}" . corral-brackets-forward)
+           ("H-[" . corral-brackets-backward)
+           ("H-]" . corral-brackets-forward)
+           ("H-{" . corral-braces-backward)
+           ("H-}" . corral-braces-forward)
            ("H-\"" . corral-double-quotes-backward))
     :config
     (setq corral-preserve-point t))
