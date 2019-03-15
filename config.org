@@ -148,6 +148,7 @@ If you like using any of those, change =-1= to =1=.
 This is annoying, remove this line if you like being visually reminded of events.
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
+  (setq visible-bell t)
 #+END_SRC
 
 *** Highlight current line
@@ -897,6 +898,23 @@ Inspired by Atom and Sublime, does exactly what one would expect it to.
      ("H-b" . move-text-up)))
 #+end_src
      
+*** corral (wrap in paran)
+https://github.com/nivekuil/corral
+
+#+begin_src emacs-lisp
+  (use-package corral
+    :ensure t
+    :bind (("H-9" . corral-parentheses-backward)
+           ("H-0" . corral-parentheses-forward)
+           ("H-[" . corral-braces-backward)
+           ("H-]" . corral-braces-forward)
+           ("H-{" . corral-brackets-backward)
+           ("H-}" . corral-brackets-forward)
+           ("H-\"" . corral-double-quotes-backward))
+    :config
+    (setq corral-preserve-point t))
+#+end_src
+
 ** Creating
 *** replace with anzu
 Anzu is pretty much like the default replace function, but it shows us how many
