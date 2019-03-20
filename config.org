@@ -1175,8 +1175,7 @@ Loads company-mode, and adds yas-snippets to them
     (("M-m y c" . company-mode)
      :map company-active-map
           ("C-n" . company-select-next)
-          ("C-p" . company-select-previous)
-          ("SPC" . company-abort))
+          ("C-p" . company-select-previous))
     :config
     (setq company-idle-delay 0.1)
     (setq company-show-numbers t)
