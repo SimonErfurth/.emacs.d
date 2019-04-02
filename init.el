@@ -51,7 +51,12 @@
      (output-dvi "xdvi")
      (output-pdf "PDF Tools")
      (output-html "xdg-open"))))
+ '(ansi-color-names-vector
+   ["#282c34" "#ff6c6b" "#98be65" "#da8548" "#61afef" "#c678dd" "#1f5582" "#abb2bf"])
  '(cdlatex-paired-parens "$[{(")
+ '(custom-safe-themes
+   (quote
+    ("e39ff005e524c331b08d613109bff0b55fc21c64914c4a243faa70f330015389" default)))
  '(eyebrowse-mode t)
  '(git-gutter:hide-gutter t)
  '(git-gutter:update-interval 2)
