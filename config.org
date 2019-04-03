@@ -671,6 +671,12 @@ You can also manually invoke =config-reload=.
   (global-set-key (kbd "M-m c r") 'config-reload)
 #+END_SRC
 
+*** list-packages
+Quick keybinding to get to ~list-packages~.
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-m p") 'list-packages)
+#+end_src
+
 ** Text in a buffer
 *** Moving around with hyper
 #+BEGIN_SRC emacs-lisp
@@ -1179,7 +1185,7 @@ Loads company-mode, and adds yas-snippets to them
     :config
     (setq company-idle-delay 0.1)
     (setq company-show-numbers t)
-    (setq company-minimum-prefix-length 2)
+    (setq company-minimum-prefix-length 1)
     (setq company-tooltip-align-annotations t)
     ;; invert the navigation direction if the the completion popup-isearch-match
     ;; is displayed on top (happens near the bottom of windows)
