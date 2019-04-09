@@ -583,6 +583,8 @@ A way to use multiple different work spaces. Default change is ~C-c C-w 1~ and
   (use-package eyebrowse
     :ensure t
     :diminish (eyebrowse-mode "")
+    :init
+    (setq eyebrowse-keymap-prefix (kbd "H-w"))
     :config
     (eyebrowse-mode t))
 #+END_SRC
@@ -1130,7 +1132,6 @@ elsewhere.
       "M-m h" "hydras"
       "M-m m" "modes"
       "M-m l" "lorem-ipsum"
-      "C-c C-w" "eyebrowse"
       "C-x n" "narrow"
       "C-x w" "winum-menu"))
 #+END_SRC
