@@ -1407,6 +1407,7 @@ editor. Hold tight.
   (use-package auctex
     :mode ("\\.tex\\'" . LaTeX-mode)
     :ensure t
+    :bind ("H-<tab>" . indent-for-tab-command)
     :config
     (setq TeX-auto-save t)
     (setq TeX-parse-self t)
