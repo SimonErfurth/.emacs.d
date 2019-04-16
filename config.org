@@ -772,7 +772,7 @@ now =M-s= is moving by searching characters.
   (use-package avy
     :ensure t
     :bind
-    (("M-s" . avy-goto-char)
+    (("M-s" . avy-goto-char-timer)
      ("C-M-s" . avy-goto-word-or-subword-1)))
 
   (defhydra hydra-avy (:exit t :hint nil)
@@ -1542,6 +1542,8 @@ Auto fill makes the code more readable, and easier to share on GitHub etc.
     :commands (pdf-view-mode)
     :config
     (pdf-tools-install)
+    (setq-default pdf-view-display-size 'fit-page)
+    (setq pdf-annot-activate-created-annotations t)
     :bind (:map pdf-view-mode-map
                 ("C-s" . 'isearch-forward)
                 ("R" . 'pdf-view-rotate-clockwise)))
