@@ -1048,7 +1048,8 @@ install ~aspell-en~ for this to work.
     :diminish (flyspell-mode "✓")
     :config
     (add-hook 'text-mode-hook 'flyspell-mode)
-    (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    :bind ("H-x" . ispell-word))
 
   (use-package auto-dictionary
     :ensure t
