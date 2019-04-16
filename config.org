@@ -1058,6 +1058,19 @@ install ~aspell-en~ for this to work.
     (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
 #+END_SRC
 
+** Word definition and synonyms 
+Add the ability to quickly check definitions and synonyms for a word, without
+leaving Emacs or even your current buffer!
+#+begin_src emacs-lisp
+  (use-package powerthesaurus
+    :ensure t
+    :bind ("H-Z" . powerthesaurus-lookup-word-dwim))
+
+  (use-package define-word
+    :ensure t
+    :bind ("H-z" . define-word-at-point))
+#+end_src
+
 ** lorem-ipsum
 Just a quick way to insert sample text
 #+begin_src emacs-lisp
