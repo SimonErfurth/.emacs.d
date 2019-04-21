@@ -797,6 +797,15 @@ now =M-s= is moving by searching characters.
   (global-set-key (kbd "M-m h a") 'hydra-avy/body)
 #+END_SRC
 
+*** iy-go-to-char
+Like avy, but only on the current line. Ideally I would like to configure this
+to work with paragraphs instead of lines, but alas.
+#+begin_src emacs-lisp
+  (use-package iy-go-to-char
+    :ensure t
+    :bind ("M-H-s" . iy-go-to-char))
+#+end_src
+
 * Text manipulation
 ** Killing
 *** Kill a line
