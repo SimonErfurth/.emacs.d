@@ -22,3 +22,6 @@ projectile-bookmarks.eld
 recentf
 url/*
 xkcd/*
+/abbrev_defs
+/request/curl-cookie-jar
+/transient/history.el

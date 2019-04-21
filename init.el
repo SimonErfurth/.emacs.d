@@ -53,6 +53,7 @@
      (output-html "xdg-open"))))
  '(ansi-color-names-vector
    ["#282c34" "#ff6c6b" "#98be65" "#da8548" "#61afef" "#c678dd" "#1f5582" "#abb2bf"])
+ '(avy-keys (quote (113 119 101 97 115 100 122 120 99)))
  '(cdlatex-paired-parens "$[{(")
  '(custom-safe-themes
    (quote
