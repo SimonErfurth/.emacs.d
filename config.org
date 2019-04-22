@@ -1482,7 +1482,12 @@ using '.
     (define-key cdlatex-mode-map "[" 'LaTeX-insert-left-brace)
     (define-key cdlatex-mode-map "|" 'self-insert-command)
     (define-key cdlatex-mode-map "<" 'self-insert-command)
-    (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex))
+    (define-key cdlatex-mode-map "'" 'self-insert-command)
+    (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+    (setq cdlatex-math-symbol-alist
+          '((?< ("\\leftarrow" "\\Leftarrow" "\\longleftarrow" "\\Longleftarrow"))
+            (?> ("\\rightarrow" "\\Rightarrow" "\\longrightarrow" "\\Longrightarrow"))
+            )))
 #+end_src
 
 ** bibtex 
