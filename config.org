@@ -773,7 +773,8 @@ now =M-s= is moving by searching characters.
     :ensure t
     :bind
     (("M-s" . avy-goto-char-timer)
-     ("C-M-s" . avy-goto-word-or-subword-1)))
+     ("C-M-s" . avy-goto-word-or-subword-1)
+     ("M-H-s" . avy-goto-char-in-line)))
 
   (defhydra hydra-avy (:exit t :hint nil)
     "
@@ -797,13 +798,17 @@ now =M-s= is moving by searching characters.
   (global-set-key (kbd "M-m h a") 'hydra-avy/body)
 #+END_SRC
 
-*** iy-go-to-char
-Like avy, but only on the current line. Ideally I would like to configure this
-to work with paragraphs instead of lines, but alas.
+*** se-go-to-char-in-paragraph
+Inspired by iy, but using ivy so it should do just what i want.
 #+begin_src emacs-lisp
-  (use-package iy-go-to-char
-    :ensure t
-    :bind ("M-H-s" . iy-go-to-char))
+  (defun se-avy-goto-char-in-paragraph ()
+    (interactive)
+    (let ((bounds (bounds-of-thing-at-point 'paragraph)))
+      (when bounds
+        (avy-with avy-goto-char
+          (avy--generic-jump "\\b\\sw" nil avy-style
+                             (car bounds)
+                             (cdr bounds))))))
 #+end_src
 
 * Text manipulation
