@@ -90,3 +90,4 @@
  )
 
 (put 'narrow-to-region 'disabled nil)
+(put 'LaTeX-narrow-to-environment 'disabled nil)
