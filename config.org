@@ -732,8 +732,7 @@ the new native line-numbering mode, instead of =linum=.
 #+BEGIN_SRC emacs-lisp
   (setq-default display-line-numbers-width 3
                 display-line-numbers-widen nil)
-  (add-hook 'text-mode-hook #'display-line-numbers-mode)
-  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (global-set-key (kbd "M-m m l") 'display-line-numbers-mode)
 #+END_SRC
 
 *** highlight-symbols and jump to next
