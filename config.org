@@ -1466,7 +1466,6 @@ company backend for auctex
                   (append '((company-math-symbols-latex company-latex-commands))
                           company-backends))
       (setq company-tooltip-align-annotations t))
-
     (add-hook 'LaTeX-mode-hook 'my-latex-mode-setup))
 #+end_src
 
@@ -1526,20 +1525,9 @@ Code for syncing between LaTeX buffer and PDF file.
 ** reftex
 #+BEGIN_SRC emacs-lisp
   (use-package reftex
-    :commands turn-on-reftex
-    :init
-    (progn
-      (setq reftex-plug-into-AUCTeX t)
-      (setq reftex-cite-prompt-optional-args t)
-      (setq reftex-cite-format; Get ReTeX with biblatex, see https://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992
-            '((?t . "\\textcite[]{%l}")
-              (?a . "\\autocite[]{%l}")
-              (?c . "\\cite[]{%l}")
-              (?s . "\\smartcite[]{%l}")
-              (?f . "\\footcite[]{%l}")
-              (?n . "\\nocite{%l}")
-              (?b . "\\blockcquote[]{%l}{}")))))
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    :ensure t
+    :config
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 #+END_SRC
 
 ** autofill
