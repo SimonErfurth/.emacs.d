@@ -730,9 +730,7 @@ ability to work on multiple lines with a prefix.
 As this configuration is only supposed to be used with Emacs 26 or newer, we use
 the new native line-numbering mode, instead of =linum=. 
 #+BEGIN_SRC emacs-lisp
-  (setq-default display-line-numbers-type 'visual
-                display-line-numbers-current-absolute t
-                display-line-numbers-width 3
+  (setq-default display-line-numbers-width 3
                 display-line-numbers-widen nil)
   (add-hook 'text-mode-hook #'display-line-numbers-mode)
   (add-hook 'prog-mode-hook #'display-line-numbers-mode)
