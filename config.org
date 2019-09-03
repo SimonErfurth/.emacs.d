@@ -1539,7 +1539,7 @@ Auto fill makes the code more readable, and easier to share on GitHub etc.
 ** latex pretty symbols
 #+begin_src emacs-lisp
   (use-package latex-pretty-symbols
-    :ensure t
+    :load-path "~/.emacs.d/lisp/latex-pretty-symbols"
     :config
     (add-hook 'LaTeX-mode-hook 'latex-unicode-simplified))
 #+end_src
