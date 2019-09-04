@@ -371,16 +371,16 @@ their unicode counterpart"
     ;;Does not work, as it pushes them all into one character
     ;; (list (latex-escape-regex "atldiamond")"⟨⟨C⟩⟩")
     ;Påls single letter abrevs:
-    (list (latex-escape-regex "L") "𝓛")
-    (list (latex-escape-regex "N") "𝓝")
-    (list (latex-escape-regex "E") "𝓔")
-    (list (latex-escape-regex "C") "𝓒")
-    (list (latex-escape-regex "D") "𝓓")
+    ;; (list (latex-escape-regex "L") "𝓛")
+    ;; (list (latex-escape-regex "N") "𝓝")
+    ;; (list (latex-escape-regex "E") "𝓔")
+    ;; (list (latex-escape-regex "C") "𝓒")
+    ;; (list (latex-escape-regex "D") "𝓓")
     
-    (list (latex-escape-regex "G") "𝓖")
-    (list (latex-escape-regex "X") "𝓧")
-    (list (latex-escape-regex "U") "𝓤")
-    (list (latex-escape-regex "Q") "𝓠")
+    ;; (list (latex-escape-regex "G") "𝓖")
+    ;; (list (latex-escape-regex "X") "𝓧")
+    ;; (list (latex-escape-regex "U") "𝓤")
+    ;; (list (latex-escape-regex "Q") "𝓠")
     
     ;;SiSkEr's own abrevs:
     (list (latex-escape-regex "CC") "ℂ")
@@ -388,6 +388,7 @@ their unicode counterpart"
     (list (latex-escape-regex "NN") "ℕ")
     (list (latex-escape-regex "ZZ") "ℤ")
     (list (latex-escape-regex "QQ") "ℚ")
+    (list (latex-escape-regex "F") "ℱ")
 
     ;;The following are not really working perfect
     ;; (list (latex-escape-regex "overline{R}") "R̄")
