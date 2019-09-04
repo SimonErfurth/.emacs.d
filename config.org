@@ -1877,3 +1877,23 @@ Emacs can do everything!
        ("w" . xkcd-copy-link)
        ("?" . xkcd-open-explanation-browser))))
 #+END_SRC
+
+* Finding select files
+Placed here rather than at a more convenient location due to being very
+personal, system specific, and required to change quite often.
+
+In general they are based on mnemonics, so for courses it is (if it is possible)
+the first letter of the course name.
+#+begin_src emacs-lisp
+  (defhydra hydra-open (global-map "H-v")
+    "open"
+    ("c" (find-file "~/Dropbox/7. semester/DM854/notes/notes.org") "DM854F")
+    ("H-c" (find-file "~/Dropbox/7. semester/DM854/ex/ex.org") "DM854E")
+    ("h" (find-file "~/Dropbox/7. semester/MM822/notes/notes.org") "MM822F")
+    ("H-h" (find-file "~/Dropbox/7. semester/MM822/ex/ex.org") "MM822E")
+    ("f" (find-file "~/Dropbox/7. semester/MM845/notes/notes.tex") "MM845F")
+    ("H-f" (find-file "~/Dropbox/7. semester/MM845/ex/ex.tex") "MM845E")
+    ("d" (find-file "~/Dropbox/7. semester/MM831/notes/notes.tex") "MM831F")
+    ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")
+    ("RET" nil "done" :color blue))
+#+end_src
