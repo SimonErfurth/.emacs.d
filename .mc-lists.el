@@ -5,6 +5,7 @@
       '(
         LaTeX-insert-left-brace
         TeX-insert-backslash
+        end-of-visual-line
         ess-yank
         hydra--digit-argument
         hydra-multiple-cursors/mc/mark-all-like-this-and-exit
