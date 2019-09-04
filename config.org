@@ -1541,7 +1541,8 @@ Auto fill makes the code more readable, and easier to share on GitHub etc.
   (use-package latex-pretty-symbols
     :load-path "~/.emacs.d/lisp/latex-pretty-symbols"
     :config
-    (add-hook 'LaTeX-mode-hook 'latex-unicode-simplified))
+    (add-hook 'LaTeX-mode-hook 'latex-unicode-simplified)
+    (add-hook 'org-mode-hook 'latex-unicode-simplified))
 #+end_src
 
 * pdf-tools
