@@ -64,6 +64,7 @@
  '(hippie-expand-try-functions-list
    (quote
     (yas-hippie-try-expand try-complete-file-name-partially try-complete-file-name try-expand-all-abbrevs try-expand-list try-expand-line try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
+ '(org-agenda-files (quote ("~/Dropbox/7. semester/DM854/ex/ex.org")))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t) (java . t) (R . t))))
  '(org-structure-template-alist
    (quote

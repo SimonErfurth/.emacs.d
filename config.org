@@ -1889,12 +1889,17 @@ the first letter of the course name.
     "open"
     ("c" (find-file "~/Dropbox/7. semester/DM854/notes/notes.org") "DM854F")
     ("H-c" (find-file "~/Dropbox/7. semester/DM854/ex/ex.org") "DM854E")
+    ("C-c" (find-file "~/Dropbox/7. semester/DM854 Nigel P. Smart Cryptography Made Simple (2016).pdf") "DM854B")
     ("h" (find-file "~/Dropbox/7. semester/MM822/notes/notes.org") "MM822F")
     ("H-h" (find-file "~/Dropbox/7. semester/MM822/ex/ex.org") "MM822E")
+    ("C-h" (find-file "~/Dropbox/7. semester/MM822 Katz, Victor J - A history of mathematics_ an introduction-Pearson Addison-Wesley (2009).pdf") "MM822B")
     ("f" (find-file "~/Dropbox/7. semester/MM845/notes/notes.tex") "MM845F")
     ("H-f" (find-file "~/Dropbox/7. semester/MM845/ex/ex.tex") "MM845E")
+    ("C-f" (find-file "~/Dropbox/7. semester/MM845 Functional Analysis.pdf") "MM845B")
     ("d" (find-file "~/Dropbox/7. semester/MM831/notes/notes.tex") "MM831F")
     ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")
+    ("C-t" (find-file "~/Dropbox/TA/MM537_MM540/Rosen, Kenneth H - Discrete mathematics and its applications-McGraw-Hill (2019).pdf") "TA Book")
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
+
