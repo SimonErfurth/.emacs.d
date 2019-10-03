@@ -1485,9 +1485,12 @@ using '.
     (define-key cdlatex-mode-map "<" 'self-insert-command)
     (define-key cdlatex-mode-map "'" 'self-insert-command)
     (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+    ;; Add additional symbols to be inserted with "`".
     (setq cdlatex-math-symbol-alist
           '((?< ("\\leftarrow" "\\Leftarrow" "\\longleftarrow" "\\Longleftarrow"))
             (?> ("\\rightarrow" "\\Rightarrow" "\\longrightarrow" "\\Longrightarrow"))
+            (?3 ("\\exists"))
+            (?4 ("\\forall"))
             )))
 #+end_src
 
