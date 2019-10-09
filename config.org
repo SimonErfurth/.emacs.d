@@ -1180,6 +1180,7 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
   (use-package yasnippet
     :ensure t
     :diminish (yas-minor-mode "Y")
+    :bind ("M-<SPC>" . yas-expand)
     :config
     (yas-reload-all))
   (use-package yasnippet-snippets
