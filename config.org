@@ -1469,7 +1469,7 @@ company backend for auctex
     (add-hook 'LaTeX-mode-hook 'my-latex-mode-setup))
 #+end_src
 
-** cd-latex
+** cdlatex
 A very nice package for inserting environments, symbols using ` and formatting
 using '.
 #+begin_src emacs-lisp
@@ -1484,6 +1484,7 @@ using '.
     (define-key cdlatex-mode-map "|" 'self-insert-command)
     (define-key cdlatex-mode-map "<" 'self-insert-command)
     (define-key cdlatex-mode-map "'" 'self-insert-command)
+    (define-key cdlatex-mode-map (kbd "<tab>") 'sse/cdlatex-tab)
     (define-key org-cdlatex-mode-map "'" 'self-insert-command)
     (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
     ;; Add additional symbols to be inserted with "`".
@@ -1493,6 +1494,20 @@ using '.
             (?3 ("\\exists"))
             (?4 ("\\forall"))
             )))
+#+end_src
+
+*** cdlatex-tab
+By default =cdlatex-tab= will expand a snippet before the point before it jumps.
+This is undesirable when using snippets like =b= for =\textbf{}= etc, since it
+makes writing $a^b$ a nightmare, when using =cdlatex-tab='s
+jump-and-cleanup-function to move around. Thus with help from /u/french_pressed
+we create the following custom function
+#+begin_src emacs-lisp
+  (defun sse/cdlatex-tab ()
+    "Calls `cdlatex-tab' with expansions disabled."
+    (interactive)
+    (let (cdlatex-command-alist-comb)
+      (cdlatex-tab)))
 #+end_src
 
 ** bibtex 
