@@ -84,11 +84,10 @@
 \end{singlespacing}
 \begin{spacing}{1.15}
 
+$0
 `(copy-file "~/ss-config/emacs/SDUlogo.pdf" "SDUlogo.pdf")`
 `(copy-file "~/ss-config/emacs/SDUinline.png" "SDUinline.png")`
 `(copy-file "~/ss-config/emacs/math.bib" "math.bib")`
-$0
-
 \vspace{1cm}
 \printbibliography
 
