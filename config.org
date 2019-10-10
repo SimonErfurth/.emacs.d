@@ -962,8 +962,8 @@ Better versions of open below and open above, as it also moves us there.
     (end-of-line)
     (newline-and-indent))
 
-  (global-set-key (kbd "C-o") 'se/open-below)
-  (global-set-key (kbd "C-O") 'se/open-above)
+  (global-set-key (kbd "C-S-o") 'se/open-below)
+  (global-set-key (kbd "C-o") 'se/open-above)
 #+END_SRC
 
 *** duplicate line
