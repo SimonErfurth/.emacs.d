@@ -1102,6 +1102,7 @@ An =org-mode= like way to fold code. For now this will only be configured with
            ("C-c n" . outline-next-visible-heading)
            ("C-c p" . outline-previous-visible-heading)
            ("C-c o" . outshine-cycle-buffer)))
+  (global-set-key (kbd "M-m m o") 'outline-minor-mode)
 #+end_src
 
 * Kill ring
