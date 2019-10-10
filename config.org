@@ -1815,7 +1815,6 @@ Locate my default org directory, and default notes file.
 ** Keybindings
 #+BEGIN_SRC emacs-lisp
   (define-key org-mode-map (kbd "C-c '") 'org-edit-src-code)
-  (define-key org-mode-map (kbd "C-c o") 'org-overview)
   (define-key org-mode-map (kbd "C-c w") 'org-insert-structure-template)
 #+END_SRC
 
