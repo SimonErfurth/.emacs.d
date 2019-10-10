@@ -1092,6 +1092,18 @@ Just a quick way to insert sample text
            ("M-m l s" . lorem-ipsum-insert-sentences)))
 #+end_src
 
+** outshine
+An =org-mode= like way to fold code. For now this will only be configured with
+=LaTeX-mode= to allow us to fold sections and environments.
+#+begin_src emacs-lisp
+  (use-package outshine
+    :ensure t
+    :bind (("C-c f" . outshine-cycle)
+           ("C-c n" . outline-next-visible-heading)
+           ("C-c p" . outline-previous-visible-heading)
+           ("C-c o" . outshine-cycle-buffer)))
+#+end_src
+
 * Kill ring
 ** Maximum entries on the ring
 The default is 60, I personally need more sometimes.
