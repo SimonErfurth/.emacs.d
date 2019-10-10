@@ -1452,6 +1452,7 @@ editor. Hold tight.
     (setq-default TeX-engine 'pdflatex)
     (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
     (setq reftex-plug-into-AUCTeX t)
     (setq TeX-PDF-mode t)
     (setq TeX-clean-confirm nil)
