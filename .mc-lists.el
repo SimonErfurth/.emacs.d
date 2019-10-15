@@ -12,6 +12,7 @@
         hydra-multiple-cursors/mc/mark-next-like-this
         hydra-multiple-cursors/mc/mark-previous-like-this
         org-cdlatex-math-modify
+        org-self-insert-command
         ))
 
 (setq mc/cmds-to-run-once
