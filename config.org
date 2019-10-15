@@ -1981,3 +1981,15 @@ the first letter of the course name.
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
 
+* wttr.in
+Implement commands for easily looking up [[wttr.in/Odense?MF]] and [[v2.wttr.in/Odense]]
+from inside emacs.
+
+This section might not end up leaving here.
+
+Desired properties:
+- Read only :: The buffer should ideally be read only
+- Quit with =q= :: The buffer should take over the current one, but one should
+                   be able to close it just pressing =q=
+- Different location :: Ideally universal prefix should prompt one to enter what
+     city it should look up. This is nice to have, not need to have.
