@@ -147,7 +147,7 @@ If you like using any of those, change =-1= to =1=.
 *** Disable bell
 This is annoying, remove this line if you like being visually reminded of events.
 #+BEGIN_SRC emacs-lisp
-  (setq ring-bell-function 'ignore)
+  ;; (setq ring-bell-function 'ignore)
   (setq visible-bell t)
 #+END_SRC
 
@@ -201,8 +201,8 @@ Lets us use asynchronous processes wherever possible, pretty useful.
 
 *** Name and email
 #+BEGIN_SRC emacs-lisp
-  (setq user-full-name "Simon Skjernaa Erfurth")
-  (setq user-mail-address "simon@serfurth.dk")
+  (setq user-full-name "Simon Skjernaa Erfurth"
+        user-mail-address "simon@serfurth.dk")
 #+END_SRC
 
 * Killing Emacs
@@ -328,10 +328,10 @@ liking, I find 10 to be enough.
     :ensure t
     :config
     (dashboard-setup-startup-hook)
-    (setq dashboard-startup-banner "~/.emacs.d/dashLogo.png")
-    (setq dashboard-items '((recents  . 10)
-                            (projects . 10)))
-    (setq dashboard-banner-logo-title "Sorcery Emacs – Sufficiently Advanced Technology is Indistinguishable from Magic."))
+    (setq dashboard-startup-banner "~/.emacs.d/dashLogo.png"
+          dashboard-items '((recents  . 10)
+                                      (projects . 10))
+          dashboard-banner-logo-title "Sorcery Emacs – Sufficiently Advanced Technology is Indistinguishable from Magic."))
 #+END_SRC
 
 * Modeline
@@ -372,9 +372,9 @@ choice.
   (use-package spaceline
     :ensure t
     :config
-    (setq spaceline-line-column-p t)
-    (setq spaceline-line-p t)
-    )
+    (setq spaceline-line-column-p t
+          spaceline-line-p t))
+
   (use-package spaceline-config
     :after (spaceline)
     :config
@@ -394,10 +394,10 @@ This makes sure that everything can be a project.
   (use-package projectile
     :ensure t
     :init
-    (setq projectile-completion-system 'helm)
-    (setq projectile-keymap-prefix (kbd "C-z"))
-    (setq projectile-mode-line-lighter "")
-    (setq projectile-mode-line
+    (setq projectile-completion-system 'helm
+          projectile-keymap-prefix (kbd "C-z")
+          projectile-mode-line-lighter ""
+          projectile-mode-line
           '(:eval (format "[%s]" (projectile-project-name))))
     (projectile-mode 1))
 #+END_SRC
@@ -526,12 +526,11 @@ works less well with =exwm= for some reason.
   (use-package switch-window
     :ensure t
     :config
-    (setq switch-window-input-style 'minibuffer)
-    (setq switch-window-increase 4)
-    (setq switch-window-threshold 2)
-    (setq switch-window-shortcut-style 'qwerty)
-    (setq switch-window-qwerty-shortcuts
-          '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
+    (setq switch-window-input-style 'minibuffer
+          switch-window-increase 4
+          switch-window-threshold 2
+          switch-window-shortcut-style 'qwerty
+          switch-window-qwerty-shortcuts '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
     :bind
     ([remap other-window] . switch-window))
 #+END_SRC
@@ -637,11 +636,11 @@ And neotree for a nice, tree-style directory structure.
   (use-package neotree
     :ensure t
     :config
-    (setq neo-autorefresh t)
-    (setq neo-force-change-root t)
-    (setq neo-keymap-style 'concise)
-    (setq neo-smart-open t)
-    (setq neo-theme 'icons)
+    (setq neo-autorefresh t
+          neo-force-change-root t
+          neo-keymap-style 'concise
+          neo-smart-open t
+          neo-theme 'icons)
     :bind
     ("H-t" . neotree-toggle))
 #+END_SRC
@@ -701,8 +700,8 @@ Quick keybinding to get to ~list-packages~.
 *** scrolling
 I don't know to be honest, but this little bit of code makes scrolling with Emacs a lot nicer.
 #+BEGIN_SRC emacs-lisp
-  (setq scroll-conservatively 100)
-  (setq auto-window-vscroll nil)
+  (setq scroll-conservatively 100
+        auto-window-vscroll nil)
 #+END_SRC
 
 *** swiper/swoop
@@ -1003,33 +1002,33 @@ Code taken from better defaults.
   ;; Change how Emacs make two buffers with the same name unique
   (use-package uniquify
     :config
-    (setq uniquify-buffer-name-style 'forward)
-    (setq uniquify-separator "/")
-    ;; rename after killing uniquified
-    (setq uniquify-after-kill-buffer-p t)
-    ;; don't muck with special buffers
-    (setq uniquify-ignore-buffers-re "^\\*"))
+    (setq uniquify-buffer-name-style 'forward
+          uniquify-separator "/"
+	  ;; rename after killing uniquified
+          uniquify-after-kill-buffer-p t
+	  ;; don't muck with special buffers
+          uniquify-ignore-buffers-re "^\\*")) 
 
   ;; Saves the last location of the curser when closing a bufer
   (save-place-mode 1) 
 
   ;; Better versions of the same keybindings
   (global-set-key (kbd "M-/") 'hippie-expand)
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 4)
-  (setq-default indicate-empty-lines nil)
+  (setq-default indent-tabs-mode nil
+                tab-width 4
+                indicate-empty-lines nil)
   (setq save-interprogram-paste-before-kill t
         apropos-do-all t
         mouse-yank-at-point t
         require-final-newline t
         load-prefer-newer t
         ediff-window-setup-function 'ediff-setup-windows-plain
-        save-place-file (concat user-emacs-directory "places"))
-  (setq help-window-select 't)
-  (setq large-file-warning-threshold 100000000)
-  ;; The original value is "\f\\|[      ]*$", so we add the bullets (-), (+), and (*).
-  ;; There is no need for "^" as the regexp is matched at the beginning of line.
-  (setq paragraph-start "\f\\|[ \t]*$\\|[ \t]*[-+*] ")
+        save-place-file (concat user-emacs-directory "places")
+        help-window-select 't
+        large-file-warning-threshold 100000000
+        ;; The original value is "\f\\|[      ]*$", so we add the bullets (-), (+), and (*).
+        ;; There is no need for "^" as the regexp is matched at the beginning of line.
+        paragraph-start "\f\\|[ \t]*$\\|[ \t]*[-+*] ")
   ;; Single space between sentences is more widespread than double
   (setq-default sentence-end-double-space nil)
 #+END_SRC
@@ -1037,12 +1036,12 @@ Code taken from better defaults.
 *** Backups
 And a better way of keeping backups.
 #+BEGIN_SRC emacs-lisp
-  (setq backup-by-copying t)
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-  (setq delete-old-versions t)
-  (setq kept-new-versions 10)
-  (setq kept-old-versions 10)
-  (setq version-control t)
+  (setq backup-by-copying t
+        backup-directory-alist '(("." . "~/.emacs.d/backups"))
+        delete-old-versions t
+        kept-new-versions 10
+        kept-old-versions 10
+        version-control t)
 #+END_SRC
 
 ** Sub words
@@ -1228,13 +1227,14 @@ Loads company-mode, and adds yas-snippets to them
           ("C-n" . company-select-next)
           ("C-p" . company-select-previous))
     :config
-    (setq company-idle-delay 0.1)
-    (setq company-show-numbers t)
-    (setq company-minimum-prefix-length 1)
-    (setq company-tooltip-align-annotations t)
-    ;; invert the navigation direction if the the completion popup-isearch-match
-    ;; is displayed on top (happens near the bottom of windows)
-    (setq company-tooltip-flip-when-above t)
+    (setq company-idle-delay 0.1
+          company-show-numbers t
+          company-minimum-prefix-length 1
+          company-tooltip-align-annotations t
+          ;; invert the navigation direction if the the completion
+          ;; popup-isearch-match is displayed on top (happens near the bottom of
+          ;; windows)
+          company-tooltip-flip-when-above t)
     (add-to-list 'company-backends 'company-ispell)
     (global-company-mode))
 
@@ -1432,13 +1432,13 @@ other languages.
   (use-package ess
     :ensure t
     :config
-    (setq ess-ask-for-ess-directory nil) ; Don't ask for directory
-    (setq ansi-color-for-comint-mode 'filter)
-    (setq comint-prompt-read-only t)
-    (setq comint-scroll-to-bottom-on-input t)
-    (setq comint-scroll-to-bottom-on-output t)
-    (setq comint-move-point-for-output t)
-    (setq ess-describe-at-point-method 'tooltip))
+    (setq ess-ask-for-ess-directory nil ; Don't ask for directory
+          ansi-color-for-comint-mode 'filter
+          comint-prompt-read-only t
+          comint-scroll-to-bottom-on-input t
+          comint-scroll-to-bottom-on-output t
+          comint-move-point-for-output t
+          ess-describe-at-point-method 'tooltip))
 #+END_SRC
 
 * LaTeX
@@ -1453,19 +1453,19 @@ editor. Hold tight.
     :ensure t
     :bind ("H-<tab>" . indent-for-tab-command)
     :config
-    (setq TeX-auto-save t)
-    (setq TeX-parse-self t)
-    (setq-default TeX-master nil)
-    (setq-default TeX-engine 'pdflatex)
     (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
     (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
-    (setq reftex-plug-into-AUCTeX t)
-    (setq TeX-PDF-mode t)
-    (setq TeX-clean-confirm nil)
-    (setq TeX-master 'dwim)
-    (setq TeX-command-default "LatexMk")
-    (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
+    (setq-default TeX-master nil
+                  TeX-engine 'pdflatex)
+    (setq TeX-auto-save t
+          TeX-parse-self t
+          reftex-plug-into-AUCTeX t
+          TeX-PDF-mode t
+          TeX-clean-confirm nil
+          TeX-master 'dwim
+          TeX-command-default "LatexMk"
+          TeX-view-program-selection '((output-pdf "PDF Tools"))))
 
   (use-package auctex-latexmk
     :ensure t 
@@ -1546,17 +1546,17 @@ Bibtex, and auto complete for bibtex.
     :ensure t
     :after company
     :config
-    (setq company-bibtex-bibliography "~/ss-config/emacs/math.bib")
-    (setq company-bibtex-org-citation-regex "-?@")
+    (setq company-bibtex-bibliography "~/ss-config/emacs/math.bib"
+          company-bibtex-org-citation-regex "-?@")
     (add-to-list 'company-backends 'company-bibtex))
 #+END_SRC
 
 ** Synctex
 Code for syncing between LaTeX buffer and PDF file.
 #+BEGIN_SRC emacs-lisp
-  (setq TeX-source-correlate-mode t)
-  (setq TeX-source-correlate-start-server t)
-  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-source-correlate-mode t
+        TeX-source-correlate-start-server t
+        TeX-source-correlate-method 'synctex)
 
   ;; Update PDF buffers after successful LaTeX runs
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
@@ -1659,8 +1659,8 @@ It's =magit=!
   (use-package magit
     :ensure t
     :config
-    (setq magit-push-always-verify nil)
-    (setq git-commit-summary-max-length 72)
+    (setq magit-push-always-verify nil
+          git-commit-summary-max-length 72)
     (global-git-commit-mode t) 
     :bind
     ("H-g" . magit-status)
@@ -1802,13 +1802,13 @@ Those are all rather self-explanatory.
     :diminish (org-indent-mode " ")
     :config
     (add-hook 'org-mode-hook 'org-cdlatex-mode))
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
-  (setq org-confirm-babel-evaluate nil)
-  (setq org-export-with-smart-quotes t)
-  (setq org-src-window-setup 'current-window)
-  (setq org-babel-python-command "python3")
-  (setq org-return-follows-link t)
+  (setq org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-confirm-babel-evaluate nil
+        org-export-with-smart-quotes t
+        org-src-window-setup 'current-window
+        org-babel-python-command "python3"
+        org-return-follows-link t)
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
 
@@ -1818,8 +1818,8 @@ Those are all rather self-explanatory.
 
 Locate my default org directory, and default notes file.
 #+BEGIN_SRC emacs-lisp
-  (setq org-directory "~/serfurth-org")
-  (setq org-default-notes-file (concat org-directory "/notes.org"))
+  (setq org-directory "~/serfurth-org"
+        org-default-notes-file (concat org-directory "/notes.org"))
 #+END_SRC
 
 ** Keybindings
@@ -1870,18 +1870,14 @@ Here is how we add more of them!
     (require 'xdvi-search))
   (use-package ox-latex
     :init
-    ;;  (setq org-latex-compiler "xelatex") ; too slow on windows
-    (setq org-latex-compiler "pdflatex")
-    (setq org-latex-listings 'minted)
-    (setq org-latex-custom-lang-environments
-          '((ipython "\\begin{minted}[]{python}
+    (setq org-latex-compiler "pdflatex"
+          org-latex-listings 'minted
+          org-latex-custom-lang-environments '((ipython "\\begin{minted}[]{python}
   %s
-  \\end{minted}")))
-    ;; the following is required by minted
-    (setq org-latex-pdf-process '("latexmk -pdf --shell-escape %f"))
-    ;; (setq org-format-latex-options
-    ;;    (plist-put org-format-latex-options :foreground 'auto))
-    (setq org-latex-default-packages-alist
+  \\end{minted}"))
+          ;; the following is required by minted
+          org-latex-pdf-process '("latexmk -pdf --shell-escape %f")
+          org-latex-default-packages-alist
           '(("AUTO" "inputenc" t ("pdflatex"))
             ("T1" "fontenc" t ("pdflatex"))
             ("" "graphicx" t)
