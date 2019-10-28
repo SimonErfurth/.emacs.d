@@ -1605,7 +1605,10 @@ Auto fill makes the code more readable, and easier to share on GitHub etc.
     (setq pdf-annot-activate-created-annotations t)
     :bind (:map pdf-view-mode-map
                 ("C-s" . 'isearch-forward)
-                ("R" . 'pdf-view-rotate-clockwise)))
+                ("R" . 'pdf-view-rotate-clockwise)
+                ("d" . 'pdf-annot-delete)
+                ("h" . 'pdf-annot-add-highlight-markup-annotation)
+                ("t" . 'pdf-annot-add-text-annotation)))
 #+END_SRC
 
 ** Rotate
