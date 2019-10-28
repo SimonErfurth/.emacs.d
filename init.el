@@ -66,6 +66,26 @@
     (yas-hippie-try-expand try-complete-file-name-partially try-complete-file-name try-expand-all-abbrevs try-expand-list try-expand-line try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
  '(org-agenda-files (quote ("~/Dropbox/7. semester/DM854/ex/ex.org")))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t) (java . t) (R . t))))
+ '(org-latex-default-packages-alist
+   (quote
+    (("AUTO" "inputenc" t
+      ("pdflatex"))
+     ("T1" "fontenc" t
+      ("pdflatex"))
+     ("" "graphicx" t nil)
+     ("" "grffile" t nil)
+     ("" "longtable" nil nil)
+     ("" "wrapfig" nil nil)
+     ("" "rotating" nil nil)
+     ("normalem" "ulem" t nil)
+     ("" "amsmath" t nil)
+     ("" "textcomp" t nil)
+     ("" "amssymb" t nil)
+     ("" "capt-of" nil nil)
+     ("" "hyperref" nil nil)
+     ("" "libertine" t nil)
+     ("scaled=0.89" "inconsolata" t nil)
+     ("" "minted" t nil))))
  '(org-structure-template-alist
    (quote
     (("el" . "src emacs-lisp")
