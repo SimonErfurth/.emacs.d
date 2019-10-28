@@ -130,7 +130,7 @@ But before that, somethinng that need to be done;
 #+END_SRC
 
 ** Looks
-*** Remove lame startup screen
+*** Remove startup screen
 We use an actual replacement for it, keep reading or head directly to =dashboard=.
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-message t)
@@ -152,8 +152,8 @@ This is annoying, remove this line if you like being visually reminded of events
 #+END_SRC
 
 *** Highlight current line
-=hl-line= is awesome! It's not very awesome in the terminal version of emacs though, so we don't use that.
-Besides, it's only used for programming.
+=hl-line= is awesome! It's not very awesome in the terminal version of emacs
+though, so we don't use that. Besides, it's only used for programming.
 #+BEGIN_SRC emacs-lisp
   (when window-system (add-hook 'prog-mode-hook 'hl-line-mode))
 #+END_SRC
@@ -862,8 +862,11 @@ in our undo history we are.
     :ensure t
     :diminish (undo-tree-mode "")
     :bind (("C-/" . undo-tree-undo)
-           ("C-?" . undo-tree-redo)))
-  (global-undo-tree-mode 1)
+           ("C-?" . undo-tree-redo))
+    :init (global-undo-tree-mode 1)
+    :config
+    (undo-tree-visualizer-timestamps t)
+    (undo-tree-visualizer-diff t))
 #+END_SRC
 
 *** comment-or-uncomment-region
@@ -908,8 +911,8 @@ Inspired by Atom and Sublime, does exactly what one would expect it to.
 
 *** move-text (lines and region)
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/lisp/")
   (use-package move-text
+    :load-path "~/.emacs.d/lisp/"
     :bind
     (("H-f" . move-text-down)
      ("H-b" . move-text-up)))
@@ -1193,13 +1196,16 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
   (use-package yasnippet
     :ensure t
     :diminish (yas-minor-mode "Y")
-    :bind ("M-<SPC>" . yas-expand)
+    :bind (("M-<SPC>" . yas-expand)
+           ("M-m y s" . yas-describe-tables))
     :config
     (yas-reload-all))
+
   (use-package yasnippet-snippets
     :ensure t
-    :after yasnippet)
-  (global-set-key (kbd "M-m y s") 'yas-describe-tables)
+    :after yasnippet
+    :config
+    (yasnippet-snippets-initialize))
 #+END_SRC
 
 ** flycheck
@@ -1892,12 +1898,6 @@ Here is how we add more of them!
             ("" "libertine" t)
             ("scaled=0.89" "inconsolata" t) ; for verbatim/listings etc (tt-family)
             ("" "minted" t))))
-#+END_SRC
-
-*** Twitter Bootstrap
-#+BEGIN_SRC emacs-lisp
-  (use-package ox-twbs
-    :ensure t)
 #+END_SRC
 
 *** RevealJS
