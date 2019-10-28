@@ -865,8 +865,8 @@ in our undo history we are.
            ("C-?" . undo-tree-redo))
     :init (global-undo-tree-mode 1)
     :config
-    (undo-tree-visualizer-timestamps t)
-    (undo-tree-visualizer-diff t))
+    (setq undo-tree-visualizer-timestamps t
+          undo-tree-visualizer-diff t))
 #+END_SRC
 
 *** comment-or-uncomment-region
