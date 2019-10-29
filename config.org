@@ -20,12 +20,15 @@ programming languages.
 
 So to sum up, the following need to be done manually.
 - From your package manager
-  - ~aspell-en~ for spell-checking.
-  - ~pdftk~ for being able to rotate pdf's in pdf-view.
-  - ~clang~ for c/c++ completion.
-  - ~sbcl~ for clisp completion and repl.
-  - ~virtualenv~ for python completion.
-  - ~lua~ for obvious reasons.
+  - aspell :: for spell-checking. Please also install any relevant dictionaries,
+              for me that is ~aspell-en~ and ~aspell-da~.
+  - languagetool :: if we want to be able to check for more complex grammatical
+                    errors. See https://languagetool.org/ and [[sec:langtool]]
+  - pdftk :: for being able to rotate pdf's in pdf-view.
+  - clang :: for c/c++ completion.
+  - sbcl :: for clisp completion and repl.
+  - virtualenv :: for python completion.
+  - lua :: for obvious reasons.
 - From pip
   - ~pip install jedi rope isort falke8 autopep8~
 - Inside Emacs. Call the following:
@@ -1070,6 +1073,28 @@ install ~aspell-en~ for this to work.
     :config
     (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
 #+END_SRC
+
+*** languagetool
+<<sec:langtool>>
+https://github.com/mhayashi1120/Emacs-langtool Languagetool should not only be
+able to make spell-checking, but also check gramma. To use this one needs to
+install =languagetool=.
+
+It is rather more invasive than flyspell, so it is not turned on by default for
+any mode, but rather turned on (and off) when needed.
+#+begin_src emacs-lisp
+  (use-package langtool
+    :ensure t
+    :bind (("H-c l" . langtool-check)
+           ("H-c d" . langtool-check-done))
+    :config
+    (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*"
+          langtool-default-language "en-UK"
+          langtool-mother-tongue "da"
+          langtool-disabled-rules '("WHITESPACE_RULE"
+                                  "EN_UNPAIRED_BRACKETS"
+                                  "COMMA_PARENTHESIS_WHITESPACE")))
+#+end_src
 
 ** Word definition and synonyms 
 Add the ability to quickly check definitions and synonyms for a word, without
