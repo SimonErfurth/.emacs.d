@@ -150,7 +150,7 @@ If you like using any of those, change =-1= to =1=.
 *** Disable bell
 This is annoying, remove this line if you like being visually reminded of events.
 #+BEGIN_SRC emacs-lisp
-  ;; (setq ring-bell-function 'ignore)
+  (setq ring-bell-function 'ignore)
   (setq visible-bell t)
 #+END_SRC
 
