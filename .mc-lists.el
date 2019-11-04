@@ -5,6 +5,7 @@
       '(
         LaTeX-insert-left-brace
         TeX-insert-backslash
+        back-to-indentation-or-beginning
         end-of-visual-line
         ess-yank
         hydra--digit-argument
