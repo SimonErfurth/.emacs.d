@@ -2059,10 +2059,11 @@ the first letter of the course name.
     ("H-f" (find-file "~/Dropbox/7. semester/MM845/ex/ex.tex") "MM845E")
     ("C-f" (find-file "~/Dropbox/7. semester/MM845 Functional Analysis.pdf") "MM845B")
     ("d" (find-file "~/Dropbox/7. semester/MM831/notes/notes.tex") "MM831F")
-    ("C-d" (find-file "~/Dropbox/7. semester/MM831/ex/notes.tex") "MM831E")
+    ("H-d" (find-file "~/Dropbox/7. semester/MM831/ex/ex.tex") "MM831E")
     ("C-d" (find-file "~/Dropbox/7. semester/MM831/LectureNotes.pdf") "MM831B")
     ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")
     ("C-t" (find-file "~/Dropbox/TA/MM537_MM540/Rosen, Kenneth H - Discrete mathematics and its applications-McGraw-Hill (2019).pdf") "TA Book")
+    ("n" (find-file "~/Dropbox/Div/DivNotes.org"))
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
