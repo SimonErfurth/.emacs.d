@@ -2,5 +2,4 @@
 # name: Blue Text
 # key: blue
 # --
-{\color{blue} $1 }
-$0
+{\color{blue} $0 }

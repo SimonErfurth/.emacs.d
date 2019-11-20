@@ -25,6 +25,7 @@ So to sum up, the following need to be done manually.
   - languagetool :: if we want to be able to check for more complex grammatical
                     errors. See https://languagetool.org/ and [[sec:langtool]]
   - pdftk :: for being able to rotate pdf's in pdf-view.
+  - ag :: for searching with grep (we use ag instead).
   - clang :: for c/c++ completion.
   - sbcl :: for clisp completion and repl.
   - virtualenv :: for python completion.
@@ -1147,7 +1148,7 @@ any mode, but rather turned on (and off) when needed.
            ("H-c d" . langtool-check-done))
     :config
     (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*"
-          langtool-default-language "en-UK"
+          langtool-default-language "en-GB"
           langtool-mother-tongue "da"
           langtool-disabled-rules '("WHITESPACE_RULE"
                                   "EN_UNPAIRED_BRACKETS"
