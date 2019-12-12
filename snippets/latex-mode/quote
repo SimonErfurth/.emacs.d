@@ -3,4 +3,4 @@
 # key: quote
 # binding: "
 # --
-\blockquote{$0}
+\textquote{$0}

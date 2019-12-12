@@ -213,6 +213,7 @@ Lets us use asynchronous processes wherever possible, pretty useful.
 Kill and restart Emacs, from within Emacs. 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-m q q") 'save-buffers-kill-emacs)
+  (global-unset-key (kbd "C-x C-c"))
   (use-package restart-emacs
     :ensure t
     :bind ("M-m q r" . restart-emacs)
