@@ -451,7 +451,7 @@ favor and integrate those into your workflow.
 #+END_QUOTE
 
 ** helm
-Completion framwork that is used a lot.
+Completion framework that is used a lot.
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :ensure t
@@ -491,6 +491,18 @@ Completion framwork that is used a lot.
   (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
   (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 #+END_SRC
+
+*** Restore lynx-like behaviour
+Used to be the default way of moving around in helm. Was changed for some
+reason, so we restore it. Makes it very easy and natural to go up and down
+folders. 
+#+begin_src emacs-lisp
+  (define-key helm-map (kbd "<left>") 'helm-previous-source)
+  (define-key helm-map (kbd "<right>") 'helm-next-source)
+  (customize-set-variable 'helm-ff-lynx-style-map t)
+  (customize-set-variable 'helm-imenu-lynx-style-map t)
+  (customize-set-variable 'helm-occur-use-ioccur-style-keys t)
+#+end_src
 
 ** hydra before other packages
 Further, we are also going to use hydra to make something more elegant
