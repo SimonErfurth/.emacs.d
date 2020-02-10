@@ -25,3 +25,7 @@ xkcd/*
 /abbrev_defs
 /request/curl-cookie-jar
 /transient/history.el
+/games/tetris-scores
+/.org-id-locations
+/magithub/cache
+/projectile.cache
