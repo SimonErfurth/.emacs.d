@@ -382,13 +382,17 @@ their unicode counterpart"
     ;; (list (latex-escape-regex "U") "𝓤")
     ;; (list (latex-escape-regex "Q") "𝓠")
     
-    ;;SiSkEr's own abrevs:
+    ;; SiSkEr's own abrevs:
+    ;; https://en.wikipedia.org/wiki/Mathematical_operators_and_symbols_in_Unicode
     (list (latex-escape-regex "CC") "ℂ")
     (list (latex-escape-regex "RR") "ℝ")
     (list (latex-escape-regex "NN") "ℕ")
     (list (latex-escape-regex "ZZ") "ℤ")
     (list (latex-escape-regex "QQ") "ℚ")
+    (list (latex-escape-regex "FF") "𝔽")
     (list (latex-escape-regex "F") "ℱ")
+    (list (latex-escape-regex "subsetneq") "⊊")
+    (list (latex-escape-regex "supsetneq") "⊋")
 
     ;;The following are not really working perfect
     ;; (list (latex-escape-regex "overline{R}") "R̄")
