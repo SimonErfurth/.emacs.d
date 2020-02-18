@@ -333,10 +333,12 @@ liking, I find 10 to be enough.
     :ensure t
     :config
     (dashboard-setup-startup-hook)
-    (setq dashboard-startup-banner "~/.emacs.d/dashLogo.png"
+    (setq dashboard-startup-banner "~/.emacs.d/sorceryLogo.png"
           dashboard-items '((recents  . 10)
-                                      (projects . 10))
-          dashboard-banner-logo-title "Sorcery Emacs – Sufficiently Advanced Technology is Indistinguishable from Magic."))
+                            (projects . 10))
+          dashboard-banner-logo-title "Sorcery Emacs – Sufficiently Advanced Technology is Indistinguishable from Magic."
+          dashboard-set-heading-icons t
+          dashboard-set-file-icons t))
 #+END_SRC
 
 * Modeline
