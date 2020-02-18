@@ -576,7 +576,7 @@ me so much I wrote these two, they take care of it.
 *** buffers
 **** Always murder current buffer
 Doing =C-x k= should kill the current buffer at all times, we have =ibuffer= for
-more sophisticated thing.
+more sophisticated things.
 #+BEGIN_SRC emacs-lisp
   (defun kill-current-buffer ()
     "Kills the current buffer."
@@ -1925,7 +1925,7 @@ Locate my default org directory, and default notes file.
 #+BEGIN_SRC emacs-lisp
   (define-key org-mode-map (kbd "C-c '") 'org-edit-src-code)
   (define-key org-mode-map (kbd "C-c w") 'org-insert-structure-template)
-  (define-key org-mode-map (kbd "C-c l") 'org-toggle-latex-fragment)
+  (define-key org-mode-map (kbd "C-c l") 'org-latex-preview)
 #+END_SRC
 
 ** org-table
@@ -2075,6 +2075,7 @@ the first letter of the course name.
     ("C-m" (find-file "~/Dropbox/8. semester/DM870/Pang-Ning Tan, Michael Steinbach, Vipin Kumar - Introduction to Data Mining-Pearson (2013).pdP") "DM870B")
     ("d" (find-file "~/Dropbox/8. semester/DM803/notes/notes.org") "DM803F")
     ("H-d" (find-file "~/Dropbox/8. semester/DM803/ex/ex.org") "DM803E")
+    ("C-d" (find-file "~/Dropbox/8. semester/DM803 - Introduction_To_Algorithms.pdf") "DM803B")
     ("l" (find-file "~/Dropbox/8. semester/DM846/notes/notes.org") "DM846F")
     ("H-l" (find-file "~/Dropbox/8. semester/DM846/ex/ex.org") "DM846E")
     ("C-l" (find-file "~/Dropbox/7. semester/DM846/LectureNotes.pdf") "DM846B")
