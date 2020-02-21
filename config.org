@@ -1349,7 +1349,6 @@ Be it for code or prose, completion is a must. After messing around with
 turns out to have been a great decision.
 
 Each category also has additional settings.
-
 *** c/c++
 **** yasnippet
 #+BEGIN_SRC emacs-lisp
@@ -1609,10 +1608,16 @@ using '.
     (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
     ;; Add additional symbols to be inserted with "`".
     (setq cdlatex-math-symbol-alist
-          '((?< ("\\leftarrow" "\\Leftarrow" "\\longleftarrow" "\\Longleftarrow"))
-            (?> ("\\rightarrow" "\\Rightarrow" "\\longrightarrow" "\\Longrightarrow"))
+          '((?< ("\\leftarrow" "\\Leftarrow" "\\Longleftarrow"))
+            (?> ("\\rightarrow" "\\Rightarrow" "\\Longrightarrow"))
+            (?. ("\\ldots" "\\vdots" "\\cdots"))
+            (?0 ("\\emptyset" "\\bot"))
+            (?1 ("\\restriction" "\\top"))
             (?3 ("\\exists"))
             (?4 ("\\forall"))
+            (?F ("\\Phi"))
+            (?[ ("\\vdash"))
+            (?] ("\\models"))
             )))
 #+end_src
 

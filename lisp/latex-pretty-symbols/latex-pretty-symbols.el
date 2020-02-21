@@ -396,6 +396,7 @@ their unicode counterpart"
     (list (latex-escape-regex "vee") "⋁")
     (list (latex-escape-regex "wedge") "⋀")
     (list (latex-escape-regex "perp") "⊥")
+    (list (latex-escape-regex "notni")"∌")
 
     ;;The following are not really working perfect
     ;; (list (latex-escape-regex "overline{R}") "R̄")
