@@ -983,6 +983,10 @@ Inspired by Atom and Sublime, does exactly what one would expect it to.
 
   (global-set-key (kbd "M-m b i") 'indent-buffer)
   (global-set-key (kbd "M-m b t") 'untabify-buffer)
+
+  (use-package aggressive-indent
+    :ensure t
+    :bind ("M-m m a" . aggressive-indent-mode))
 #+end_src
 
 *** move-text (lines and region)
@@ -1460,6 +1464,10 @@ Requires libclang to be installed.
     (slime-setup '(slime-fancy slime-company)))
 #+END_SRC
 
+**** aggressive-indent
+#+begin_src emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
+#+end_src
 *** lua
 **** yasnippet
 #+BEGIN_SRC emacs-lisp
@@ -1554,6 +1562,7 @@ editor. Hold tight.
     (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
     (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
+    (add-hook 'LaTeX-mode-hook 'aggressive-indent-mode)
     (setq-default TeX-master nil
                   TeX-engine 'pdflatex)
     (setq TeX-auto-save t
