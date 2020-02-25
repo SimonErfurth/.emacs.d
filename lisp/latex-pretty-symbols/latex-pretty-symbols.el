@@ -196,7 +196,7 @@ their unicode counterpart"
     (list (latex-escape-regex "sigma")"σ")
     (list (latex-escape-regex "tau")"τ")
     (list (latex-escape-regex "upsilon")"υ")
-    (list (latex-escape-regex "phi") "ϕ")
+    ;; (list (latex-escape-regex "phi") "ϕ")
     (list (latex-escape-regex "chi")"χ")
     (list (latex-escape-regex "psi")"ψ")
     (list (latex-escape-regex "omega")"ω")
@@ -390,6 +390,10 @@ their unicode counterpart"
     (list (latex-escape-regex "ZZ") "ℤ")
     (list (latex-escape-regex "QQ") "ℚ")
     (list (latex-escape-regex "FF") "𝔽")
+    (list (latex-escape-regex "MM") "𝕄")
+    (list (latex-escape-regex "phi") "𝛗") ;; it's bold, but much better than
+                                          ;; italic or non varphi version, which
+                                          ;; looks like Phi.
     (list (latex-escape-regex "F") "ℱ")
     (list (latex-escape-regex "subsetneq") "⊊")
     (list (latex-escape-regex "supsetneq") "⊋")
@@ -397,6 +401,7 @@ their unicode counterpart"
     (list (latex-escape-regex "wedge") "⋀")
     (list (latex-escape-regex "perp") "⊥")
     (list (latex-escape-regex "notni")"∌")
+    (list (latex-escape-regex "restriction")"⨡")
 
     ;;The following are not really working perfect
     ;; (list (latex-escape-regex "overline{R}") "R̄")
