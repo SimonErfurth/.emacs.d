@@ -370,7 +370,7 @@ their unicode counterpart"
     
     ;;Does not work, as it pushes them all into one character
     ;; (list (latex-escape-regex "atldiamond")"⟨⟨C⟩⟩")
-    ;Påls single letter abrevs:
+                                        ;Påls single letter abrevs:
     ;; (list (latex-escape-regex "L") "𝓛")
     ;; (list (latex-escape-regex "N") "𝓝")
     ;; (list (latex-escape-regex "E") "𝓔")
@@ -402,6 +402,9 @@ their unicode counterpart"
     (list (latex-escape-regex "perp") "⊥")
     (list (latex-escape-regex "notni")"∌")
     (list (latex-escape-regex "restriction")"⨡")
+    (list (latex-escape-regex "lozenge")"◊")
+    (list (latex-escape-regex "square")"□")
+    (list (latex-escape-regex "Vdash")"⊩")
 
     ;;The following are not really working perfect
     ;; (list (latex-escape-regex "overline{R}") "R̄")

@@ -1625,8 +1625,8 @@ using '.
             (?3 ("\\exists"))
             (?4 ("\\forall"))
             (?F ("\\Phi"))
-            (?[ ("\\vdash"))
-            (?] ("\\models"))
+            (?[ ("\\vdash" "\\Vdash"))
+            (?] ("\\models" "\\square" "\\lozenge"))
             )))
 #+end_src
 
