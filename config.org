@@ -1624,6 +1624,7 @@ using '.
             (?1 ("\\restriction" "\\top"))
             (?3 ("\\exists"))
             (?4 ("\\forall"))
+            (?+ ("\\oplus"))
             (?F ("\\Phi"))
             (?[ ("\\vdash" "\\Vdash"))
             (?] ("\\models" "\\square" "\\lozenge"))
@@ -1654,7 +1655,8 @@ Bibtex, and auto complete for bibtex.
     :init
     (progn
       (setq bibtex-align-at-equal-sign t)
-      (add-hook 'bibtex-mode-hook (lambda () (set-fill-column 120)))))
+      (add-hook 'bibtex-mode-hook (lambda () (set-fill-column 120)))
+      (add-hook 'bibtex-mode-hook 'yas-minor-mode)))
   (use-package company-bibtex
     :ensure t
     :after company
