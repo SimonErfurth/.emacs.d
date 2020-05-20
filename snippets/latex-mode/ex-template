@@ -2,45 +2,45 @@
 #name : LaTeX Excersize Sheet Template
 #contributor: Simon Erfurth
 # --
-\documentclass[a4paper,]{article}
+\documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[
-	backend=bibtex,
-	citestyle=authoryear,
-	bibstyle=authoryear,
-	sorting=nyt
-	]{biblatex}
-	\bibliography{math}
-\usepackage[
-	intlimits,
-	sumlimits
-	]{kpfonts}
-\usepackage{fancyhdr,lastpage,setspace,graphicx,amsmath,amsfonts,siunitx}
-	\pagestyle{fancy}
-	\setlength{\headheight}{30pt}
-	\allowdisplaybreaks
+\usepackage[backend=bibtex,citestyle=authoryear,bibstyle=authoryear,sorting=nyt]{biblatex}
+\bibliography{math}
+\usepackage[intlimits,sumlimits,uprightgreeks]{kpfonts}
+\usepackage{fancyhdr,lastpage,setspace,graphicx,amsmath,amsfonts,mathtools}
+\mathtoolsset{showonlyrefs}
+\pagestyle{fancy}
+\setlength{\headheight}{30pt}
+\allowdisplaybreaks
 \usepackage[section]{placeins}
-\usepackage[
-	tracking=true,
-	kerning=true,
-	spacing=true
-	]{microtype}
-\usepackage[
-	hidelinks,
-	unicode=true
-	]{hyperref}
-	\urlstyle{sf}
+\numberwithin{equation}{section}
+\usepackage[tracking=true,kerning=true,spacing=true]{microtype}
+\usepackage[hidelinks,unicode=true]{hyperref}
+\urlstyle{sf}
 \usepackage[nodayofweek]{datetime}
 \usepackage[english=british]{csquotes}
 \usepackage[usenames]{color}
 %\usepackage{pdfpages}
-\numberwithin{equation}{section}
 
 \setcounter{MaxMatrixCols}{20}
-\newcommand{\me}{\mathrm{e}}
-\renewcommand{\d}[1]{\ensuremath{\operatorname{d}\!{#1}}}
 %\renewcommand\thesubsection{\thesection.\alph{subsection}}
+
+\usepackage{amsthm}
+\usepackage{mdframed}
+\newtheoremstyle{leftline}%
+{2pt}{}%
+{\normalfont}{}%
+{}{ }%  % Note that final punctuation is omitted.
+{\newline}{\textbf{\thmname{#1}\thmnumber{ #2}}\textit{\thmnote{\quad #3.}}}
+\theoremstyle{leftline}
+\newmdtheoremenv[innertopmargin=0pt,linecolor=black,linewidth=1.5pt,topline=false,bottomline=false,rightline=false,innerrightmargin=0]{theorem}{Theorem}[section]
+\newmdtheoremenv[innertopmargin=0pt,linecolor=black,linewidth=1.5pt,topline=false,bottomline=false,rightline=false,innerrightmargin=0]{lemma}[theorem]{Lemma}
+\newmdtheoremenv[innertopmargin=0pt,linecolor=black,linewidth=1.5pt,topline=false,bottomline=false,rightline=false,innerrightmargin=0]{corollary}[theorem]{Corollary}
+\newmdtheoremenv[innertopmargin=0pt,linecolor=black,linewidth=1.5pt,topline=false,bottomline=false,rightline=false,innerrightmargin=0]{proposition}[theorem]{Proposition}
+\newmdtheoremenv[innertopmargin=0pt,linecolor=black,linewidth=1.5pt,topline=false,bottomline=false,rightline=false,innerrightmargin=0]{definition}[theorem]{Definition}
+\newmdtheoremenv[innertopmargin=0pt,linecolor=black,linewidth=1.5pt,topline=false,bottomline=false,rightline=false,innerrightmargin=0]{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
 
 \renewcommand{\d}[1]{\ensuremath{\operatorname{d}\!{#1}}}
 \newcommand{\me}{\mathrm{e}}
@@ -67,10 +67,7 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Null}{null}
-\DeclareMathOperator{\rank}{rank}
-
-\usepackage{mathtools}
-\mathtoolsset{showonlyrefs}  
+\DeclareMathOperator{\rank}{rank}  
 
 \newdate{due}{`(format-time-string "%d")`}{`(format-time-string "%m")`}{`(format-time-string "%Y")`}
 

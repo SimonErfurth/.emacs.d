@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: llb
+# key: llb
+# --
+\llbracket $0  \rrbracket
