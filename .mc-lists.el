@@ -12,6 +12,7 @@
         hydra-multiple-cursors/mc/mark-all-like-this-and-exit
         hydra-multiple-cursors/mc/mark-next-like-this
         hydra-multiple-cursors/mc/mark-previous-like-this
+        indent-for-tab-command
         org-cdlatex-math-modify
         org-self-insert-command
         ))

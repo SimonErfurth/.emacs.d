@@ -2080,25 +2080,27 @@ the first letter of the course name.
 #+begin_src emacs-lisp
   (defhydra hydra-open (nil nil :exit t)
     "open"
-    ("o" (find-file "~/Dropbox/8. semester/DM860/notes/notes.org") "DM860F")
-    ("H-o" (find-file "~/Dropbox/8. semester/DM860/ex/ex.org") "DM860E")
-    ("C-o" (find-file "~/Dropbox/8. semester/DM860 Allan Borodin, Ran El-Yaniv - Online Computation and Competitive Analysis-Cambridge University Press (1998).pdf") "DM860B")
-    ("v" (find-file "~/Dropbox/8. semester/MM853/notes/notes.tex") "MM853F")
-    ("H-v" (find-file "~/Dropbox/8. semester/MM853/ex/ex.tex") "MM853E")
-    ("C-v" (find-file "~/Dropbox/8. semester/MM853 Advanced-Vector-Spaces.pdf") "MM853B")
-    ("m" (find-file "~/Dropbox/8. semester/DM870/notes/notes.org") "DM870F")
-    ("H-m" (find-file "~/Dropbox/8. semester/DM870/ex/ex.org") "DM870E")
-    ("C-m" (find-file "~/Dropbox/8. semester/DM870/Pang-Ning Tan, Michael Steinbach, Vipin Kumar - Introduction to Data Mining-Pearson (2013).pdP") "DM870B")
-    ("d" (find-file "~/Dropbox/8. semester/DM803/notes/notes.org") "DM803F")
-    ("H-d" (find-file "~/Dropbox/8. semester/DM803/ex/ex.org") "DM803E")
-    ("C-d" (find-file "~/Dropbox/8. semester/DM803 - Introduction_To_Algorithms.pdf") "DM803B")
-    ("l" (find-file "~/Dropbox/8. semester/DM846/notes/notes.org") "DM846F")
-    ("H-l" (find-file "~/Dropbox/8. semester/DM846/ex/ex.org") "DM846E")
-    ("C-l" (find-file "~/Dropbox/7. semester/DM846/LectureNotes.pdf") "DM846B")
+    ("p" (find-file "~/Dropbox/9. semester/ISA Protokoller/notes/notes.org") "ISAF")
+    ;; ("H-p" (find-file "~/Dropbox/8. semester/DM860/ex/ex.org") "DM860E")
+    ("C-p" (find-file "~/Dropbox/9. semester/ISA Efficient Secure Two-Party Protocols (2010).pdf") "ISAB")
+    ("s" (find-file "~/Dropbox/9. semester/ST817/notes/notes.tex") "ST817F")
+    ("H-s" (find-file "~/Dropbox/9. semester/ST817/ex/ex.tex") "ST817E")
+    ("C-s" (find-file "~/Dropbox/9. semester/ST817 Robert V. Hogg, Joseph W. McKean, Allen T. Craig - Introduction to Mathematical Statistics-Pearson (2018).pdf") "ST817B")
+    ("k" (find-file "~/Dropbox/9. semester/MM854/notes/notes.tex") "MM854F")
+    ("H-k" (find-file "~/Dropbox/9. semester/MM854/ex/ex.tex") "MM854E")
+    ;; ("C-k" (find-file "~/Dropbox/9. semester/MM854/") "MM854B")
+    ("g" (find-file "~/Dropbox/9. semester/MM856/notes/notes.tex") "MM856F")
+    ("H-g" (find-file "~/Dropbox/9. semester/MM856/ex/ex.tex") "MM856E")
+    ("C-g" (find-file "~/Dropbox/9. semester/MM856 Douglas B. West - Introduction to Graph Theory (2nd Edition)(With Solution Manual) -Prentice Hall (2000).pdf") "MM856B")
+    ("G" (find-file "~/Dropbox/9. semester/MM856 Prof. Jørgen Bang-Jensen, Prof. Gregory Z. Gutin (auth.) - Digraphs_ Theory, Algorithms and Applications-Springer-Verlag London (2009)(1).pdf") "MM856B")
     ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")
-    ("tt" (dired "~/Dropbox/TA/BMB539 20f") "TA")
+    ("tt" (dired "~/Dropbox/TA/MM505 20e") "TA")
     ("n" (find-file "~/Dropbox/Div/DivNotes.org"))
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
 
+g for graph
+k for kandidatseminar
+s for stat
+p for protocols

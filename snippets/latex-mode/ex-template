@@ -43,6 +43,7 @@
 \newtheorem{example}[theorem]{Example}
 
 \renewcommand{\d}[1]{\ensuremath{\operatorname{d}\!{#1}}}
+\renewcommand{\epsilon}[0]{\varepsilon}
 \newcommand{\me}{\mathrm{e}}
 \newcommand{\NN}[0]{\mathbb{N}}
 \newcommand{\ZZ}[0]{\mathbb{Z}}
