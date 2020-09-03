@@ -2088,7 +2088,7 @@ the first letter of the course name.
     ("C-s" (find-file "~/Dropbox/9. semester/ST817 Robert V. Hogg, Joseph W. McKean, Allen T. Craig - Introduction to Mathematical Statistics-Pearson (2018).pdf") "ST817B")
     ("k" (find-file "~/Dropbox/9. semester/MM854/notes/notes.tex") "MM854F")
     ("H-k" (find-file "~/Dropbox/9. semester/MM854/ex/ex.tex") "MM854E")
-    ;; ("C-k" (find-file "~/Dropbox/9. semester/MM854/") "MM854B")
+    ("C-k" (find-file "~/Dropbox/9. semester/MM854 Konrad Schmüdgen (auth.) - Unbounded Self-adjoint Operators on Hilbert Space-Springer Netherlands (2012).pdf") "MM854B")
     ("g" (find-file "~/Dropbox/9. semester/MM856/notes/notes.tex") "MM856F")
     ("H-g" (find-file "~/Dropbox/9. semester/MM856/ex/ex.tex") "MM856E")
     ("C-g" (find-file "~/Dropbox/9. semester/MM856 Douglas B. West - Introduction to Graph Theory (2nd Edition)(With Solution Manual) -Prentice Hall (2000).pdf") "MM856B")
