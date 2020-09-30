@@ -1710,12 +1710,13 @@ Auto fill makes the code more readable, and easier to share on GitHub etc.
 
   (use-package pdf-tools
     :ensure t
+    :pin manual
     :mode (("\\.pdf$" . pdf-view-mode))
     ;; if we're not on 'gnu/linux, we use doc-view
     :if (eq system-type 'gnu/linux)
     :commands (pdf-view-mode)
     :config
-    (pdf-tools-install)
+    (pdf-tools-install :no-query)
     (setq-default pdf-view-display-size 'fit-page)
     (setq pdf-annot-activate-created-annotations t)
     :bind (:map pdf-view-mode-map

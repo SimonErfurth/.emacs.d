@@ -43,32 +43,28 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(TeX-view-program-selection
-   (quote
-    (((output-dvi has-no-display-manager)
+   '(((output-dvi has-no-display-manager)
       "dvi2tty")
      ((output-dvi style-pstricks)
       "dvips and gv")
      (output-dvi "xdvi")
      (output-pdf "PDF Tools")
-     (output-html "xdg-open"))))
+     (output-html "xdg-open")))
  '(ansi-color-names-vector
    ["#282c34" "#ff6c6b" "#98be65" "#da8548" "#61afef" "#c678dd" "#1f5582" "#abb2bf"])
- '(avy-keys (quote (113 119 101 97 115 100 122 120 99)))
+ '(avy-keys '(113 119 101 97 115 100 122 120 99))
  '(cdlatex-paired-parens "$[{(")
  '(custom-safe-themes
-   (quote
-    ("e39ff005e524c331b08d613109bff0b55fc21c64914c4a243faa70f330015389" default)))
+   '("e39ff005e524c331b08d613109bff0b55fc21c64914c4a243faa70f330015389" default))
  '(eyebrowse-mode t)
  '(git-gutter:hide-gutter t)
  '(git-gutter:update-interval 2)
  '(hippie-expand-try-functions-list
-   (quote
-    (yas-hippie-try-expand try-complete-file-name-partially try-complete-file-name try-expand-all-abbrevs try-expand-list try-expand-line try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
- '(org-agenda-files (quote ("~/Dropbox/7. semester/DM854/ex/ex.org")))
- '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t) (java . t) (R . t))))
+   '(yas-hippie-try-expand try-complete-file-name-partially try-complete-file-name try-expand-all-abbrevs try-expand-list try-expand-line try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol))
+ '(org-agenda-files '("~/Dropbox/7. semester/DM854/ex/ex.org"))
+ '(org-babel-load-languages '((emacs-lisp . t) (python . t) (java . t) (R . t)))
  '(org-latex-default-packages-alist
-   (quote
-    (("AUTO" "inputenc" t
+   '(("AUTO" "inputenc" t
       ("pdflatex"))
      ("T1" "fontenc" t
       ("pdflatex"))
@@ -85,10 +81,9 @@
      ("" "hyperref" nil nil)
      ("" "libertine" t nil)
      ("scaled=0.89" "inconsolata" t nil)
-     ("" "minted" t nil))))
+     ("" "minted" t nil)))
  '(org-structure-template-alist
-   (quote
-    (("el" . "src emacs-lisp")
+   '(("el" . "src emacs-lisp")
      ("a" . "export ascii")
      ("c" . "center")
      ("C" . "comment")
@@ -98,11 +93,10 @@
      ("l" . "export latex")
      ("q" . "quote")
      ("s" . "src")
-     ("v" . "verse"))))
+     ("v" . "verse")))
  '(package-selected-packages
-   (quote
-    (lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy helm swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package)))
- '(visual-line-fringe-indicators (quote (left-curly-arrow nil))))
+   '(pdf-tools lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy helm swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package))
+ '(visual-line-fringe-indicators '(left-curly-arrow nil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
