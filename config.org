@@ -1305,6 +1305,7 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
 
   (use-package yasnippet-snippets
     :ensure t
+    :pin manual
     :after yasnippet
     :config
     (yasnippet-snippets-initialize))
