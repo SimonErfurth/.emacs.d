@@ -3,5 +3,5 @@
 # key: al
 # --
 \begin{align}
-$0
+$0`(indent-according-to-mode)`
 \end{align}

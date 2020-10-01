@@ -1301,7 +1301,8 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
     :bind (("M-<SPC>" . yas-expand)
            ("M-m y s" . yas-describe-tables))
     :config
-    (yas-reload-all))
+    (yas-reload-all)
+    (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 
   (use-package yasnippet-snippets
     :ensure t
