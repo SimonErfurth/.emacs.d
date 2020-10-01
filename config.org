@@ -2040,7 +2040,8 @@ Using the package 'emojify' we add support for emojis in org-mode.
 #+begin_src emacs-lisp
   (use-package emojify
     :ensure t
-    :hook (org-mode-hook . emojify-mode))
+    :config
+    (add-hook 'org-mode-hook 'emojify-mode))
 #+end_src
 
 * xkcd
