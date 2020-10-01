@@ -56,6 +56,7 @@
  '(cdlatex-paired-parens "$[{(")
  '(custom-safe-themes
    '("e39ff005e524c331b08d613109bff0b55fc21c64914c4a243faa70f330015389" default))
+ '(emojify-emoji-styles '(github unicode))
  '(eyebrowse-mode t)
  '(git-gutter:hide-gutter t)
  '(git-gutter:update-interval 2)
@@ -95,7 +96,7 @@
      ("s" . "src")
      ("v" . "verse")))
  '(package-selected-packages
-   '(pdf-tools lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy helm swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package))
+   '(emojify pdf-tools lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy helm swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package))
  '(visual-line-fringe-indicators '(left-curly-arrow nil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

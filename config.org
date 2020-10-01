@@ -2035,6 +2035,16 @@ A fantastic way to make notes to a pdf file. I should use this more.
     :ensure t)
 #+END_SRC
 
+** emojis
+Using the package 'emojify' we add support for emojis in org-mode.
+#+begin_src emacs-lisp
+  (use-package emojify
+    :ensure t
+    :defer t
+    :config
+    (add-hook 'org-mode-hook 'emojify-mode))
+#+end_src
+
 * xkcd
 Emacs can do everything!
 |---------+--------------------------------|
