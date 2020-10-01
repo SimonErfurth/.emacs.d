@@ -56,6 +56,7 @@
  '(cdlatex-paired-parens "$[{(")
  '(custom-safe-themes
    '("e39ff005e524c331b08d613109bff0b55fc21c64914c4a243faa70f330015389" default))
+ '(emojify-emoji-styles '(github unicode))
  '(eyebrowse-mode t)
  '(git-gutter:hide-gutter t)
  '(git-gutter:update-interval 2)
