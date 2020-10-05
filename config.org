@@ -1926,7 +1926,8 @@ Those are all rather self-explanatory.
         org-export-with-smart-quotes t
         org-src-window-setup 'current-window
         org-babel-python-command "python3"
-        org-return-follows-link t)
+        org-return-follows-link t
+        org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
 
