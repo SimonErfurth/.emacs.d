@@ -588,11 +588,16 @@ more sophisticated things.
 
 **** Turn switch-to-buffer into bufler
 A superior buffer switching system. The main two advantages over iBuffer is the
-intelligent grouping, and the showing of VC state. 
+intelligent grouping, and the showing of VC state. See
+[[https://github.com/alphapapa/bufler.el#bindings]] for commands.
 #+BEGIN_SRC emacs-lisp
   (use-package bufler
     :ensure t
     :bind ("C-x C-b" . bufler))
+
+  (use-package helm-bufler
+    :ensure t
+    :bind ("C-x B" . bufler-switch-buffer))
 #+END_SRC
 
 *** eyebrowse
