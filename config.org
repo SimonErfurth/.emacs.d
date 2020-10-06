@@ -944,6 +944,14 @@ in our undo history we are.
     (setq undo-tree-visualizer-timestamps t
           undo-tree-visualizer-diff t))
 #+END_SRC
+*** goto-last-change
+#+begin_src emacs-lisp
+  (use-package goto-chg
+    :ensure t
+    :bind
+    (("H-/" . goto-last-change)
+     ("H-?" . goto-last-change-reverse)))
+#+end_src
 
 *** comment-or-uncomment-region
 Instead of having ~M-;~ call ~comment-dwim~, which rarely does what I mean we
