@@ -590,7 +590,9 @@ more sophisticated things.
 A superior buffer switching system. The main two advantages over iBuffer is the
 intelligent grouping, and the showing of VC state. 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (use-package bufler
+    :ensure t
+    :bind ("C-x C-b" . bufler))
 #+END_SRC
 
 *** eyebrowse
