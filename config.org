@@ -586,10 +586,9 @@ more sophisticated things.
   (global-set-key (kbd "C-x C-k") ' ido-kill-buffer)
 #+END_SRC
 
-**** Turn switch-to-buffer into ibuffer
-I don't understand how ibuffer isn't the default option by now. It's vastly
-superior in terms of ergonomics and functionality, you can delete buffers,
-rename buffer, move buffers, organize buffers etc.
+**** Turn switch-to-buffer into bufler
+A superior buffer switching system. The main two advantages over iBuffer is the
+intelligent grouping, and the showing of VC state. 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+END_SRC
