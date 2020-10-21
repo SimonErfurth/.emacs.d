@@ -1563,6 +1563,13 @@ other languages.
           ess-describe-at-point-method 'tooltip))
 #+END_SRC
 
+*** i3wm config
+Because why not! Makes the config files for i3 more readable.
+#+begin_src emacs-lisp
+  (use-package i3wm-config-mode
+    :ensure t)
+#+end_src
+
 * LaTeX
 Loads everything we need to make Emacs the very best LaTeX editor.
 
@@ -2132,3 +2139,5 @@ g for graph
 k for kandidatseminar
 s for stat
 p for protocols
+
+TODO: Make - a snippet for \overline (and remove it for \item)

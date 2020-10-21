@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        LaTeX-babel-insert-hyphen
         LaTeX-insert-left-brace
         TeX-insert-backslash
         back-to-indentation-or-beginning
@@ -19,4 +20,5 @@
 
 (setq mc/cmds-to-run-once
       '(
+        pdf-view-mouse-set-region
         ))
