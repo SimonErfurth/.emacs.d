@@ -2139,5 +2139,3 @@ g for graph
 k for kandidatseminar
 s for stat
 p for protocols
-
-TODO: Make - a snippet for \overline (and remove it for \item)
