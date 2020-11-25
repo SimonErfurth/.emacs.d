@@ -810,7 +810,8 @@ ability to work on multiple lines with a prefix.
 
 *** Line numbers
 As this configuration is only supposed to be used with Emacs 26 or newer, we use
-the new native line-numbering mode, instead of =linum=. 
+the new native line-numbering mode, instead of =linum=. In general line-numbers
+are disabled by default.
 #+BEGIN_SRC emacs-lisp
   (setq-default display-line-numbers-width 3
                 display-line-numbers-widen nil)
@@ -889,7 +890,7 @@ Inspired by iy, but using ivy so it should do just what i want.
                              (car bounds)
                              (cdr bounds))))))
 #+end_src
-
+TODO Find out why this is broken.
 * Text manipulation
 ** Killing
 *** Kill a line
@@ -950,6 +951,7 @@ in our undo history we are.
     (setq undo-tree-visualizer-timestamps t
           undo-tree-visualizer-diff t))
 #+END_SRC
+
 *** goto-last-change
 #+begin_src emacs-lisp
   (use-package goto-chg
@@ -1593,7 +1595,7 @@ editor. Hold tight.
           reftex-plug-into-AUCTeX t
           TeX-PDF-mode t
           TeX-clean-confirm nil
-          TeX-master 'dwim
+          TeX-master 'LatexMk
           TeX-command-default "LatexMk"
           TeX-view-program-selection '((output-pdf "PDF Tools"))))
 
