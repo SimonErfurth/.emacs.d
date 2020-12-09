@@ -16,7 +16,7 @@
 \usepackage[section]{placeins}
 \numberwithin{equation}{section}
 \usepackage[tracking=true,kerning=true,spacing=true]{microtype}
-\usepackage[hidelinks,unicode=true]{hyperref}
+\usepackage[unicode=true]{hyperref} % hidelinks
 \urlstyle{sf}
 \usepackage[nodayofweek]{datetime}
 \usepackage[english=british]{csquotes}

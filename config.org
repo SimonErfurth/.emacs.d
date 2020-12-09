@@ -1584,15 +1584,10 @@ editor. Hold tight.
     :ensure t
     :bind ("H-<tab>" . indent-for-tab-command)
     :config
-    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-    (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
-    (add-hook 'LaTeX-mode-hook 'aggressive-indent-mode)
     (setq-default TeX-master nil
                   TeX-engine 'pdflatex)
     (setq TeX-auto-save t
           TeX-parse-self t
-          reftex-plug-into-AUCTeX t
           TeX-PDF-mode t
           TeX-clean-confirm nil
           TeX-master 'LatexMk
@@ -1605,11 +1600,13 @@ editor. Hold tight.
     (setq auctex-latexmk-inherit-TeX-PDF-mode t))
   (auctex-latexmk-setup)
 
-  (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+  (add-hook 'TeX-mode-hook 'yas-minor-mode)
+  (add-hook 'TeX-mode-hook 'outline-minor-mode)
+  (add-hook 'TeX-mode-hook 'aggressive-indent-mode)
 #+END_SRC
 
 ** company-math
-company backend for auctex
+Company backend for auctex
 #+begin_src emacs-lisp
   (use-package company-math
     :ensure t
@@ -1623,8 +1620,7 @@ company backend for auctex
 #+end_src
 
 ** cdlatex
-A very nice package for inserting environments, symbols using ` and formatting
-using '.
+A very nice package for inserting environments, symbols using `.
 #+begin_src emacs-lisp
   (use-package cdlatex
     :ensure t
@@ -1703,11 +1699,15 @@ Code for syncing between LaTeX buffer and PDF file.
 #+END_SRC
 
 ** reftex
+Automatically sources .bib files, and allows one to insert references with =C-c
+[=, which allows one to search. Have the same capabilities for \labels and
+\ref's, but I don't use it for that.
 #+BEGIN_SRC emacs-lisp
   (use-package reftex
     :ensure t
     :config
-    (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    (setq reftex-plug-into-AUCTeX t))
 #+END_SRC
 
 ** autofill
@@ -1717,6 +1717,9 @@ Auto fill makes the code more readable, and easier to share on GitHub etc.
 #+END_SRC
 
 ** latex pretty symbols
+Really makes a difference for the readability of tex code! Many symbols added
+when compared to the default suggestions, also some that only make sense with my
+preamble (i.e. \RR for the reals).
 #+begin_src emacs-lisp
   (use-package latex-pretty-symbols
     :load-path "~/.emacs.d/lisp/latex-pretty-symbols"
@@ -1741,7 +1744,7 @@ Auto fill makes the code more readable, and easier to share on GitHub etc.
     :if (eq system-type 'gnu/linux)
     :commands (pdf-view-mode)
     :config
-    (pdf-tools-install :no-query)
+    (pdf-tools-install)
     (setq-default pdf-view-display-size 'fit-page)
     (setq pdf-annot-activate-created-annotations t)
     :bind (:map pdf-view-mode-map
