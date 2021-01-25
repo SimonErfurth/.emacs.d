@@ -21,6 +21,7 @@
 \usepackage[nodayofweek]{datetime}
 \usepackage[english=british]{csquotes}
 \usepackage[usenames]{color}
+\usepackage[hang,flushmargin]{footmisc} 
 %\usepackage{pdfpages}
 
 \setcounter{MaxMatrixCols}{20}
@@ -68,7 +69,19 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Null}{null}
-\DeclareMathOperator{\rank}{rank}  
+\DeclareMathOperator{\rank}{rank}
+
+% Reduce the sizing around aligns
+\usepackage{etoolbox}
+\newcommand{\zerodisplayskips}{%
+  \setlength{\abovedisplayskip}{5pt}%
+  \setlength{\belowdisplayskip}{5pt}%
+  \setlength{\abovedisplayshortskip}{5pt}%
+  \setlength{\belowdisplayshortskip}{5pt}}
+\appto{\normalsize}{\zerodisplayskips}
+\appto{\small}{\zerodisplayskips}
+\appto{\footnotesize}{\zerodisplayskips}
+
 
 \newdate{due}{`(format-time-string "%d")`}{`(format-time-string "%m")`}{`(format-time-string "%Y")`}
 

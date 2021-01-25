@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: verse
+# key: verse
+# --
+\beginverse
+$0
+\endverse
