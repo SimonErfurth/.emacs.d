@@ -7,6 +7,7 @@
         LaTeX-insert-left-brace
         TeX-insert-backslash
         back-to-indentation-or-beginning
+        backward-kill-word-or-region
         downcase-region
         end-of-visual-line
         ess-yank

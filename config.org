@@ -2118,29 +2118,14 @@ personal, system specific, and required to change quite often.
 In general they are based on mnemonics, so for courses it is (if it is possible)
 the first letter of the course name.
 #+begin_src emacs-lisp
-  (defhydra hydra-open (nil nil :exit t)
+  (defhydra hydra-open (:hint nil :exit t)
     "open"
-    ("p" (find-file "~/Dropbox/9. semester/ISA Protokoller/notes/notes.org") "ISAF")
-    ;; ("H-p" (find-file "~/Dropbox/8. semester/DM860/ex/ex.org") "DM860E")
-    ("C-p" (find-file "~/Dropbox/9. semester/ISA Efficient Secure Two-Party Protocols (2010).pdf") "ISAB")
-    ("s" (find-file "~/Dropbox/9. semester/ST817/notes/notes.tex") "ST817F")
-    ("H-s" (find-file "~/Dropbox/9. semester/ST817/ex/ex.tex") "ST817E")
-    ("C-s" (find-file "~/Dropbox/9. semester/ST817 Robert V. Hogg, Joseph W. McKean, Allen T. Craig - Introduction to Mathematical Statistics-Pearson (2018).pdf") "ST817B")
-    ("k" (find-file "~/Dropbox/9. semester/MM854/notes/notes.tex") "MM854F")
-    ("H-k" (find-file "~/Dropbox/9. semester/MM854/ex/ex.tex") "MM854E")
-    ("C-k" (find-file "~/Dropbox/9. semester/MM854 Konrad Schmüdgen (auth.) - Unbounded Self-adjoint Operators on Hilbert Space-Springer Netherlands (2012).pdf") "MM854B")
-    ("g" (find-file "~/Dropbox/9. semester/MM856/notes/notes.tex") "MM856F")
-    ("H-g" (find-file "~/Dropbox/9. semester/MM856/ex/ex.org") "MM856E")
-    ("C-g" (find-file "~/Dropbox/9. semester/MM856 Douglas B. West - Introduction to Graph Theory (2nd Edition)(With Solution Manual) -Prentice Hall (2000).pdf") "MM856B")
-    ("G" (find-file "~/Dropbox/9. semester/MM856 Prof. Jørgen Bang-Jensen, Prof. Gregory Z. Gutin (auth.) - Digraphs_ Theory, Algorithms and Applications-Springer-Verlag London (2009)(1).pdf") "MM856B")
+    ("m" (find-file "~/Dropbox/speciale/notes/notes.org") "MSc Notes")
+    ("t" (find-file "~/Dropbox/speciale/thesis/thesis.tex") "Thesis")
+    ("a" (dired "~/Dropbox/speciale/articles/") "Articles")
     ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")
-    ("tt" (dired "~/Dropbox/TA/") "TA")
-    ("n" (find-file "~/Dropbox/Div/DivNotes.org"))
+    ("b" (dired "~/Dropbox/TA/") "TA")
+    ("n" (find-file "~/Dropbox/Div/DivNotes.org") "Notes")
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
-
-g for graph
-k for kandidatseminar
-s for stat
-p for protocols
