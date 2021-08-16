@@ -2121,6 +2121,7 @@ the first letter of the course name.
   (defhydra hydra-open (:hint nil :exit t)
     "open"
     ("m" (find-file "~/Dropbox/speciale/notes/notes.org") "MSc Notes")
+    ("q" (find-file "~/Dropbox/speciale/quantum/notes.org") "Quantum Notes")
     ("t" (find-file "~/Dropbox/speciale/thesis/thesis.tex") "Thesis")
     ("a" (dired "~/Dropbox/speciale/articles/") "Articles")
     ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")

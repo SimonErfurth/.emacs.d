@@ -55,7 +55,7 @@
  '(avy-keys '(113 119 101 97 115 100 122 120 99))
  '(cdlatex-paired-parens "$[{(")
  '(custom-safe-themes
-   '("e39ff005e524c331b08d613109bff0b55fc21c64914c4a243faa70f330015389" default))
+   '("99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" "e39ff005e524c331b08d613109bff0b55fc21c64914c4a243faa70f330015389" default))
  '(emojify-emoji-styles '(github unicode))
  '(eyebrowse-mode t)
  '(git-gutter:hide-gutter t)
