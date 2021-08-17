@@ -21,11 +21,12 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;;; remove SC if you are not using sunrise commander and org if you like outdated packages
-(setq package-archives '(("ELPA"  . "http://tromey.com/elpa/")
-                         ("gnu"   . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("org"   . "https://orgmode.org/elpa/")))
+;; (setq package-archives '(("ELPA"  . "http://tromey.com/elpa/")
+;;                          ("gnu"   . "http://elpa.gnu.org/packages/")
+;;                          ("melpa" . "https://melpa.org/packages/")
+;;                          ("org"   . "https://orgmode.org/elpa/")))
 (package-initialize)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -96,7 +97,7 @@
      ("s" . "src")
      ("v" . "verse")))
  '(package-selected-packages
-   '(memory-usage i3wm-config-mode helm-bufler bufler goto-chg emojify pdf-tools lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy helm swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package))
+   '(org-pdftools memory-usage i3wm-config-mode helm-bufler bufler goto-chg emojify pdf-tools lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy helm swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package))
  '(visual-line-fringe-indicators '(left-curly-arrow nil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

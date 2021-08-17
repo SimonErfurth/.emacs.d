@@ -1150,6 +1150,36 @@ behaviour.
 #+END_SRC
 
 ** Spellchecking
+*** <2021-08-17 Tue> Trying to fix aspell on ubuntu.
+http://blog.binchen.org/posts/what-s-the-best-spell-check-set-up-in-emacs/
+Fairly certain the problem was in 'ispell-local-dictionary-alist', and not
+anything to do with ubuntu. The below part fixes it. Note that I do not use
+hunspell.
+#+begin_src emacs-lisp
+  ;; find aspell and hunspell automatically
+  (cond
+   ;; try hunspell at first
+   ;; if hunspell does NOT exist, use aspell
+   ((executable-find "hunspell")
+    (setq ispell-program-name "hunspell")
+    (setq ispell-local-dictionary "en_GB")
+    (setq ispell-local-dictionary-alist
+          ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
+          ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
+          '(("en_GB" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_GB") nil utf-8)))
+
+    ;; new variable `ispell-hunspell-dictionary-alist' is defined in Emacs
+    ;; If it's nil, Emacs tries to automatically set up the dictionaries.
+    (when (boundp 'ispell-hunspell-dictionary-alist)
+      (setq ispell-hunspell-dictionary-alist ispell-local-dictionary-alist)))
+
+   ((executable-find "aspell")
+    (setq ispell-program-name "aspell")
+    ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
+    (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_GB"))))
+#+end_src
+
+*** Flyspell 
 Enables spellchecking using ~flyspell~ and ~auto-dictionary~. Remember to
 install ~aspell-en~ for this to work.
 #+BEGIN_SRC emacs-lisp
@@ -1161,11 +1191,11 @@ install ~aspell-en~ for this to work.
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
     :bind ("H-x" . ispell-word))
 
-  (use-package auto-dictionary
-    :ensure t
-    :diminish (auto-dictionary-mode "")
-    :config
-    (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
+  ;; (use-package auto-dictionary
+  ;;   :ensure t
+  ;;   :diminish (auto-dictionary-mode "")
+  ;;   :config
+  ;;   (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
 #+END_SRC
 
 *** languagetool
@@ -1320,12 +1350,12 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
     (yas-reload-all)
     (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 
-  (use-package yasnippet-snippets
-    :ensure t
-    :pin manual
-    :after yasnippet
-    :config
-    (yasnippet-snippets-initialize))
+  ;; (use-package yasnippet-snippets
+  ;;   :ensure t
+  ;;   :pin manual
+  ;;   :after yasnippet
+  ;;   :config
+  ;;   (yasnippet-snippets-initialize))
 #+END_SRC
 
 ** flycheck
@@ -1682,7 +1712,7 @@ Bibtex, and auto complete for bibtex.
     :ensure t
     :after company
     :config
-    (setq company-bibtex-bibliography "~/ss-config/emacs/math.bib"
+    (setq company-bibtex-bibliography "~/kms-config/emacs/math.bib"
           company-bibtex-org-citation-regex "-?@")
     (add-to-list 'company-backends 'company-bibtex))
 #+END_SRC
@@ -2120,7 +2150,7 @@ the first letter of the course name.
 #+begin_src emacs-lisp
   (defhydra hydra-open (:hint nil :exit t)
     "open"
-    ("m" (find-file "~/Dropbox/speciale/notes/notes.org") "MSc Notes")
+    ("s" (find-file "~/Dropbox/Scientific Assistent/notes/notes.org") "Scientific Assistant Notes")
     ("q" (find-file "~/Dropbox/speciale/quantum/notes.org") "Quantum Notes")
     ("t" (find-file "~/Dropbox/speciale/thesis/thesis.tex") "Thesis")
     ("a" (dired "~/Dropbox/speciale/articles/") "Articles")
