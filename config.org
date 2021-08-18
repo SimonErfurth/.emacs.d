@@ -1350,12 +1350,12 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
     (yas-reload-all)
     (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 
-  ;; (use-package yasnippet-snippets
-  ;;   :ensure t
-  ;;   :pin manual
-  ;;   :after yasnippet
-  ;;   :config
-  ;;   (yasnippet-snippets-initialize))
+  (use-package yasnippet-snippets
+    :ensure t
+    :pin manual
+    :after yasnippet
+    :config
+    (yasnippet-snippets-initialize))
 #+END_SRC
 
 ** flycheck
