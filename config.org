@@ -911,17 +911,17 @@ Quicker than using ~C-DEL~ and backspace.
 *** Kill region or word
 If the region is active still kills region, if it is not kills word at point.
 #+BEGIN_SRC emacs-lisp
-  (defun backward-kill-word-or-region (&optional arg)
+  (defun backward-kill-char-or-region (&optional arg)
     "Calls `kill-region' when a region is active and
-  `backward-kill-word' otherwise. ARG is passed to
-  `backward-kill-word' if no region is active."
+  `backward-delete-char' otherwise. ARG is passed to
+  `backward-delete-char' if no region is active."
     (interactive "p")
     (if (region-active-p)
         ;; call interactively so kill-region handles rectangular selection
         ;; correctly (see https://github.com/syl20bnr/spacemacs/issues/3278)
         (call-interactively #'kill-region)
-      (backward-kill-word arg)))
-  (global-set-key (kbd "C-w") 'backward-kill-word-or-region)
+      (backward-delete-char arg)))
+  (global-set-key (kbd "C-w") 'backward-kill-char-or-region)
 #+END_SRC
 
 *** Zapping to char
