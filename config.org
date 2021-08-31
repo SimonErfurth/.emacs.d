@@ -2001,8 +2001,9 @@ Locate my default org directory, and default notes file.
 #+BEGIN_SRC emacs-lisp
   (define-key org-mode-map (kbd "C-c '") 'org-edit-src-code)
   (define-key org-mode-map (kbd "C-c w") 'org-insert-structure-template)
-  (define-key org-mode-map (kbd "C-c l") 'org-latex-preview)
+  (define-key org-mode-map (kbd "C-c l") 'org-toggle-latex-fragment)
 #+END_SRC
+
 
 ** org-table
 Minor mode for editing org-tables in other major modes, and org-keybindings for inserting columns and rows.
