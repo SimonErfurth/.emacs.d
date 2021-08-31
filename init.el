@@ -22,6 +22,7 @@
 (setq package-enable-at-startup nil)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org"   . "https://orgmode.org/elpa/") t)
 ;;; remove SC if you are not using sunrise commander and org if you like outdated packages
 ;; (setq package-archives '(("ELPA"  . "http://tromey.com/elpa/")
 ;;                          ("gnu"   . "http://elpa.gnu.org/packages/")
