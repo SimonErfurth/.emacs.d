@@ -110,9 +110,9 @@
 \begin{spacing}{1.15}
 
 $0
-`(copy-file "~/ss-config/emacs/SDUlogo.pdf" "SDUlogo.pdf")`
-`(copy-file "~/ss-config/emacs/SDUinline.png" "SDUinline.png")`
-`(copy-file "~/ss-config/emacs/math.bib" "math.bib")`
+`(copy-file "~/kms-config/emacs/SDUlogo.pdf" "SDUlogo.pdf")`
+`(copy-file "~/kms-config/emacs/SDUinline.png" "SDUinline.png")`
+`(copy-file "~/kms-config/emacs/math.bib" "math.bib")`
 \vspace{1cm}
 \printbibliography
 

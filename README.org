@@ -1546,7 +1546,7 @@ Bibtex, and auto complete for bibtex.
     :ensure t
     :after company
     :config
-    (setq company-bibtex-bibliography "~/ss-config/emacs/math.bib"
+    (setq company-bibtex-bibliography "~/kms-config/emacs/math.bib"
           company-bibtex-org-citation-regex "-?@")
     (add-to-list 'company-backends 'company-bibtex))
 #+END_SRC
