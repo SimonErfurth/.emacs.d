@@ -781,7 +781,8 @@ Quick keybinding to get to ~list-packages~.
 #+END_SRC
 
 *** scrolling
-I don't know to be honest, but this little bit of code makes scrolling with Emacs a lot nicer.
+I don't know how to be honest, but apparently this little bit of code makes
+scrolling with Emacs a lot nicer.
 #+BEGIN_SRC emacs-lisp
   (setq scroll-conservatively 100
         auto-window-vscroll nil)
@@ -890,7 +891,8 @@ Inspired by iy, but using ivy so it should do just what i want.
                              (car bounds)
                              (cdr bounds))))))
 #+end_src
-TODO Find out why this is broken.
+TODO: Find out why this is broken.
+
 * Text manipulation
 ** Killing
 *** Kill a line
@@ -986,6 +988,15 @@ Inspired by Atom and Sublime, does exactly what one would expect it to.
     (global-unset-key (kbd "M-<down-mouse-1>"))
     (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click))
 #+END_SRC
+
+*** expand-region
+Expands progressively larger and larger logical units with repeat presses.
+#+begin_src emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind (("C-=" . er/expand-region)
+           ("C-+" . er/contract-region)))
+#+end_src
 
 *** indent and untabify buffer
 #+begin_src emacs-lisp
@@ -2173,4 +2184,4 @@ the first letter of the course name.
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
 
-TODO: expand-region, bind to C-=
+TODO: Make duplicate line end at the same point in the line as it started
