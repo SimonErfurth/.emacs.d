@@ -1083,10 +1083,11 @@ Homemade function  for duplicating line
     "Duplicates the current line on the line below this one. 
   Follows the line down."
     (interactive)
-    (end-of-line)
-    (newline-and-indent)
-    (copy-from-above-command))
-
+    (save-excursion
+      (end-of-line)
+      (newline)
+      (copy-from-above-command)))
+  
   (global-set-key (kbd "H-d") 'sse/duplicate-line-below)
 #+end_src
 
@@ -2183,5 +2184,3 @@ the first letter of the course name.
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
-
-TODO: Make duplicate line end at the same point in the line as it started
