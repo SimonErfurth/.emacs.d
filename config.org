@@ -1212,7 +1212,7 @@ any mode, but rather turned on (and off) when needed.
     :bind (("H-c l" . langtool-check)
            ("H-c d" . langtool-check-done))
     :config
-    (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*"
+    (setq langtool-language-tool-jar "~/LanguageTool-5.4/languagetool-commandline.jar"
           langtool-default-language "en-GB"
           langtool-mother-tongue "da"
           langtool-disabled-rules '("WHITESPACE_RULE"
@@ -2075,7 +2075,11 @@ Here is how we add more of them!
             ("" "minted" t))))
 #+END_SRC
 
+** Presentations in Org
+We use two different ways, one simple and one not so simple. 
 *** RevealJS
+This can give some very nice presentations, but can also be a but fiddily to
+work with. It is an export, so it can be found under ~C-c C-e~.
 #+BEGIN_SRC emacs-lisp
   (use-package ox-reveal
     :after ox
@@ -2085,9 +2089,17 @@ Here is how we add more of them!
           org-reveal-theme "moon"
           org-reveal-default-frag-style "roll-in"))
 #+END_SRC
+*** org-tree-slide
+Very nive way to use narrow to present an org document, based on its tree
+structure. Invoke the ~org-tree-slide-mode~ minor-mode to start a presentation,
+use ~C->~ and ~C-<~ to naviagte it, and ~C-x s c~ to go to an outline.
+#+begin_src emacs-lisp
+(use-package org-tree-slide
+   :ensure t)
+#+end_src
 
 ** Org-noter 
-A fantastic way to make notes to a pdf file. I should use this more.
+A way to make notes to a pdf file. I should use this more.
 #+BEGIN_SRC emacs-lisp
   (use-package org-noter
     :ensure t)
@@ -2160,3 +2172,5 @@ the first letter of the course name.
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
+
+TODO: expand-region, bind to C-=
