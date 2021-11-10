@@ -2119,6 +2119,9 @@ use ~C->~ and ~C-<~ to naviagte it, and ~C-x s c~ to go to an outline.
       (interactive)
       (beacon-mode 0)
       (read-only-mode 1)
+      (blink-cursor-mode 0)
+      (flyspell-mode 0)
+      (flyspell-delete-all-overlays)
       (org-tree-slide-mode 1)
       (text-scale-increase 3))
     (defun sse-org-tree-slide-stop ()
@@ -2126,6 +2129,8 @@ use ~C->~ and ~C-<~ to naviagte it, and ~C-x s c~ to go to an outline.
       (interactive)
       (beacon-mode 1)
       (read-only-mode 0)
+      (blink-cursor-mode 1)
+      (flyspell-mode 1)
       (text-scale-increase 0)
       (org-tree-slide-mode 0)))
 #+end_src
