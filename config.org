@@ -2101,13 +2101,33 @@ work with. It is an export, so it can be found under ~C-c C-e~.
           org-reveal-theme "moon"
           org-reveal-default-frag-style "roll-in"))
 #+END_SRC
+
 *** org-tree-slide
 Very nive way to use narrow to present an org document, based on its tree
 structure. Invoke the ~org-tree-slide-mode~ minor-mode to start a presentation,
 use ~C->~ and ~C-<~ to naviagte it, and ~C-x s c~ to go to an outline.
 #+begin_src emacs-lisp
-(use-package org-tree-slide
-   :ensure t)
+  (use-package org-tree-slide
+    :ensure t
+    :bind (:map org-tree-slide-mode-map
+                ("q" . sse-org-tree-slide-stop)
+                ("n" . org-tree-slide-move-next-tree)
+                ("p" . org-tree-slide-move-previous-tree))
+    :config
+    (defun sse-org-tree-slide-start ()
+      "Disables beacon-mode, enables read-only-mode, zooms in and start a presentation"
+      (interactive)
+      (beacon-mode 0)
+      (read-only-mode 1)
+      (org-tree-slide-mode 1)
+      (text-scale-increase 3))
+    (defun sse-org-tree-slide-stop ()
+      "Undo sse-org-tree-slide-start"
+      (interactive)
+      (beacon-mode 1)
+      (read-only-mode 0)
+      (text-scale-increase 0)
+      (org-tree-slide-mode 0)))
 #+end_src
 
 ** Org-noter 
