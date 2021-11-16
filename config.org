@@ -789,14 +789,11 @@ scrolling with Emacs a lot nicer.
 #+END_SRC
 
 *** swiper/swoop
-I like me some searching, the default search is very meh. In Emacs, you mostly
-use search to get around your buffer, much like with avy, but sometimes it
-doesn't hurt to search for entire words or mode, swiper makes sure this is more
-efficient.
+While the default search definitly has its advantages, espeically in larger
+files, it can oftentimes be advantageous to see all occurences. This is where
+swoop come in, a very efficient way to see all occurences in a buffer, with some
+context. Search over multiple lines using a prefix.
 
-For now I am trying out swoop-helm, which does a lot of the same stuff (with how
-I use it), and is a bit faster than swiper-helm, doesn't load ivy, and have the
-ability to work on multiple lines with a prefix.
 #+BEGIN_SRC emacs-lisp
   (use-package helm-swoop
     :ensure t
