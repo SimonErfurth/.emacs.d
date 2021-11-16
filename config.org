@@ -800,7 +800,7 @@ ability to work on multiple lines with a prefix.
 #+BEGIN_SRC emacs-lisp
   (use-package helm-swoop
     :ensure t
-    :bind ("C-s" . 'helm-swoop-without-pre-input)
+    :bind ("C-M-s" . 'helm-swoop-without-pre-input)
     :config
     (setq helm-swoop-speed-or-color t)
     (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
@@ -836,16 +836,15 @@ Allows us to highlight a symbol with one click (if the mode is active). Further
 #+end_src
 
 *** avy
-Many times have I pondered how I can move around buffers even quicker.
-I'm glad to say, that avy is precisely what I needed, and it's
-precisely what you need as well.  In short, as you invoke one of avy's
-functions, you will be prompted for a character that you'd like to
-jump to in the /visible portion of the current buffer/.  Afterwards
-you will notice how all instances of said character have additional
-letter on top of them.  Pressing those letters, that are next to your
-desired character will move your cursor over there.  Admittedly, this
-sounds overly complicated and complex, but in reality takes a split
-second and improves your life tremendously.
+Many times have I pondered how I can move around buffers even quicker. I'm glad
+to say, that avy is precisely what I needed, and it's precisely what you need as
+well. In short, as you invoke one of avy's functions, you will be prompted for a
+character that you'd like to jump to in the /visible portion of the current
+buffer/. Afterwards you will notice how all instances of said character have
+additional letter on top of them. Pressing those letters, that are next to your
+desired character will move your cursor over there. Admittedly, this sounds
+overly complicated and complex, but in reality takes a split second and improves
+your life tremendously.
 
 I like =M-s= for it, same as =C-s= is for moving by searching string,
 now =M-s= is moving by searching characters.
@@ -854,8 +853,7 @@ now =M-s= is moving by searching characters.
     :ensure t
     :bind
     (("M-s" . avy-goto-char-timer)
-     ("C-M-s" . avy-goto-word-or-subword-1)
-     ("M-H-s" . avy-goto-char-in-line)))
+     ("M-H-s" . avy-goto-word-or-subword-1)))
 
   (defhydra hydra-avy (:exit t :hint nil)
     "
