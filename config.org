@@ -1234,11 +1234,19 @@ leaving Emacs or even your current buffer!
   (use-package powerthesaurus
     :ensure t
     :bind ("H-Z" . powerthesaurus-lookup-word-dwim))
-
+  
   (use-package define-word
     :ensure t
-    :bind ("H-z" . define-word-at-point))
+    :bind ("H-z" . define-word-at-point)
+    :config
+    (setq define-word-default-service 'wordnik)
+    (defun url-http-user-agent-string ()
+      "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36
+  "))
 #+end_src
+There seems to be some problems with accessing wordnik, which can be fixed by
+spoofing the user agent string.
+https://github.com/abo-abo/define-word/issues/31
 
 ** lorem-ipsum
 Just a quick way to insert sample text
