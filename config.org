@@ -369,9 +369,8 @@ so here we go
 
 ** Spaceline!
 I may not use spacemacs anymore, since I do not like evil-mode and find
-spacemacs incredibly bloated and slow, however it would be stupid not to
-acknowledge the best parts about it, the theme and their modified powerline
-setup.
+spacemacs incredibly slow, however it would be stupid not to acknowledge the
+best parts about it; their modified powerline setup.
 
 This enables spaceline, it looks better and works very well with my theme of
 choice.
@@ -725,7 +724,8 @@ And neotree for a nice, tree-style directory structure.
           neo-smart-open t
           neo-theme 'icons)
     :bind
-    ("H-t" . neotree-toggle))
+    (("H-t" . neotree-toggle)
+     :map neotree-mode-map ("b" . 'neotree-select-up-node)))
 #+END_SRC
 
 Further we use ~C-x C-v~ to open a file in other window.
@@ -1393,7 +1393,7 @@ Loads company-mode, and adds yas-snippets to them
           ("C-n" . company-select-next)
           ("C-p" . company-select-previous))
     :config
-    (setq company-idle-delay 0.1
+    (setq company-idle-delay 0
           company-show-numbers t
           company-minimum-prefix-length 1
           company-tooltip-align-annotations t
@@ -2212,3 +2212,6 @@ the first letter of the course name.
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
 #+end_src
+
+* todo
+TODO: Adapt programming modes to be LSP based. https://github.com/emacs-lsp/lsp-mode
