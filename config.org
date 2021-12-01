@@ -753,12 +753,6 @@ You can also manually invoke =config-reload=.
   (global-set-key (kbd "M-m c r") 'config-reload)
 #+END_SRC
 
-*** list-packages
-Quick keybinding to get to ~list-packages~.
-#+begin_src emacs-lisp
-  (global-set-key (kbd "M-m p") 'list-packages)
-#+end_src
-
 ** Text in a buffer
 *** Moving around with hyper
 #+BEGIN_SRC emacs-lisp
@@ -2150,7 +2144,6 @@ Using the package 'emojify' we add support for emojis in org-mode.
 #+begin_src emacs-lisp
   (use-package emojify
     :ensure t
-    :defer t
     :config
     (add-hook 'org-mode-hook 'emojify-mode))
 #+end_src
