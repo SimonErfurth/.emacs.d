@@ -1,8 +1,9 @@
 #key : lest
-#name : LaTeX Excersize Sheet Template
+#name : LaTeX Extensive and Systematic Template
 #contributor: Simon Erfurth
 # --
 \documentclass[a4paper]{article}
+% \usepackage[danish]{babel} 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[backend=bibtex,citestyle=authoryear,bibstyle=authoryear,sorting=nyt]{biblatex}
@@ -102,7 +103,7 @@
 \thispagestyle{empty}
 \vspace*{\fill}
 \begin{center}
-\includegraphics[width=1.05\textwidth]{SDUlogo}
+\includegraphics[width=.9\textwidth]{SDUlogo}
 \end{center}
 
 \newpage

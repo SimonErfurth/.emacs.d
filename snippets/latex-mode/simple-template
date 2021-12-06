@@ -1,0 +1,86 @@
+#key : short
+#name : Short/Letter-like template
+#contributor: Simon Erfurth
+# --
+\documentclass[a4paper]{article}
+% \usepackage[danish]{babel} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[backend=bibtex,citestyle=authoryear,bibstyle=authoryear,sorting=nyt]{biblatex}
+\bibliography{math}
+\usepackage[intlimits,sumlimits,uprightgreeks]{kpfonts}
+\usepackage{fancyhdr,lastpage,setspace,graphicx,amsmath,amsfonts,mathtools}
+\mathtoolsset{showonlyrefs}
+\pagestyle{fancy}
+\setlength{\headheight}{30pt}
+\allowdisplaybreaks
+\usepackage[section]{placeins}
+\numberwithin{equation}{section}
+\usepackage[tracking=true,kerning=true,spacing=true]{microtype}
+\usepackage[unicode=true]{hyperref} % hidelinks
+\urlstyle{sf}
+\usepackage[nodayofweek]{datetime}
+\usepackage[english=british]{csquotes}
+\usepackage[usenames]{color}
+\usepackage[hang,flushmargin]{footmisc} 
+%\usepackage{pdfpages}
+
+\setcounter{MaxMatrixCols}{20}
+
+\renewcommand{\d}[1]{\ensuremath{\operatorname{d}\!{#1}}}
+\renewcommand{\epsilon}[0]{\varepsilon}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\NN}[0]{\mathbb{N}}
+\newcommand{\ZZ}[0]{\mathbb{Z}}
+\newcommand{\QQ}[0]{\mathbb{Q}}
+\newcommand{\RR}[0]{\mathbb{R}}
+\newcommand{\CC}[0]{\mathbb{C}}
+\newcommand{\FF}[0]{\mathbb{F}}
+\newcommand{\MM}[0]{\mathbb{M}}
+\newcommand{\F}[0]{\mathscr{F}}
+\newcommand{\cl}[1]{\mathcal{#1}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\scr}[1]{\mathscr{#1}}
+
+% Reduce the sizing around aligns
+\usepackage{etoolbox}
+\newcommand{\zerodisplayskips}{%
+  \setlength{\abovedisplayskip}{5pt}%
+  \setlength{\belowdisplayskip}{5pt}%
+  \setlength{\abovedisplayshortskip}{5pt}%
+  \setlength{\belowdisplayshortskip}{5pt}}
+\appto{\normalsize}{\zerodisplayskips}
+\appto{\small}{\zerodisplayskips}
+\appto{\footnotesize}{\zerodisplayskips}
+
+
+\newdate{written}{`(format-time-string "%d")`}{`(format-time-string "%m")`}{`(format-time-string "%Y")`}
+
+\begin{document}
+\begin{singlespacing}
+
+\lhead{Title}
+\chead{}
+\rhead{Simon Erfurth, \ddmmyydate\displaydate{written}}
+\lfoot{SDU\includegraphics[height=1.8ex]{SDUinline}}
+\cfoot{}
+\rfoot{\thepage{} (\pageref{LastPage})}
+
+  \thispagestyle{empty}
+  \vspace*{-2cm}
+  \noindent \includegraphics[width=.5\textwidth]{IMADAlogo}\\[2cm]
+  \noindent {\LARGE\bf Title}\\[.25cm]
+  {\Large Simon Erfurth}\\[.25cm]
+  {\Large \displaydate{written}}\\[1cm]
+  
+\end{singlespacing}
+\begin{spacing}{1.15}\noindent
+$0
+`(copy-file "~/kms-config/emacs/SDUlogo.pdf" "SDUlogo.pdf")`
+`(copy-file "~/kms-config/emacs/SDUinline.png" "SDUinline.png")`
+`(copy-file "~/kms-config/emacs/math.bib" "math.bib")`
+\vspace{1cm}
+\printbibliography
+
+\end{spacing}
+\end{document}
