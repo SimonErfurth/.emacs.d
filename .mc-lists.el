@@ -18,6 +18,7 @@
         indent-for-tab-command
         org-cdlatex-math-modify
         org-self-insert-command
+        org-yank
         ))
 
 (setq mc/cmds-to-run-once

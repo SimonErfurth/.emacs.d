@@ -1611,6 +1611,21 @@ Because why not! Makes the config files for i3 more readable.
     :ensure t)
 #+end_src
 
+*** json
+Lightweight mode, that mainly just adds some highlighting on top of js-mode. 
+
+A few cool keybindings;
+- C-c C-f :: Format region/buffer https://github.com/gongo/json-reformat
+- C-c P :: copy a path to the object at point to the kill ring with json-snatcher
+- C-c C-k :: replace the sexp at point with null
+- C-c C-i/C-d :: Increment/decrement number at point
+- C-c C-t :: toggle between true and false at point
+
+#+begin_src emacs-lisp
+  (use-package "json-mode"
+    :ensure t)
+#+end_src
+
 * LaTeX
 Loads everything we need to make Emacs the very best LaTeX editor.
 
