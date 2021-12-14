@@ -89,9 +89,9 @@
 \begin{document}
 \begin{singlespacing}
 
-\lhead{MM666 \\\\ Ex. week 42}
+\lhead{Title}
 \chead{}
-\rhead{\ddmmyydate\displaydate{due} \\\\ Simon Erfurth}
+\rhead{Simon Erfurth, \ddmmyydate\displaydate{due}}
 \lfoot{SDU\includegraphics[height=1.8ex]{SDUinline}}
 \cfoot{}
 \rfoot{Page \thepage{} of \pageref{LastPage}}
