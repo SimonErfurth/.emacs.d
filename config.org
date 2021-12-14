@@ -2210,10 +2210,12 @@ the first letter of the course name.
 #+begin_src emacs-lisp
   (defhydra hydra-open (:hint nil :exit t)
     "open"
+    ("m" (find-file "~/Dropbox/PhD/notes/meetings.org") "Meetings")
+    ("a" (find-file "~/Dropbox/PhD/notes/administration.org") "Administration")
+    ("a" (find-file "~/Dropbox/PhD/notes/notes.org") "PhD Notes")
+    ("H-a" (find-file "~/Dropbox/PhD/articles/articles.org") "Articles")
     ("s" (find-file "~/Dropbox/Scientific Assistent/notes/notes.org") "Scientific Assistant Notes")
-    ("q" (find-file "~/Dropbox/speciale/quantum/notes.org") "Quantum Notes")
     ("t" (find-file "~/Dropbox/speciale/thesis/thesis.tex") "Thesis")
-    ("a" (dired "~/Dropbox/speciale/articles/") "Articles")
     ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")
     ("b" (dired "~/Dropbox/TA/") "TA")
     ("n" (find-file "~/Dropbox/Div/DivNotes.org") "Notes")
