@@ -297,7 +297,8 @@ you may think.
     :ensure t
     :bind ("M-m m r" . rainbow-mode)
     :config
-    (add-hook 'LaTeX-mode-hook 'rainbow-mode))
+    (add-hook 'LaTeX-mode-hook 'rainbow-mode)
+    (add-hook 'js2-mode-hook 'rainbow-mode))
 #+END_SRC
 
 ** Show parens
@@ -401,6 +402,7 @@ This makes sure that everything can be a project.
     :ensure t
     :init
     (setq projectile-completion-system 'helm
+          projectile-sort-order 'modification-time
           projectile-keymap-prefix (kbd "C-z")
           projectile-mode-line-lighter ""
           projectile-mode-line
@@ -1624,6 +1626,14 @@ A few cool keybindings;
 #+begin_src emacs-lisp
   (use-package "json-mode"
     :ensure t)
+#+end_src
+
+*** Java Script
+js2-mode is a better version of the js-mode included with emacs.
+#+begin_src emacs-lisp
+  (use-package js2-mode
+    :ensure t
+    :mode ("\\.js\\'" . js2-mode))
 #+end_src
 
 * LaTeX
