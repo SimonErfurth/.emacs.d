@@ -2109,6 +2109,12 @@ Here is how we add more of them!
             ("" "minted" t))))
 #+END_SRC
 
+*** html
+The following removes the 'validate' button from the exported page.
+#+begin_src emacs-lisp
+  (setq org-html-validation-link nil)
+#+end_src
+
 ** Presentations in Org
 We use two different ways, one simple and one not so simple. 
 *** RevealJS
