@@ -823,9 +823,11 @@ Allows us to highlight a symbol with one click (if the mode is active). Further
            ("M-m m H" . highlight-symbol-nav-mode)
            ("C-M-;" . highlight-symbol-at-point)
            ("C-M-<right>" . highlight-symbol-next)
-           ("C-M-<left>" . highlight-symbol-prev)))
-    (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
-    (add-hook 'text-mode-hook 'highlight-symbol-nav-mode)
+           ("C-M-<left>" . highlight-symbol-prev))
+    :config
+    (setq highlight-symbol-idle-delay 0.5))
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
+  (add-hook 'text-mode-hook 'highlight-symbol-nav-mode)
 #+end_src
 
 *** avy
@@ -1356,7 +1358,7 @@ snippets. Binds ~M-m y s~ to show a table of active snippets.
     :ensure t
     :diminish (yas-minor-mode "Y")
     :bind (("M-<SPC>" . yas-expand)
-           ("M-m y s" . yas-describe-tables))
+           ("M-m y t" . yas-describe-tables))
     :config
     (yas-reload-all)
     (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))

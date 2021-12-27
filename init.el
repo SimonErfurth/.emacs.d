@@ -66,7 +66,7 @@
  '(git-gutter:hide-gutter t)
  '(git-gutter:update-interval 2)
  '(helm-ff-lynx-style-map t)
- '(helm-imenu-lynx-style-map t)
+ '(helm-imenu-lynx-style-map t t)
  '(helm-occur-use-ioccur-style-keys t)
  '(hippie-expand-try-functions-list
    (quote
@@ -108,7 +108,7 @@
      ("v" . "verse"))))
  '(package-selected-packages
    (quote
-    (js2-mode json-mode org-tree-slide embark marginalia elpy org pdf-tools org-pdftools memory-usage i3wm-config-mode bufler goto-chg emojify lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package)))
+    (lsp-ltex lsp-ui company-lsp lsp-mode js2-mode json-mode org-tree-slide embark marginalia elpy org pdf-tools org-pdftools memory-usage i3wm-config-mode bufler goto-chg emojify lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package)))
  '(use-file-dialog nil)
  '(visual-line-fringe-indicators (quote (left-curly-arrow nil))))
 (custom-set-faces
