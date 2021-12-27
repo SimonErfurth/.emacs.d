@@ -1408,6 +1408,24 @@ Loads company-mode, and adds yas-snippets to them
     (company-quickhelp-mode))
 #+END_SRC
 
+** lsp
+Language Server Protocol. The new and cool way!
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :hook ((js2-mode . lsp)
+           (lsp-mode . (lambda ()
+                         (let ((lsp-keymap-prefix "H-SPC"))
+                           (lsp-enable-which-key-integration)))))
+    :config (define-key lsp-mode-map (kbd "H-SPC") lsp-command-map)
+    :commands lsp)
+  
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode)
+#+end_src
+
 ** specific languages
 Be it for code or prose, completion is a must. After messing around with
 =auto-completion= for a while I decided to drop it in favor of =company=, and it
@@ -1632,10 +1650,24 @@ A few cool keybindings;
 
 *** Java Script
 js2-mode is a better version of the js-mode included with emacs.
+
+Additionally, we use the lsp server '
 #+begin_src emacs-lisp
   (use-package js2-mode
     :ensure t
     :mode ("\\.js\\'" . js2-mode))
+#+end_src
+
+**** yasnippet
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'js2-mode-hook 'yas-minor-mode)
+#+END_SRC
+
+*** html
+So far the default MHTML mode is perfectly sufficient for me.
+**** yasnippet
+#+begin_src emacs-lisp
+  (add-hook 'html-mode-hook 'yas-minor-mode)
 #+end_src
 
 * LaTeX
