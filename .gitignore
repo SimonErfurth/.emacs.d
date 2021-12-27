@@ -31,3 +31,5 @@ xkcd/*
 /projectile.cache
 /elpy/
 /games/
+/.cache/
+/.lsp-session-v1
