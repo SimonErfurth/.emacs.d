@@ -2213,6 +2213,18 @@ Using the package 'emojify' we add support for emojis in org-mode.
     (add-hook 'org-mode-hook 'emojify-mode))
 #+end_src
 
+** agenda+roam
+Add all relevant org files to org-agenda.
+#+begin_src emacs-lisp
+(setq org-agenda-files '("~/Dropbox/PhD/notes/meetings.org" "~/Dropbox/PhD/notes/administration.org" "~/Dropbox/PhD/notes/notes.org" "~/Dropbox/PhD/articles/articles.org" "~/Dropbox/Div/DivNotes.org"))
+#+end_src
+and bind ~C-c a~ to ~org-agenda~
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c a") 'org-agenda)
+#+end_src
+
+For now the home directory is set to note
+
 * xkcd
 Emacs can do everything!
 |---------+--------------------------------|
