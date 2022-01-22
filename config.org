@@ -1257,8 +1257,7 @@ Just a quick way to insert sample text
 #+end_src
 
 ** outshine
-An =org-mode= like way to fold code. For now this will only be configured with
-=LaTeX-mode= to allow us to fold sections and environments.
+An =org-mode= like way to fold code.
 #+begin_src emacs-lisp
   (use-package outshine
     :ensure t
@@ -1665,6 +1664,10 @@ Additionally, we use the lsp server '
 
 *** html
 So far the default MHTML mode is perfectly sufficient for me.
+#+begin_src emacs-lisp
+  (add-hook 'html-mode-hook 'rainbow-mode)
+#+end_src
+
 **** yasnippet
 #+begin_src emacs-lisp
   (add-hook 'html-mode-hook 'yas-minor-mode)
@@ -2283,6 +2286,25 @@ the first letter of the course name.
     ("n" (find-file "~/Dropbox/Div/DivNotes.org") "Notes")
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
+#+end_src
+
+* emacs everywhere
+Tired of writing text in other applications? Finding that you press ~C-w~ way
+too often in your webbrowser? The solution is here! emacs_anywhere allows you to
+start an emacs windows with the press of a button, and when you are done simply
+press ~C-c C-c~, and the input is automagically inserted into the window where
+it was started from.
+
+Depends on ~xclip~, ~xdotool~, ~xprop~, and ~xwininfo~.
+
+Personally I bind ~emacsclient --eval "(emacs-everywhere)"~ to ~s-.~, but use
+whatever works for you.
+
+https://github.com/tecosaur/emacs-everywhere
+
+#+begin_src emacs-lisp
+  (use-package emacs-everywhere
+    :ensure t)
 #+end_src
 
 * todo
