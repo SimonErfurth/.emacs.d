@@ -2057,9 +2057,6 @@ Those are all rather self-explanatory.
         org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
-
-  ;; Make org-tempo allows us to use <% to insert blocks.
-  (use-package org-tempo)
 #+END_SRC
 
 Locate my default org directory, and default notes file.

@@ -95,17 +95,44 @@
      ("" "minted" t nil))))
  '(org-structure-template-alist
    (quote
-    (("el" . "src emacs-lisp")
-     ("a" . "export ascii")
-     ("c" . "center")
-     ("C" . "comment")
-     ("e" . "example")
-     ("E" . "export")
-     ("h" . "export html")
-     ("l" . "export latex")
-     ("q" . "quote")
-     ("s" . "src")
-     ("v" . "verse"))))
+    (("s" "#+BEGIN_SRC ?
+
+#+END_SRC")
+     ("e" "#+BEGIN_EXAMPLE
+?
+#+END_EXAMPLE")
+     ("q" "#+BEGIN_QUOTE
+?
+#+END_QUOTE")
+     ("v" "#+BEGIN_VERSE
+?
+#+END_VERSE")
+     ("V" "#+BEGIN_VERBATIM
+?
+#+END_VERBATIM")
+     ("c" "#+BEGIN_CENTER
+?
+#+END_CENTER")
+     ("C" "#+BEGIN_COMMENT
+?
+#+END_COMMENT")
+     ("l" "#+BEGIN_EXPORT latex
+?
+#+END_EXPORT")
+     ("L" "#+LaTeX: ")
+     ("h" "#+BEGIN_EXPORT html
+?
+#+END_EXPORT")
+     ("H" "#+HTML: ")
+     ("a" "#+BEGIN_EXPORT ascii
+?
+#+END_EXPORT")
+     ("A" "#+ASCII: ")
+     ("i" "#+INDEX: ?")
+     ("I" "#+INCLUDE: %file ?")
+     ("el" "#+BEGIN_SRC emacs-lisp
+?
+#+END_SRC"))))
  '(package-selected-packages
    (quote
     (emacs-everywhere everywhere helm-navi lsp-ltex lsp-ui company-lsp lsp-mode js2-mode json-mode org-tree-slide embark marginalia elpy org pdf-tools org-pdftools memory-usage i3wm-config-mode bufler goto-chg emojify lorem-ipsum helm-config use-package-chords volatile-highlights ag hydra xkcd company-math git git-gutter diminish org-noter ox-reveal ox-twbs org-bullets htmlize sudo-edit magithub magit-todos magit company-bibtex auctex-latexmk cdlatex company-auctex auctex company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer company flycheck yasnippet-snippets yasnippet auto-dictionary zzz-to-char hungry-delete rainbow-delimiters rainbow-mode beacon multiple-cursors undo-tree expand-region avy swiper eyebrowse switch-window which-key ivy-historian historian spaceline winum dashboard projectile all-the-icons-dired restart-emacs async pretty-mode zerodark-theme use-package)))
