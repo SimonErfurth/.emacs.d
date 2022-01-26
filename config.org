@@ -24,6 +24,7 @@ So to sum up, the following need to be done manually.
               for me that is ~aspell-en~ and ~aspell-da~.
   - languagetool :: if we want to be able to check for more complex grammatical
                     errors. See https://languagetool.org/ and [[sec:langtool]]
+    - Note that ATM we are using a local binary located in ~/kms-config/.
   - pdftk :: for being able to rotate pdf's in pdf-view.
   - ag :: for searching with grep (we use ag instead).
   - clang :: for c/c++ completion.
@@ -31,7 +32,7 @@ So to sum up, the following need to be done manually.
   - virtualenv :: for python completion.
   - lua :: for obvious reasons.
 - From pip
-  - ~pip install jedi rope isort falke8 autopep8~
+  - ~pip install jedi rope isort flake8 autopep8~
 - Inside Emacs. Call the following:
   - ~all-the-icons-install-fonts~
 
@@ -1217,7 +1218,7 @@ any mode, but rather turned on (and off) when needed.
     :bind (("H-c l" . langtool-check)
            ("H-c d" . langtool-check-done))
     :config
-    (setq langtool-language-tool-jar "~/LanguageTool-5.4/languagetool-commandline.jar"
+    (setq langtool-language-tool-jar "~/kms-config/LanguageTool-5.4/languagetool-commandline.jar"
           langtool-default-language "en-GB"
           langtool-mother-tongue "da"
           langtool-disabled-rules '("WHITESPACE_RULE"
@@ -2306,3 +2307,4 @@ https://github.com/tecosaur/emacs-everywhere
 
 * todo
 TODO: Adapt programming modes to be LSP based. https://github.com/emacs-lsp/lsp-mode
+
