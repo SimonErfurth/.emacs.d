@@ -1658,6 +1658,22 @@ Additionally, we use the lsp server '
     :mode ("\\.js\\'" . js2-mode))
 #+end_src
 
+**** js2-refactor
+Not entirely sure how I've lived without this. Some of my particular facourites
+are
+| Name        | Keybinding | Description                                         |
+|-------------+------------+-----------------------------------------------------|
+| log-this    | lt         | Add log statement for what's at point               |
+| extract-let | el         | takes makred expression and replace with a variable |
+| rename-var  | rv         | Renames var i lexical scope                         |
+
+#+BEGIN_SRC emacs-lisp
+  (use-package js2-refactor
+    :ensure t
+    :hook (js2-mode . js2-refactor-mode)
+    :config (js2r-add-keybindings-with-prefix "H-r"))
+#+END_SRC
+
 **** yasnippet
 #+BEGIN_SRC emacs-lisp
   (add-hook 'js2-mode-hook 'yas-minor-mode)
