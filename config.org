@@ -1415,16 +1415,37 @@ Language Server Protocol. The new and cool way!
 #+begin_src emacs-lisp
   (use-package lsp-mode
     :ensure t
-    :hook ((js2-mode . lsp)
-           (lsp-mode . (lambda ()
-                         (let ((lsp-keymap-prefix "H-SPC"))
-                           (lsp-enable-which-key-integration)))))
-    :config (define-key lsp-mode-map (kbd "H-SPC") lsp-command-map)
-    :commands lsp)
-  
+    :init
+    (setq lsp-keymap-prefix "H-SPC")
+    :hook ((js2-mode . lsp-deferred)
+           (LaTeX-mode-hook . lsp-deferred))
+    :commands lsp
+    :config
+    (setq lsp-auto-guess-root t)
+    (setq lsp-log-io nil)
+    (setq lsp-restart 'auto-restart)
+    (setq lsp-enable-symbol-highlighting nil)
+    (setq lsp-enable-on-type-formatting nil)
+    (setq lsp-eldoc-hook nil)
+    (setq lsp-modeline-code-actions-enable nil)
+    (setq lsp-modeline-diagnostics-enable nil)
+    (setq lsp-headerline-breadcrumb-enable nil)
+    (setq lsp-semantic-tokens-enable nil)
+    (setq lsp-enable-folding nil)
+    (setq lsp-enable-imenu nil)
+    (setq lsp-enable-snippet nil)
+    (setq read-process-output-max (* 1024 1024)) ;; 1MB
+    (setq lsp-idle-delay 0.5))
+
   (use-package lsp-ui
     :ensure t
-    :commands lsp-ui-mode)
+    :commands lsp-ui-mode
+    :config
+    (setq lsp-ui-doc-header t)
+    (setq lsp-ui-doc-include-signature t)
+    (setq lsp-ui-doc-border (face-foreground 'default))
+    (setq lsp-ui-sideline-show-code-actions t)
+    (setq lsp-ui-sideline-delay 0.05))
 #+end_src
 
 ** specific languages
@@ -1548,6 +1569,7 @@ Requires libclang to be installed.
 #+begin_src emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
 #+end_src
+
 *** lua
 **** yasnippet
 #+BEGIN_SRC emacs-lisp
@@ -1652,7 +1674,7 @@ A few cool keybindings;
 *** Java Script
 js2-mode is a better version of the js-mode included with emacs.
 
-Additionally, we use the lsp server '
+Additionally, use the LSP server ~ts-ls~, which LSP can automagically install.
 #+begin_src emacs-lisp
   (use-package js2-mode
     :ensure t
@@ -1729,7 +1751,6 @@ We use ~texlab~ as out language server.
 
 #+BEGIN_SRC emacs-lisp
   (setq exec-path (append exec-path '("/home/erfurth/.cargo/bin")))
-  (add-hook 'LaTeX-mode-hook 'lsp)
 #+END_SRC
 
 ** COMMENT company-math
@@ -2333,6 +2354,4 @@ https://github.com/tecosaur/emacs-everywhere
     :ensure t)
 #+end_src
 
-* todo
-TODO: Adapt programming modes to be LSP based. https://github.com/emacs-lsp/lsp-mode
 
