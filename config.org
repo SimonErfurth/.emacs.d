@@ -25,6 +25,7 @@ So to sum up, the following need to be done manually.
   - languagetool :: if we want to be able to check for more complex grammatical
                     errors. See https://languagetool.org/ and [[sec:langtool]]
     - Note that ATM we are using a local binary located in ~/kms-config/.
+  - texlab :: We have to manually install a LSP-server for LaTeX https://github.com/latex-lsp/texlab
   - pdftk :: for being able to rotate pdf's in pdf-view.
   - ag :: for searching with grep (we use ag instead).
   - clang :: for c/c++ completion.
@@ -1723,7 +1724,15 @@ editor. Hold tight.
   (add-hook 'TeX-mode-hook 'aggressive-indent-mode)
 #+END_SRC
 
-** company-math
+** lsp
+We use ~texlab~ as out language server.
+
+#+BEGIN_SRC emacs-lisp
+  (setq exec-path (append exec-path '("/home/erfurth/.cargo/bin")))
+  (add-hook 'LaTeX-mode-hook 'lsp)
+#+END_SRC
+
+** COMMENT company-math
 Company backend for auctex
 #+begin_src emacs-lisp
   (use-package company-math
@@ -2086,7 +2095,7 @@ Locate my default org directory, and default notes file.
 #+BEGIN_SRC emacs-lisp
   (define-key org-mode-map (kbd "C-c '") 'org-edit-src-code)
   (define-key org-mode-map (kbd "C-c w") 'org-insert-structure-template)
-  (define-key org-mode-map (kbd "C-c l") 'org-latex-preview)
+  (define-key org-mode-map (kbd "C-c l") 'org-toggle-latex-fragment)
 #+END_SRC
 
 ** org-table
@@ -2294,9 +2303,10 @@ the first letter of the course name.
     ("p" (find-file "~/Dropbox/PhD/notes/notes.org") "PhD Notes")
     ("H-a" (find-file "~/Dropbox/PhD/articles/articles.org") "Articles")
     ("s" (find-file "~/Dropbox/Scientific Assistent/notes/notes.org") "Scientific Assistant Notes")
+    ("d" (find-file "~/Dropbox/PhD/Courses/DM803 - Advanced Data Structures/notes/DM803notes.org") "DM803 Notes")
     ;; ("t" (find-file "~/Dropbox/speciale/thesis/thesis.tex") "Thesis")
+    ("t" (dired "~/Dropbox/PhD/TA/") "TA")
     ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")
-    ("t" (dired "~/Dropbox/TA/") "TA")
     ("n" (find-file "~/Dropbox/Div/DivNotes.org") "Notes")
     ("RET" nil "done" :color blue))
   (global-set-key (kbd "H-v") 'hydra-open/body)
@@ -2313,6 +2323,8 @@ Depends on ~xclip~, ~xdotool~, ~xprop~, and ~xwininfo~.
 
 Personally I bind ~emacsclient --eval "(emacs-everywhere)"~ to ~s-.~, but use
 whatever works for you.
+
+You should also make sure that ~emacs --daemon~ runs on startup.
 
 https://github.com/tecosaur/emacs-everywhere
 
