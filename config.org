@@ -1417,8 +1417,8 @@ Language Server Protocol. The new and cool way!
     :ensure t
     :init
     (setq lsp-keymap-prefix "H-SPC")
-    :hook ((js2-mode . lsp-deferred)
-           (LaTeX-mode-hook . lsp-deferred))
+    :hook ((js2-mode . lsp)
+           (LaTeX-mode . lsp))
     :commands lsp
     :config
     (setq lsp-auto-guess-root t)
@@ -1499,13 +1499,11 @@ Requires libclang to be installed.
 
 *** python
 #+begin_src emacs-lisp
-  (use-package elpy
+  (use-package lsp-pyright
     :ensure t
-    :config
-    (elpy-enable)
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (add-hook 'elpy-mode-hook 'flycheck-mode))
+    :hook (python-mode . lsp))  ; or lsp-deferred
 #+end_src
+
 **** yasnippet
 #+BEGIN_SRC emacs-lisp
   (add-hook 'python-mode-hook 'yas-minor-mode)
@@ -1678,17 +1676,20 @@ Additionally, use the LSP server ~ts-ls~, which LSP can automagically install.
 #+begin_src emacs-lisp
   (use-package js2-mode
     :ensure t
-    :mode ("\\.js\\'" . js2-mode))
+    :mode ("\\.js\\'" . js2-mode)
+    ;; :hook (js2-mode . aggressive-indent-mode)
+    )
 #+end_src
 
 **** js2-refactor
 Not entirely sure how I've lived without this. Some of my particular facourites
 are
-| Name        | Keybinding | Description                                         |
-|-------------+------------+-----------------------------------------------------|
-| log-this    | lt         | Add log statement for what's at point               |
-| extract-let | el         | takes makred expression and replace with a variable |
-| rename-var  | rv         | Renames var i lexical scope                         |
+| Name                | Keybinding | Description                                         |
+|---------------------+------------+-----------------------------------------------------|
+| log-this            | lt         | Add log statement for what's at point               |
+| extract-let         | el         | takes makred expression and replace with a variable |
+| rename-var          | rv         | Renames var i lexical scope                         |
+| introduce-parameter | ip         | Changes expression to a parameter                   |
 
 #+BEGIN_SRC emacs-lisp
   (use-package js2-refactor

@@ -16,6 +16,7 @@
         hydra-multiple-cursors/mc/mark-next-like-this
         hydra-multiple-cursors/mc/mark-previous-like-this
         indent-for-tab-command
+        kill-visual-line
         org-cdlatex-math-modify
         org-self-insert-command
         org-yank
