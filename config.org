@@ -639,8 +639,9 @@ to let =M-n= work the same way.
 #+END_SRC
 
 *** dired, neotree and files
-Dired is the build in file navigator in Emacs, and it is pretty awesome, once
-one get it to work.
+Dired is the build in file navigator in Emacs, and it is pretty awesome, but its
+age might show. Here we give it some cosmetic life-assistance and create a hydra
+for easier discover-ability.
 
 #+BEGIN_SRC emacs-lisp
   ;; Keybindings 
@@ -655,6 +656,11 @@ one get it to work.
     :config
     (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
     (add-hook 'org-mode-hook 'turn-on-stripe-table-mode))
+
+  (use-package diredfl
+    :ensure t
+    :config
+    (diredfl-global-mode))
 
   (use-package dired-git-info
     :ensure t
