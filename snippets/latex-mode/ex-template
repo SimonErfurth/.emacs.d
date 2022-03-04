@@ -6,8 +6,8 @@
 % \usepackage[danish]{babel} 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[backend=bibtex,citestyle=authoryear,bibstyle=authoryear,sorting=nyt]{biblatex}
-\bibliography{math}
+\usepackage[backend=biber,sorting=anyt,style=alphabetic]{biblatex}
+\addbibresource{math.bib}
 \usepackage[intlimits,sumlimits,uprightgreeks]{kpfonts}
 \usepackage{fancyhdr,lastpage,setspace,graphicx,amsmath,amsfonts,mathtools}
 \mathtoolsset{showonlyrefs}
@@ -21,12 +21,14 @@
 \urlstyle{sf}
 \usepackage[nodayofweek]{datetime}
 \usepackage[english=british]{csquotes}
-\usepackage[usenames]{color}
 \usepackage[hang,flushmargin]{footmisc} 
 %\usepackage{pdfpages}
 
 \setcounter{MaxMatrixCols}{20}
 %\renewcommand\thesubsection{\thesection.\alph{subsection}}
+
+\usepackage{minted}
+\newminted{python}{linenos=true,frame=lines}
 
 \usepackage{amsthm}
 \usepackage{mdframed}
@@ -55,20 +57,11 @@
 \newcommand{\FF}[0]{\mathbb{F}}
 \newcommand{\MM}[0]{\mathbb{M}}
 \newcommand{\F}[0]{\mathscr{F}}
-\newcommand{\RRN}[0]{\mathbb{R}^n}
-\newcommand{\cl}[1]{\mathcal{#1}}
-\newcommand{\pw}[1]{^{#1}}
 \newcommand{\inv}{^{-1}}
+\newcommand{\cl}[1]{\mathcal{#1}}
 \newcommand{\bb}[1]{\mathbb{#1}}
 \newcommand{\scr}[1]{\mathscr{#1}}
-\newcommand{\sfinite}{$\sigma$-finite}
-\newcommand{\ideal}{\triangleleft}
-\newcommand{\calg}[0]{$C^{*}$-algebra}
 \DeclareMathOperator{\Span}{span}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\graph}{graph}
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Null}{null}
 \DeclareMathOperator{\rank}{rank}
 
@@ -96,8 +89,8 @@
 \cfoot{}
 \rfoot{Page \thepage{} of \pageref{LastPage}}
 
-\title{HW}
-\author{Simon S. Erfurth}
+\title{Title}
+\author{Simon Erfurth}
 \date{\displaydate{due}}
 \maketitle
 \thispagestyle{empty}
