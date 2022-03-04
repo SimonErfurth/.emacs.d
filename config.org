@@ -1204,11 +1204,11 @@ install ~aspell-en~ for this to work.
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
     :bind ("H-x" . ispell-word))
 
-  ;; (use-package auto-dictionary
-  ;;   :ensure t
-  ;;   :diminish (auto-dictionary-mode "")
-  ;;   :config
-  ;;   (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
+  (use-package auto-dictionary
+    :ensure t
+    :diminish (auto-dictionary-mode "")
+    :config
+    (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
 #+END_SRC
 
 *** languagetool
