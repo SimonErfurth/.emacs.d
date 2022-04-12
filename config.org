@@ -603,6 +603,12 @@ intelligent grouping, and the showing of VC state. See
     :bind ("C-x B" . bufler-switch-buffer))
 #+END_SRC
 
+**** revert-buffer
+Bind =revert-buffer= to =C-x g=.
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x g") 'revert-buffer)
+#+END_SRC
+
 *** eyebrowse
 A way to use multiple different work spaces. Default change is ~C-c C-w 1~ and
 ~C-c C-w 2~.
