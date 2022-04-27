@@ -7,6 +7,7 @@
         LaTeX-insert-left-brace
         TeX-insert-backslash
         back-to-indentation-or-beginning
+        backward-kill-char-or-region
         backward-kill-word-or-region
         downcase-region
         end-of-visual-line
@@ -18,11 +19,15 @@
         indent-for-tab-command
         kill-visual-line
         org-cdlatex-math-modify
+        org-end-of-line
         org-self-insert-command
         org-yank
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        ignore
+        lsp-ui-doc--handle-mouse-movement
         pdf-view-mouse-set-region
+        switch-window
         ))
