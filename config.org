@@ -2287,6 +2287,15 @@ and bind ~C-c a~ to ~org-agenda~
 
 For now the home directory is set to note
 
+** org-screenshot
+Allows us to attach a screenshot to an org-buffer. User a prefix to take a screenshot of the emacs windows it is called from.
+#+BEGIN_SRC emacs-lisp
+  (use-package org-attach-screenshot
+    :ensure t
+    :config 
+    (define-key org-mode-map (kbd "C-c s") 'org-attach-screenshot))
+#+END_SRC
+
 * xkcd
 Emacs can do everything!
 |---------+--------------------------------|
