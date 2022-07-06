@@ -1445,6 +1445,8 @@ Language Server Protocol. The new and cool way!
     (setq lsp-semantic-tokens-enable nil)
     (setq lsp-enable-folding nil)
     (setq lsp-enable-imenu nil)
+    (setq lsp-ui-imenu-buffer-position 'left)
+    (setq lsp-ui-imenu-auto-refresh t)
     (setq lsp-enable-snippet nil)
     (setq read-process-output-max (* 1024 1024)) ;; 1MB
     (setq lsp-idle-delay 0.5))

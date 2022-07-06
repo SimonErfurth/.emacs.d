@@ -26,8 +26,10 @@
 
 (setq mc/cmds-to-run-once
       '(
+        helm-M-x
         ignore
         lsp-ui-doc--handle-mouse-movement
+        org-export-dispatch
         pdf-view-mouse-set-region
         switch-window
         ))
