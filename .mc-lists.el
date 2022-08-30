@@ -29,6 +29,7 @@
         helm-M-x
         ignore
         lsp-ui-doc--handle-mouse-movement
+        mouse-set-region
         org-export-dispatch
         pdf-view-mouse-set-region
         switch-window

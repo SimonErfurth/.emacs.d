@@ -489,7 +489,17 @@ Completion framework that is used a lot.
           helm-scroll-amount 8 
           helm-echo-input-in-header-line t)
     (helm-mode 1)
-    (helm-autoresize-mode 1))
+    (helm-autoresize-mode 1)
+    ;; Custom function inspired by OP: https://www.reddit.com/r/emacs/comments/x0r0pe/share_your_otherwindow_commands/
+    (defun sse-switch-buffer-other-window ()
+      "In other window switch buffer using helm-buffers-list"
+      (interactive)
+      (let ((other (other-window-for-scrolling))
+            (current (selected-window)))
+        (select-window other)
+        (helm-buffers-list)
+        (select-window current)))
+    (global-set-key (kbd "C-x B") 'sse-switch-buffer-other-window))
 
   ;; DO NOT CHANGE THIS TO USE-PACKAGE! BREAKS!
   (require 'helm-config)
@@ -597,10 +607,6 @@ intelligent grouping, and the showing of VC state. See
   (use-package bufler
     :ensure t
     :bind ("C-x C-b" . bufler))
-
-  (use-package helm-bufler
-    :ensure t
-    :bind ("C-x B" . bufler-switch-buffer))
 #+END_SRC
 
 **** revert-buffer
@@ -1445,8 +1451,6 @@ Language Server Protocol. The new and cool way!
     (setq lsp-semantic-tokens-enable nil)
     (setq lsp-enable-folding nil)
     (setq lsp-enable-imenu nil)
-    (setq lsp-ui-imenu-buffer-position 'left)
-    (setq lsp-ui-imenu-auto-refresh t)
     (setq lsp-enable-snippet nil)
     (setq read-process-output-max (* 1024 1024)) ;; 1MB
     (setq lsp-idle-delay 0.5))
@@ -1454,12 +1458,15 @@ Language Server Protocol. The new and cool way!
   (use-package lsp-ui
     :ensure t
     :commands lsp-ui-mode
+    :bind ("C-c i" . lsp-ui-imenu)
     :config
     (setq lsp-ui-doc-header t)
     (setq lsp-ui-doc-include-signature t)
     (setq lsp-ui-doc-border (face-foreground 'default))
     (setq lsp-ui-sideline-show-code-actions t)
-    (setq lsp-ui-sideline-delay 0.05))
+    (setq lsp-ui-sideline-delay 0.05)
+    (setq lsp-ui-imenu-buffer-position 'left)
+    (setq lsp-ui-imenu-auto-refresh t))
 #+end_src
 
 ** specific languages

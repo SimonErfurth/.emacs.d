@@ -27,8 +27,8 @@
 \setcounter{MaxMatrixCols}{20}
 %\renewcommand\thesubsection{\thesection.\alph{subsection}}
 
-\usepackage{minted}
-\newminted{python}{linenos=true,frame=lines}
+%\usepackage{minted}
+%\newminted{python}{linenos=true,frame=lines}
 
 \usepackage{amsthm}
 \usepackage{mdframed}
@@ -76,24 +76,23 @@
 \appto{\small}{\zerodisplayskips}
 \appto{\footnotesize}{\zerodisplayskips}
 
-
-\newdate{due}{`(format-time-string "%d")`}{`(format-time-string "%m")`}{`(format-time-string "%Y")`}
-
-\begin{document}
-\begin{singlespacing}
+\newdate{deadline}{`(format-time-string "%d")`}{`(format-time-string "%m")`}{`(format-time-string "%Y")`}
 
 \lhead{Title}
 \chead{}
-\rhead{Simon Erfurth, \ddmmyydate\displaydate{due}}
+\rhead{Simon Erfurth, \ddmmyydate\displaydate{deadline}}
 \lfoot{SDU\includegraphics[height=1.8ex]{SDUinline}}
 \cfoot{}
 \rfoot{Page \thepage{} of \pageref{LastPage}}
 
 \title{Title}
 \author{Simon Erfurth}
-\date{\displaydate{due}}
-\maketitle
+\date{\displaydate{deadline}}
+
+\begin{document}
+\begin{singlespacing}
 \thispagestyle{empty}
+\maketitle
 \vspace*{\fill}
 \begin{center}
 \includegraphics[width=.9\textwidth]{SDUlogo}
