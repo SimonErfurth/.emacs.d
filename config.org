@@ -37,6 +37,8 @@ So to sum up, the following need to be done manually.
 - Inside Emacs. Call the following:
   - ~all-the-icons-install-fonts~
 
+Additionally, see email section for separate setup.
+
 ** Diminish
 Your modeline is sacred, and if you have a lot of modes enabled, as you will if
 you use this configuration, you might end up with a lot of clutter there, the
@@ -1288,6 +1290,25 @@ An =org-mode= like way to fold code.
   (global-set-key (kbd "M-m m o") 'outline-minor-mode)
 #+end_src
 
+** COMMENT file-info
+https://github.com/Artawower/file-info.el
+
+Requires a move from package.el to straight.el, or manual installation. 
+
+#+begin_src emacs-lisp
+(use-package browse-at-remote)
+(use-package file-info
+  :straight (:host github :repo "artawower/file-info.el")
+  :bind (("C-c d" . 'file-info-show))
+  :config
+  (setq hydra-hint-display-type 'posframe)
+  (setq hydra-posframe-show-params `(:poshandler posframe-poshandler-frame-center
+                                               :internal-border-width 2
+                                               :internal-border-color "#61AFEF"
+                                               :left-fringe 16
+                                               :right-fringe 16)))
+#+end_src
+
 * Kill ring
 ** Maximum entries on the ring
 The default is 60, I personally need more sometimes.
@@ -1755,7 +1776,8 @@ editor. Hold tight.
           TeX-clean-confirm nil
           TeX-master 'LatexMk
           TeX-command-default "LatexMk"
-          TeX-view-program-selection '((output-pdf "PDF Tools"))))
+          TeX-view-program-selection '((output-pdf "PDF Tools")))
+    (setq TeX-command-extra-options "-shell-escape"))
 
   (use-package auctex-latexmk
     :ensure t 
@@ -1766,6 +1788,9 @@ editor. Hold tight.
   (add-hook 'TeX-mode-hook 'yas-minor-mode)
   (add-hook 'TeX-mode-hook 'outline-minor-mode)
   (add-hook 'TeX-mode-hook 'aggressive-indent-mode)
+
+  (add-to-list 'safe-local-variable-values
+               '(LaTeX-command . "latex -shell-escape"))
 #+END_SRC
 
 ** lsp
@@ -2302,6 +2327,157 @@ Allows us to attach a screenshot to an org-buffer. User a prefix to take a scree
     :config 
     (define-key org-mode-map (kbd "C-c s") 'org-attach-screenshot))
 #+END_SRC
+
+* Email mu4e
+Currently using mu4e, only set up with Protonmail.
+
+- Dependencies are mbsync, mu, and protonmail bridge.
+- Some resources:
+ - https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/
+
+#+begin_src emacs-lisp
+  (use-package mu4e
+    :bind ("H-m" . mu4e)
+    :config
+    (setq mu4e-maildir "~/.mail"
+          mu4e-attachment-dir "~/Downloads")
+
+    ;; Get mail
+    (setq mu4e-get-mail-command "mbsync -a"
+          mu4e-view-prefer-html t
+          mu4e-compose-format-flowed t
+          mu4e-change-filenames-when-moving t   ; needed for mbsync
+          mu4e-update-interval 120)             ; update every 2 minutes
+
+    ;; enable inline images
+    (setq mu4e-view-show-images t)
+    ;; use imagemagick, if available
+    (when (fboundp 'imagemagick-register-types)
+      (imagemagick-register-types))
+
+    (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+
+    ;; Send mail -- this is now set on a context basis?
+    ;; (setq message-send-mail-function 'smtpmail-send-it
+    ;;       smtpmail-auth-credentials "~/.authinfo.gpg"
+    ;;       smtpmail-default-smtp-server "127.0.0.1"
+    ;;       smtpmail-smtp-server "127.0.0.1"
+    ;;       smtpmail-stream-type 'starttls
+    ;;       smtpmail-smtp-service 1025)
+
+    ;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
+
+    ;; Customization
+    ;; In protonmail, a deletion is just moving a mil to the Trash folder. This is supported by the following (press dd)
+    (define-key mu4e-headers-mode-map (kbd "d") 'mu4e-headers-mark-for-move)
+    (setq mu4e-use-fancy-chars t)
+    (setq mu4e-headers-precise-alignment t)
+
+    ;; Set context. Currently just one for Proton
+    ;; mu4e-context
+    (setq mu4e-context-policy 'pick-first)
+    (setq mu4e-compose-context-policy 'always-ask)
+    (setq mu4e-contexts
+          (list
+           (make-mu4e-context
+            :name "proton" 
+            :enter-func (lambda () (mu4e-message "Entering context proton"))
+            :leave-func (lambda () (mu4e-message "Leaving context proton"))
+            :match-func (lambda (msg)
+                          (when msg
+                            (mu4e-message-contact-field-matches
+                             msg '(:from :to :cc :bcc) "simon@serfurth.dk")))
+            :vars '((user-mail-address . "simon@serfurth.dk")
+                    (user-full-name . "Simon Erfurth")
+                    (mu4e-sent-folder . "/proton/Sent")
+                    (mu4e-drafts-folder . "/proton/Drafts")
+                    (mu4e-trash-folder . "/proton/Trash")
+                    (mu4e-compose-signature . (concat "Best Regards,\n" "Simon Erfurth"))
+                    (mu4e-compose-format-flowed . t)
+                    (message-send-mail-function . smtpmail-send-it)
+                    ;; (smtpmail-smtp-user . "proton")
+                    ;; (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+                    (smtpmail-auth-credentials . "~/.authinfo.gpg")
+                    (smtpmail-default-smtp-server . "127.0.0.1")
+                    (smtpmail-smtp-server . "127.0.0.1")
+                    (smtpmail-stream-type . starttls)
+                    (smtpmail-smtp-service . 1025)
+                    (smtpmail-debug-info . t)
+                    (smtpmail-debug-verbose . t)
+                    (mu4e-maildir-shortcuts . ( ("/proton/Inbox"            . ?i)
+                                                ("/proton/Sent" . ?s)
+                                                ("/proton/Trash"       . ?t)
+                                                ("/proton/Trash"       . ?d)
+                                                ("/proton/Archive"  . ?a)
+                                                ("/proton/drafts"    . ?D)
+                                                ))))
+           ;; (make-mu4e-context
+           ;;  :name "personal" ;;for acc2-gmail
+           ;;  :enter-func (lambda () (mu4e-message "Entering context personal"))
+           ;;  :leave-func (lambda () (mu4e-message "Leaving context personal"))
+           ;;  :match-func (lambda (msg)
+           ;;                (when msg
+           ;;                  (mu4e-message-contact-field-matches
+           ;;                   msg '(:from :to :cc :bcc) "acc2@gmail.com")))
+           ;;  :vars '((user-mail-address . "acc2@gmail.com")
+           ;;          (user-full-name . "User Account2")
+           ;;          (mu4e-sent-folder . "/acc2-gmail/[acc2].Sent Mail")
+           ;;          (mu4e-drafts-folder . "/acc2-gmail/[acc2].drafts")
+           ;;          (mu4e-trash-folder . "/acc2-gmail/[acc2].Trash")
+           ;;          (mu4e-compose-signature . (concat "Informal Signature\n" "Emacs is awesome!\n"))
+           ;;          (mu4e-compose-format-flowed . t)
+           ;;          (smtpmail-queue-dir . "~/Maildir/acc2-gmail/queue/cur")
+           ;;          (message-send-mail-function . smtpmail-send-it)
+           ;;          (smtpmail-smtp-user . "acc2")
+           ;;          (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+           ;;          (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
+           ;;          (smtpmail-default-smtp-server . "smtp.gmail.com")
+           ;;          (smtpmail-smtp-server . "smtp.gmail.com")
+           ;;          (smtpmail-smtp-service . 587)
+           ;;          (smtpmail-debug-info . t)
+           ;;          (smtpmail-debug-verbose . t)
+           ;;          (mu4e-maildir-shortcuts . ( ("/acc2-gmail/INBOX"            . ?i)
+           ;;                                      ("/acc2-gmail/[acc2].Sent Mail" . ?s)
+           ;;                                      ("/acc2-gmail/[acc2].Trash"     . ?t)
+           ;;                                      ("/acc2-gmail/[acc2].All Mail"  . ?a)
+           ;;                                      ("/acc2-gmail/[acc2].Starred"   . ?r)
+           ;;                                      ("/acc2-gmail/[acc2].drafts"    . ?d)
+           ;;                                      ))))
+           ))
+    )
+#+end_src
+
+#+RESULTS:
+: mu4e
+
+Notes: 
+mbsync protonmail
+mu init --maildir=~/.mail --my-address=simon@serfurth.dk
+
+** thread folding (and header fields)
+#+begin_src emacs-lisp
+  (use-package mu4e-thread-folding
+    :hook (mu4e-headers-mode . mu4e-thread-folding-mode)
+    :config
+    (add-to-list 'mu4e-header-info-custom
+                 '(:empty . (:name "Empty"
+                                   :shortname ""
+                                   :function (lambda (msg) "  "))))
+    (setq mu4e-headers-fields '((:empty         .    2)
+                                (:human-date    .   12)
+                                (:flags         .    6)
+                                ;; (:mailing-list  .   10)
+                                (:from-or-to          .   22)
+                                (:thread-subject       .   nil))))
+#+end_src
+
+** org-mime
+Send html emails from org-context.
+
+#+begin_src emacs-lisp
+  (use-package org-mime
+    :ensure t)
+#+end_src
 
 * xkcd
 Emacs can do everything!
