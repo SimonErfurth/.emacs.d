@@ -2373,12 +2373,71 @@ Currently using mu4e, only set up with Protonmail.
     (setq mu4e-use-fancy-chars t)
     (setq mu4e-headers-precise-alignment t)
 
+    (add-to-list 'mu4e-header-info-custom
+                 '(:empty . (:name "Empty"
+                                   :shortname ""
+                                   :function (lambda (msg) "  "))))
+    (add-hook 'mu4e-headers-mode-hook
+              (defun my/mu4e-change-headers ()
+                (interactive)
+                (setq mu4e-headers-fields
+                      `((:empty . 2)
+                        (:human-date . 12)
+                        (:flags . 6)
+                        ;; (:mailing-list  .   10)
+                        (:from-or-to . 22)
+                        (:thread-subject . 50)))))
+
+    (setq sendmail-program "/usr/bin/msmtp"
+          message-sendmail-f-is-evil t
+          ;; message-sendmail-extra-arguments '(" --read-envelope-from")
+          send-mail-function 'smtpmail-send-it
+          message-send-mail-function 'message-send-mail-with-sendmail)
+
     ;; Set context. Currently just one for Proton
     ;; mu4e-context
     (setq mu4e-context-policy 'pick-first)
-    (setq mu4e-compose-context-policy 'always-ask)
+    (setq mu4e-compose-context-policy nil)
     (setq mu4e-contexts
           (list
+           (make-mu4e-context
+            :name "sdu" ;;for SDU email
+            :enter-func (lambda () (mu4e-message "Entering context sdu"))
+            :leave-func (lambda () (mu4e-message "Leaving context sdu"))
+            :match-func (lambda (msg)
+                          (when msg
+                            (mu4e-message-contact-field-matches
+                             msg '(:from :to :cc :bcc) "erfurth@imada.sdu.dk")))
+            :vars '((user-mail-address . "erfurth@imada.sdu.dk")
+                    (user-full-name . "Simon Erfurth")
+                    (mu4e-sent-folder . "/sdu/Sent")
+                    (mu4e-drafts-folder . "/sdu/Drafts")
+                    (mu4e-trash-folder . "/sdu/Trash")
+                    (mu4e-compose-signature . (concat "Simon Erfurth\n"
+                                                      "PhD Student\n"
+                                                      "Department of Mathematics and Computer Science\n"
+                                                      "University of Southern Denmark"))
+                    (mu4e-compose-format-flowed . t)
+                    ;; (sendmail-program . "/usr/bin/msmtp")
+                    ;; (send-mail-function . 'smtpmail-send-it)
+                    ;; (message-sendmail-f-is-evil . t)
+                    ;; (message-sendmail-extra-arguments . '("--read-envelope-from"))
+                    ;; (message-send-mail-function . message-send-mail-with-sendmail)
+                    ;; (smtpmail-smtp-user . "acc2")
+                    ;; (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+                    ;; (smtpmail-auth-credentials . "~/.authinfoSDU.gpg")
+                    ;; (smtpmail-default-smtp-server . "127.0.0.1")
+                    ;; (smtpmail-smtp-server . "127.0.0.1")
+                    ;; (smtpmail-smtp-service . 1026)
+                    ;; (smtpmail-debug-info . t)
+                    ;; (smtpmail-debug-verbose . t)
+                    (mu4e-maildir-shortcuts . ( ("/sdu/Inbox" . ?i)
+                                                ("/sdu/Sent" . ?s)
+                                                ("/sdu/Trash" . ?t)
+                                                ("/sdu/Trash" . ?d)
+                                                ("/sdu/Archive" . ?a)
+                                                ("/sdu/Drafts" . ?D)
+                                                ))))
            (make-mu4e-context
             :name "proton" 
             :enter-func (lambda () (mu4e-message "Entering context proton"))
@@ -2392,18 +2451,16 @@ Currently using mu4e, only set up with Protonmail.
                     (mu4e-sent-folder . "/proton/Sent")
                     (mu4e-drafts-folder . "/proton/Drafts")
                     (mu4e-trash-folder . "/proton/Trash")
-                    (mu4e-compose-signature . (concat "Best Regards,\n" "Simon Erfurth"))
+                    (mu4e-compose-signature . (concat ""))
                     (mu4e-compose-format-flowed . t)
-                    (message-send-mail-function . smtpmail-send-it)
-                    ;; (smtpmail-smtp-user . "proton")
-                    ;; (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
-                    (smtpmail-auth-credentials . "~/.authinfo.gpg")
-                    (smtpmail-default-smtp-server . "127.0.0.1")
-                    (smtpmail-smtp-server . "127.0.0.1")
-                    (smtpmail-stream-type . starttls)
-                    (smtpmail-smtp-service . 1025)
-                    (smtpmail-debug-info . t)
-                    (smtpmail-debug-verbose . t)
+                    ;; (message-send-mail-function . smtpmail-send-it)
+                    ;; (smtpmail-auth-credentials . "~/.authinfo.gpg")
+                    ;; (smtpmail-default-smtp-server . "127.0.0.1")
+                    ;; (smtpmail-smtp-server . "127.0.0.1")
+                    ;; (smtpmail-stream-type . starttls)
+                    ;; (smtpmail-smtp-service . 1025)
+                    ;; (smtpmail-debug-info . t)
+                    ;; (smtpmail-debug-verbose . t)
                     (mu4e-maildir-shortcuts . ( ("/proton/Inbox"            . ?i)
                                                 ("/proton/Sent" . ?s)
                                                 ("/proton/Trash"       . ?t)
@@ -2411,69 +2468,34 @@ Currently using mu4e, only set up with Protonmail.
                                                 ("/proton/Archive"  . ?a)
                                                 ("/proton/drafts"    . ?D)
                                                 ))))
-           ;; (make-mu4e-context
-           ;;  :name "personal" ;;for acc2-gmail
-           ;;  :enter-func (lambda () (mu4e-message "Entering context personal"))
-           ;;  :leave-func (lambda () (mu4e-message "Leaving context personal"))
-           ;;  :match-func (lambda (msg)
-           ;;                (when msg
-           ;;                  (mu4e-message-contact-field-matches
-           ;;                   msg '(:from :to :cc :bcc) "acc2@gmail.com")))
-           ;;  :vars '((user-mail-address . "acc2@gmail.com")
-           ;;          (user-full-name . "User Account2")
-           ;;          (mu4e-sent-folder . "/acc2-gmail/[acc2].Sent Mail")
-           ;;          (mu4e-drafts-folder . "/acc2-gmail/[acc2].drafts")
-           ;;          (mu4e-trash-folder . "/acc2-gmail/[acc2].Trash")
-           ;;          (mu4e-compose-signature . (concat "Informal Signature\n" "Emacs is awesome!\n"))
-           ;;          (mu4e-compose-format-flowed . t)
-           ;;          (smtpmail-queue-dir . "~/Maildir/acc2-gmail/queue/cur")
-           ;;          (message-send-mail-function . smtpmail-send-it)
-           ;;          (smtpmail-smtp-user . "acc2")
-           ;;          (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
-           ;;          (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
-           ;;          (smtpmail-default-smtp-server . "smtp.gmail.com")
-           ;;          (smtpmail-smtp-server . "smtp.gmail.com")
-           ;;          (smtpmail-smtp-service . 587)
-           ;;          (smtpmail-debug-info . t)
-           ;;          (smtpmail-debug-verbose . t)
-           ;;          (mu4e-maildir-shortcuts . ( ("/acc2-gmail/INBOX"            . ?i)
-           ;;                                      ("/acc2-gmail/[acc2].Sent Mail" . ?s)
-           ;;                                      ("/acc2-gmail/[acc2].Trash"     . ?t)
-           ;;                                      ("/acc2-gmail/[acc2].All Mail"  . ?a)
-           ;;                                      ("/acc2-gmail/[acc2].Starred"   . ?r)
-           ;;                                      ("/acc2-gmail/[acc2].drafts"    . ?d)
-           ;;                                      ))))
            ))
     )
+
+  (require 'org-mu4e)
+  ;; (add-hook 'mu4e-compose-mode-hook
+  ;;           (defun my-do-compose-stuff ()
+  ;;             "My settings for message composition."
+  ;;             (org-mu4e-compose-org-mode)))
+  (setq org-mu4e-convert-to-html t)
 #+end_src
 
 #+RESULTS:
-: mu4e
+: t
 
 Notes: 
-mbsync protonmail
-mu init --maildir=~/.mail --my-address=simon@serfurth.dk
+mbsync -a
+mu init --maildir=~/.mail --my-address=erfurth@imada.sdu.dk --my-address=simon@serfurth.dk
+mu index
 
-** thread folding (and header fields)
+
+** thread folding
 #+begin_src emacs-lisp
   (use-package mu4e-thread-folding
-    :hook (mu4e-headers-mode . mu4e-thread-folding-mode)
-    :config
-    (add-to-list 'mu4e-header-info-custom
-                 '(:empty . (:name "Empty"
-                                   :shortname ""
-                                   :function (lambda (msg) "  "))))
-    (setq mu4e-headers-fields '((:empty         .    2)
-                                (:human-date    .   12)
-                                (:flags         .    6)
-                                ;; (:mailing-list  .   10)
-                                (:from-or-to          .   22)
-                                (:thread-subject       .   nil))))
+    :hook (mu4e-headers-mode . mu4e-thread-folding-mode))
 #+end_src
 
 ** org-mime
-Send html emails from org-context.
-
+Send html emails from org-context?
 #+begin_src emacs-lisp
   (use-package org-mime
     :ensure t)
