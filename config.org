@@ -2357,7 +2357,13 @@ Currently using mu4e, only set up with Protonmail.
 
     (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
 
-    ;; Send mail -- this is now set on a context basis?
+    ;; SENDING EMAIL
+    (setq sendmail-program "/usr/bin/msmtp"
+          message-sendmail-f-is-evil t
+          message-sendmail-extra-arguments '("--read-envelope-from")
+          send-mail-function 'smtpmail-send-it
+          message-send-mail-function 'message-send-mail-with-sendmail)
+    ;; Old send mail -- this is now set on a context basis using msmtp (this only works with proton/single mail)
     ;; (setq message-send-mail-function 'smtpmail-send-it
     ;;       smtpmail-auth-credentials "~/.authinfo.gpg"
     ;;       smtpmail-default-smtp-server "127.0.0.1"
@@ -2365,10 +2371,8 @@ Currently using mu4e, only set up with Protonmail.
     ;;       smtpmail-stream-type 'starttls
     ;;       smtpmail-smtp-service 1025)
 
-    ;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
-
-    ;; Customization
-    ;; In protonmail, a deletion is just moving a mil to the Trash folder. This is supported by the following (press dd)
+    ;; CUSTOMIZATION
+    ;; A deletion is just moving a mil to the Trash folder. This is supported by the following (press dd)
     (define-key mu4e-headers-mode-map (kbd "d") 'mu4e-headers-mark-for-move)
     (setq mu4e-use-fancy-chars t)
     (setq mu4e-headers-precise-alignment t)
@@ -2388,16 +2392,12 @@ Currently using mu4e, only set up with Protonmail.
                         (:from-or-to . 22)
                         (:thread-subject . 50)))))
 
-    (setq sendmail-program "/usr/bin/msmtp"
-          message-sendmail-f-is-evil t
-          ;; message-sendmail-extra-arguments '(" --read-envelope-from")
-          send-mail-function 'smtpmail-send-it
-          message-send-mail-function 'message-send-mail-with-sendmail)
+    (spaceline-toggle-mu4e-alert-segment-on)
 
-    ;; Set context. Currently just one for Proton
-    ;; mu4e-context
+    ;; CONTEXTS
+    ;; Set context. Currently sending emails only work for SDU
     (setq mu4e-context-policy 'pick-first)
-    (setq mu4e-compose-context-policy nil)
+    (setq mu4e-compose-context-policy 'ask-if-none)
     (setq mu4e-contexts
           (list
            (make-mu4e-context
@@ -2406,8 +2406,10 @@ Currently using mu4e, only set up with Protonmail.
             :leave-func (lambda () (mu4e-message "Leaving context sdu"))
             :match-func (lambda (msg)
                           (when msg
-                            (mu4e-message-contact-field-matches
-                             msg '(:from :to :cc :bcc) "erfurth@imada.sdu.dk")))
+                            (string-prefix-p "/sdu" (mu4e-message-field msg :maildir))
+                            ;; (mu4e-message-contact-field-matches
+                            ;;  msg '(:from :to :cc :bcc) "erfurth@imada.sdu.dk")
+                            ))
             :vars '((user-mail-address . "erfurth@imada.sdu.dk")
                     (user-full-name . "Simon Erfurth")
                     (mu4e-sent-folder . "/sdu/Sent")
@@ -2418,19 +2420,6 @@ Currently using mu4e, only set up with Protonmail.
                                                       "Department of Mathematics and Computer Science\n"
                                                       "University of Southern Denmark"))
                     (mu4e-compose-format-flowed . t)
-                    ;; (sendmail-program . "/usr/bin/msmtp")
-                    ;; (send-mail-function . 'smtpmail-send-it)
-                    ;; (message-sendmail-f-is-evil . t)
-                    ;; (message-sendmail-extra-arguments . '("--read-envelope-from"))
-                    ;; (message-send-mail-function . message-send-mail-with-sendmail)
-                    ;; (smtpmail-smtp-user . "acc2")
-                    ;; (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
-                    ;; (smtpmail-auth-credentials . "~/.authinfoSDU.gpg")
-                    ;; (smtpmail-default-smtp-server . "127.0.0.1")
-                    ;; (smtpmail-smtp-server . "127.0.0.1")
-                    ;; (smtpmail-smtp-service . 1026)
-                    ;; (smtpmail-debug-info . t)
-                    ;; (smtpmail-debug-verbose . t)
                     (mu4e-maildir-shortcuts . ( ("/sdu/Inbox" . ?i)
                                                 ("/sdu/Sent" . ?s)
                                                 ("/sdu/Trash" . ?t)
@@ -2444,8 +2433,10 @@ Currently using mu4e, only set up with Protonmail.
             :leave-func (lambda () (mu4e-message "Leaving context proton"))
             :match-func (lambda (msg)
                           (when msg
-                            (mu4e-message-contact-field-matches
-                             msg '(:from :to :cc :bcc) "simon@serfurth.dk")))
+                            (string-prefix-p "/proton" (mu4e-message-field msg :maildir))
+                            ;; (mu4e-message-contact-field-matches
+                            ;;  msg '(:from :to :cc :bcc) "simon@serfurth.dk")
+                            ))
             :vars '((user-mail-address . "simon@serfurth.dk")
                     (user-full-name . "Simon Erfurth")
                     (mu4e-sent-folder . "/proton/Sent")
@@ -2453,14 +2444,6 @@ Currently using mu4e, only set up with Protonmail.
                     (mu4e-trash-folder . "/proton/Trash")
                     (mu4e-compose-signature . (concat ""))
                     (mu4e-compose-format-flowed . t)
-                    ;; (message-send-mail-function . smtpmail-send-it)
-                    ;; (smtpmail-auth-credentials . "~/.authinfo.gpg")
-                    ;; (smtpmail-default-smtp-server . "127.0.0.1")
-                    ;; (smtpmail-smtp-server . "127.0.0.1")
-                    ;; (smtpmail-stream-type . starttls)
-                    ;; (smtpmail-smtp-service . 1025)
-                    ;; (smtpmail-debug-info . t)
-                    ;; (smtpmail-debug-verbose . t)
                     (mu4e-maildir-shortcuts . ( ("/proton/Inbox"            . ?i)
                                                 ("/proton/Sent" . ?s)
                                                 ("/proton/Trash"       . ?t)
@@ -2468,8 +2451,7 @@ Currently using mu4e, only set up with Protonmail.
                                                 ("/proton/Archive"  . ?a)
                                                 ("/proton/drafts"    . ?D)
                                                 ))))
-           ))
-    )
+           )))
 
   (require 'org-mu4e)
   ;; (add-hook 'mu4e-compose-mode-hook
