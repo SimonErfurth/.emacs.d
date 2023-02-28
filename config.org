@@ -2333,11 +2333,15 @@ Currently using mu4e, only set up with Protonmail.
 
 - Dependencies are mbsync, mu, and protonmail bridge.
 - Some resources:
- - https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/
+  - https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/
+- OBS: Note that org-msg need a newer version of mu4e (And hence mu) than the
+  default shipped with ubuntu 20.04. One solution to this is to compile from
+  source. load-path is set according to this below.
 
 #+begin_src emacs-lisp
   (use-package mu4e
     :bind ("H-m" . mu4e)
+    :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
     :config
     (setq mu4e-maildir "~/.mail"
           mu4e-attachment-dir "~/Downloads")
@@ -2357,6 +2361,9 @@ Currently using mu4e, only set up with Protonmail.
 
     (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
 
+    ;; Set user agent. Needed for org-msg
+    (setq mail-user-agent 'mu4e-user-agent)
+
     ;; SENDING EMAIL
     (setq sendmail-program "/usr/bin/msmtp"
           message-sendmail-f-is-evil t
@@ -2372,10 +2379,23 @@ Currently using mu4e, only set up with Protonmail.
     ;;       smtpmail-smtp-service 1025)
 
     ;; CUSTOMIZATION
-    ;; A deletion is just moving a mil to the Trash folder. This is supported by the following (press dd)
-    (define-key mu4e-headers-mode-map (kbd "d") 'mu4e-headers-mark-for-move)
+    ;; A deletion is just moving a mil to the Trash folder, i.e. we do not set -T
+    ;; (define-key mu4e-headers-mode-map (kbd "d") 'mu4e-headers-mark-for-move)
+    (setf (alist-get 'trash mu4e-marks)
+          (list :char '("d" . "▼")
+                :prompt "dtrash"
+                :dyn-target (lambda (target msg)
+                              (mu4e-get-trash-folder msg))
+                :action (lambda (docid msg target)
+                          ;; Here's the main difference to the regular trash mark,
+                          ;; no +T before -N so the message is not marked as
+                          ;; IMAP-deleted:
+                          (mu4e--server-move docid (mu4e--mark-check-target target) "-N"))))
+    (define-key mu4e-headers-mode-map (kbd "L") 'org-store-link)
+    (define-key mu4e-view-mode-map    (kbd "L") 'org-store-link)
     (setq mu4e-use-fancy-chars t)
     (setq mu4e-headers-precise-alignment t)
+    (setq mu4e-headers-include-related nil)
 
     (add-to-list 'mu4e-header-info-custom
                  '(:empty . (:name "Empty"
@@ -2415,15 +2435,16 @@ Currently using mu4e, only set up with Protonmail.
                     (mu4e-sent-folder . "/sdu/Sent")
                     (mu4e-drafts-folder . "/sdu/Drafts")
                     (mu4e-trash-folder . "/sdu/Trash")
-                    (mu4e-compose-signature . (concat "Simon Erfurth\n"
-                                                      "PhD Student\n"
-                                                      "Department of Mathematics and Computer Science\n"
-                                                      "University of Southern Denmark"))
-                    (mu4e-compose-format-flowed . t)
+                    ;; (mu4e-compose-signature . (concat "Simon Erfurth\n"
+                    ;;                                   "PhD Student\n"
+                    ;;                                   "Department of Mathematics and Computer Science\n"
+                    ;;                                   "University of Southern Denmark"))
+                    ;; (mu4e-compose-format-flowed . t)
                     (mu4e-maildir-shortcuts . ( ("/sdu/Inbox" . ?i)
+                                                ("/sdu/Events" . ?e)
                                                 ("/sdu/Sent" . ?s)
                                                 ("/sdu/Trash" . ?t)
-                                                ("/sdu/Trash" . ?d)
+                                                ("/sdu/Junk Email" . ?j)
                                                 ("/sdu/Archive" . ?a)
                                                 ("/sdu/Drafts" . ?D)
                                                 ))))
@@ -2442,30 +2463,21 @@ Currently using mu4e, only set up with Protonmail.
                     (mu4e-sent-folder . "/proton/Sent")
                     (mu4e-drafts-folder . "/proton/Drafts")
                     (mu4e-trash-folder . "/proton/Trash")
-                    (mu4e-compose-signature . (concat ""))
-                    (mu4e-compose-format-flowed . t)
+                    ;; (mu4e-compose-signature . (concat "Simon Erfurth\n"
+                    ;;                                   "www.serfurth.dk"))
+                    ;; (mu4e-compose-format-flowed . t)
                     (mu4e-maildir-shortcuts . ( ("/proton/Inbox"            . ?i)
                                                 ("/proton/Sent" . ?s)
                                                 ("/proton/Trash"       . ?t)
-                                                ("/proton/Trash"       . ?d)
+                                                ;; ("/proton/Trash"       . ?d)
                                                 ("/proton/Archive"  . ?a)
                                                 ("/proton/drafts"    . ?D)
                                                 ))))
            )))
-
-  (require 'org-mu4e)
-  ;; (add-hook 'mu4e-compose-mode-hook
-  ;;           (defun my-do-compose-stuff ()
-  ;;             "My settings for message composition."
-  ;;             (org-mu4e-compose-org-mode)))
-  (setq org-mu4e-convert-to-html t)
 #+end_src
 
-#+RESULTS:
-: t
-
 Notes: 
-mbsync -a
+mbsync -a (this is called automatically from mu4e)
 mu init --maildir=~/.mail --my-address=erfurth@imada.sdu.dk --my-address=simon@serfurth.dk
 mu index
 
@@ -2476,12 +2488,45 @@ mu index
     :hook (mu4e-headers-mode . mu4e-thread-folding-mode))
 #+end_src
 
-** org-mime
-Send html emails from org-context?
+** gnus-art
+I like to press return on attachments, and have them open in emacs.
 #+begin_src emacs-lisp
-  (use-package org-mime
-    :ensure t)
+  (use-package gnus-art
+    :commands gnus-mime-button-map
+    :bind (:map gnus-mime-button-map
+                ("RET" . gnus-mime-copy-part)))
 #+end_src
+
+** org-msg
+Looks fantastic! But I need to get this working when replying to emails too.
+
+#+begin_src emacs-lisp
+  (set-variable 'read-mail-command 'mu4e)
+  (use-package org-msg
+    :ensure t
+    :after mu4e
+    :config
+    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+          org-msg-startup "hidestars indent inlineimages"
+          org-msg-greeting-fmt "\n"
+          org-msg-greeting-name-limit 3
+          org-msg-default-alternatives '((new		. (text html))
+                                         (reply-to-html	. (html))
+                                         (reply-to-text	. (text)))
+          org-msg-convert-citation t
+          org-msg-signature "
+
+   ,#+begin_signature
+   --
+  Simon Erfurth
+  PhD Student
+  Department of Mathematics and Computer Science
+  University of Southern Denmark
+
+   ,#+end_signature")
+    (org-msg-mode))
+#+end_src
+
 
 * xkcd
 Emacs can do everything!
