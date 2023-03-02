@@ -2393,6 +2393,9 @@ Currently using mu4e, only set up with Protonmail.
                           (mu4e--server-move docid (mu4e--mark-check-target target) "-N"))))
     (define-key mu4e-headers-mode-map (kbd "L") 'org-store-link)
     (define-key mu4e-view-mode-map    (kbd "L") 'org-store-link)
+    ;; Use vertical view-mode. Optimal when I use a designated emacs instance for email
+    (setq mu4e-split-view 'vertical
+          mu4e-headers-visible-columns 100)
     (setq mu4e-use-fancy-chars t)
     (setq mu4e-headers-precise-alignment t)
     (setq mu4e-headers-include-related nil)
@@ -2435,18 +2438,23 @@ Currently using mu4e, only set up with Protonmail.
                     (mu4e-sent-folder . "/sdu/Sent")
                     (mu4e-drafts-folder . "/sdu/Drafts")
                     (mu4e-trash-folder . "/sdu/Trash")
-                    ;; (mu4e-compose-signature . (concat "Simon Erfurth\n"
-                    ;;                                   "PhD Student\n"
-                    ;;                                   "Department of Mathematics and Computer Science\n"
-                    ;;                                   "University of Southern Denmark"))
-                    ;; (mu4e-compose-format-flowed . t)
+                    (org-msg-signature . "
+
+   ,#+begin_signature
+   --
+  Simon Erfurth
+  PhD Student
+  Department of Mathematics and Computer Science
+  University of Southern Denmark
+
+   ,#+end_signature")
                     (mu4e-maildir-shortcuts . ( ("/sdu/Inbox" . ?i)
                                                 ("/sdu/Events" . ?e)
-                                                ("/sdu/Sent" . ?s)
-                                                ("/sdu/Trash" . ?t)
-                                                ("/sdu/Junk Email" . ?j)
                                                 ("/sdu/Archive" . ?a)
                                                 ("/sdu/Drafts" . ?D)
+                                                ("/sdu/Sent" . ?s)
+                                                ("/sdu/Junk" . ?j)
+                                                ("/sdu/Trash" . ?t)
                                                 ))))
            (make-mu4e-context
             :name "proton" 
@@ -2463,8 +2471,14 @@ Currently using mu4e, only set up with Protonmail.
                     (mu4e-sent-folder . "/proton/Sent")
                     (mu4e-drafts-folder . "/proton/Drafts")
                     (mu4e-trash-folder . "/proton/Trash")
-                    ;; (mu4e-compose-signature . (concat "Simon Erfurth\n"
-                    ;;                                   "www.serfurth.dk"))
+                    (org-msg-signature . "
+
+   ,#+begin_signature
+   --
+  Simon Erfurth
+  www.serfurth.dk
+
+   ,#+end_signature")
                     ;; (mu4e-compose-format-flowed . t)
                     (mu4e-maildir-shortcuts . ( ("/proton/Inbox"            . ?i)
                                                 ("/proton/Sent" . ?s)
@@ -2513,17 +2527,7 @@ Looks fantastic! But I need to get this working when replying to emails too.
           org-msg-default-alternatives '((new		. (text html))
                                          (reply-to-html	. (html))
                                          (reply-to-text	. (text)))
-          org-msg-convert-citation t
-          org-msg-signature "
-
-   ,#+begin_signature
-   --
-  Simon Erfurth
-  PhD Student
-  Department of Mathematics and Computer Science
-  University of Southern Denmark
-
-   ,#+end_signature")
+          org-msg-convert-citation t)
     (org-msg-mode))
 #+end_src
 
