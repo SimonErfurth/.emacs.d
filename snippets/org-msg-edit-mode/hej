@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: hej-venlig
+# key: hej
+# --
+Hej $1,
+
+$0
+
+Venlig Hilsen,
+Simon

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: dear-cheers
+# key: dear
+# --
+Dear $1,
+
+$0
+
+Cheers,
+Simon
