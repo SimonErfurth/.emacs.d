@@ -57,13 +57,28 @@ Clearly the most important part of any configuration!
 ** A theme
 Trying this one out, probably going to go back to =solarized-dark=
 #+BEGIN_SRC emacs-lisp
-  (use-package zerodark-theme
+  ;; (use-package zerodark-theme
+  ;;   :ensure t
+  ;;   :init
+  ;;   (load-theme 'zerodark t))
+
+  (use-package doom-themes
     :ensure t
-    :init
-    (load-theme 'zerodark t))
+    :config
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (load-theme 'doom-ayu-mirage t)
+    ;; (load-theme 'doom-flatwhite t)
+    ;; Enable flashing mode-line on errors
+    (doom-themes-visual-bell-config)
+    ;; Enable custom neotree theme (all-the-icons must be installed!)
+    (doom-themes-neotree-config)
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
+
 #+END_SRC
 
-** Some customization
+** COMMENT Some customization
 Customization from Uncle Dave.
 #+BEGIN_SRC emacs-lisp
   (let ((class '((class color) (min-colors 89)))
@@ -372,10 +387,10 @@ so here we go
       (nyan-start-animation)))
 #+end_src
 
-** Spaceline!
+** COMMENT Spaceline!
 I may not use spacemacs anymore, since I do not like evil-mode and find
-spacemacs incredibly slow, however it would be stupid not to acknowledge the
-best parts about it; their modified powerline setup.
+spacemacs slow, however it would be stupid not to acknowledge the best parts
+about it; their modified powerline setup.
 
 This enables spaceline, it looks better and works very well with my theme of
 choice.
@@ -389,10 +404,18 @@ choice.
   (use-package spaceline-config
     :after (spaceline)
     :config
-    (setq powerline-default-separator (quote arrow))
+    (setq powerline-default-separator (quote arrow-fade))
     (spaceline-helm-mode)
     (spaceline-emacs-theme))
 #+END_SRC
+
+** doom-modeline
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :ensure t
+    :init (doom-modeline-mode 1))
+#+end_src
+
 
 * Projectile
 Projectile is an awesome project manager, mostly because it recognizes
@@ -637,7 +660,7 @@ to let =M-n= work the same way.
     :ensure t
     :diminish (winum-mode "")
     :init
-    (setq winum-auto-setup-mode-line nil)
+    (setq winum-auto-setup-mode-line t)
     :config
     (winum-mode)
     :bind (("M-0" . winum-select-window-0-or-10)
