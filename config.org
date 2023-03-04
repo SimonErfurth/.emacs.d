@@ -413,9 +413,11 @@ choice.
 #+begin_src emacs-lisp
   (use-package doom-modeline
     :ensure t
-    :init (doom-modeline-mode 1))
+    :init (doom-modeline-mode 1)
+    :config
+    (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+    (setq doom-modeline-mu4e t))
 #+end_src
-
 
 * Projectile
 Projectile is an awesome project manager, mostly because it recognizes
@@ -2421,6 +2423,7 @@ Currently using mu4e, only set up with Protonmail.
   (use-package mu4e
     :bind ("H-m" . mu4e)
     :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
+    :hook (mu4e-main-mode . (lambda () (load-theme 'doom-ayu-dark t)))
     :config
     (setq mu4e-maildir "~/.mail"
           mu4e-attachment-dir "~/Downloads")
