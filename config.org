@@ -1080,6 +1080,61 @@ https://github.com/nivekuil/corral
     (setq corral-preserve-point t))
 #+end_src
 
+*** fill-paragraph-sentences
+When collaborating on writing LaTeX using git, it is advantageous that as few
+lines as possible are changed. Hence, the standard =fill-paragraph= is not
+ideal. Instead we define the following function, where every sentence is ended
+by a newline. Hence only the lines relevant to the changed sentence will be
+modified.
+
+Inspired by
+- https://emacs.stackexchange.com/questions/443/editing-files-with-one-sentence-per-line
+
+#+begin_src emacs-lisp
+  (defun unfill-paragraph (&optional region)
+    "Takes a multi-line paragraph and makes it into a single line of text."
+    (interactive (progn (barf-if-buffer-read-only) '(t)))
+    (let ((fill-column (point-max))
+          ;; This would override `fill-column' if it's an integer.
+          (emacs-lisp-docstring-fill-column t))
+      (fill-paragraph nil region)))
+
+  (defun sse/fill-paragraph-sentences ()
+    "Fill the current paragraph until there is one sentence per line.
+
+  This unfills the paragraph, and places hard line breaks after
+  each sentence. Doesn't modify within comments."
+    (interactive)
+    (save-excursion
+      (fill-paragraph)         ; takes care of putting 2 spaces if needed
+      (unfill-paragraph)  ; remove hard line breaks
+
+      ;; insert line breaks again
+      (let ((end-of-paragraph (make-marker)))
+        ;; Make sure we start at start of paragraph
+        (backward-paragraph)
+        (forward-char)
+        ;; Set EOP to end of paragraph
+        (save-excursion
+          (forward-paragraph)
+          (backward-sentence)
+          (forward-sentence)
+          (set-marker end-of-paragraph (point)))
+        ;; Iterate over sentences, ending them with newlines
+        (forward-sentence)
+        (while (< (point) (+ end-of-paragraph 1))
+          (just-one-space)
+          (delete-backward-char 1)
+          ;; Don't modify comments
+          (if (not (nth 4 (syntax-ppss))) 
+              (newline))
+          (LaTeX-indent-line)
+          (forward-sentence))
+        (backward-sentence)
+        (delete-backward-char 1)
+        (set-marker end-of-paragraph nil))))
+#+end_src
+
 ** Creating
 *** replace with anzu
 Anzu is pretty much like the default replace function, but it shows us how many
@@ -1789,7 +1844,8 @@ editor. Hold tight.
   (use-package auctex
     :mode ("\\.tex\\'" . LaTeX-mode)
     :ensure t
-    :bind ("H-<tab>" . indent-for-tab-command)
+    :bind (("H-<tab>" . indent-for-tab-command)
+           ("M-q" . sse/fill-paragraph-sentences))
     :config
     (setq-default TeX-master nil
                   TeX-engine 'pdflatex)
