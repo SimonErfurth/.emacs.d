@@ -2430,7 +2430,7 @@ Currently using mu4e, only set up with Protonmail.
           mu4e-view-prefer-html t
           mu4e-compose-format-flowed t
           mu4e-change-filenames-when-moving t   ; needed for mbsync
-          mu4e-update-interval 120)             ; update every 2 minutes
+          mu4e-update-interval 240)             ; update every 4 minutes
 
     ;; enable inline images
     (setq mu4e-view-show-images t)
@@ -2449,17 +2449,9 @@ Currently using mu4e, only set up with Protonmail.
           message-sendmail-extra-arguments '("--read-envelope-from")
           send-mail-function 'smtpmail-send-it
           message-send-mail-function 'message-send-mail-with-sendmail)
-    ;; Old send mail -- this is now set on a context basis using msmtp (this only works with proton/single mail)
-    ;; (setq message-send-mail-function 'smtpmail-send-it
-    ;;       smtpmail-auth-credentials "~/.authinfo.gpg"
-    ;;       smtpmail-default-smtp-server "127.0.0.1"
-    ;;       smtpmail-smtp-server "127.0.0.1"
-    ;;       smtpmail-stream-type 'starttls
-    ;;       smtpmail-smtp-service 1025)
-
+  
     ;; CUSTOMIZATION
     ;; A deletion is just moving a mil to the Trash folder, i.e. we do not set -T
-    ;; (define-key mu4e-headers-mode-map (kbd "d") 'mu4e-headers-mark-for-move)
     (setf (alist-get 'trash mu4e-marks)
           (list :char '("d" . "▼")
                 :prompt "dtrash"
@@ -2472,6 +2464,7 @@ Currently using mu4e, only set up with Protonmail.
                           (mu4e--server-move docid (mu4e--mark-check-target target) "-N"))))
     (define-key mu4e-headers-mode-map (kbd "L") 'org-store-link)
     (define-key mu4e-view-mode-map    (kbd "L") 'org-store-link)
+
     ;; Use vertical view-mode. Optimal when I use a designated emacs instance for email
     (setq mu4e-split-view 'vertical
           mu4e-headers-visible-columns 100)
@@ -2479,22 +2472,12 @@ Currently using mu4e, only set up with Protonmail.
     (setq mu4e-headers-precise-alignment t)
     (setq mu4e-headers-include-related nil)
 
-    (add-to-list 'mu4e-header-info-custom
-                 '(:empty . (:name "Empty"
-                                   :shortname ""
-                                   :function (lambda (msg) "  "))))
-    (add-hook 'mu4e-headers-mode-hook
-              (defun my/mu4e-change-headers ()
-                (interactive)
-                (setq mu4e-headers-fields
-                      `((:empty . 2)
-                        (:human-date . 12)
-                        (:flags . 6)
-                        ;; (:mailing-list  .   10)
-                        (:from-or-to . 22)
-                        (:thread-subject . 50)))))
-
-    (spaceline-toggle-mu4e-alert-segment-on)
+    (setq mu4e-headers-fields
+          `((:human-date . 12)
+            (:flags . 6)
+            ;; (:mailing-list  .   10)
+            (:from-or-to . 22)
+            (:thread-subject . 50)))
 
     ;; CONTEXTS
     ;; Set context. Currently sending emails only work for SDU
@@ -2575,13 +2558,16 @@ mu init --maildir=~/.mail --my-address=erfurth@imada.sdu.dk --my-address=simon@s
 mu index
 
 
-** thread folding
+** COMMENT thread folding
+Disabled for now; interferes with mu4e-column-faces (and with toggle show
+related (=W=) is not strictly necessary.)
+
 #+begin_src emacs-lisp
   (use-package mu4e-thread-folding
     :hook (mu4e-headers-mode . mu4e-thread-folding-mode))
 #+end_src
 
-** gnus-art
+** return to open attachment in emacs
 I like to press return on attachments, and have them open in emacs.
 #+begin_src emacs-lisp
   (use-package gnus-art
@@ -2590,8 +2576,8 @@ I like to press return on attachments, and have them open in emacs.
                 ("RET" . gnus-mime-copy-part)))
 #+end_src
 
-** org-msg
-Looks fantastic! But I need to get this working when replying to emails too.
+** Composing emails: org-msg
+Fantastic, and allows attaching attachments similar to org-attach.
 
 #+begin_src emacs-lisp
   (set-variable 'read-mail-command 'mu4e)
@@ -2604,11 +2590,189 @@ Looks fantastic! But I need to get this working when replying to emails too.
           org-msg-greeting-fmt "\n"
           org-msg-greeting-name-limit 3
           org-msg-default-alternatives '((new		. (text html))
-                                         (reply-to-html	. (html))
+                                         (reply-to-html	. (text html))
                                          (reply-to-text	. (text)))
           org-msg-convert-citation t)
     (org-msg-mode))
 #+end_src
+
+** mu4e-org-link
+Stolen from mu4easy https://github.com/danielfleischer/mu4easy/blob/master/mu4easy.el
+
+Ideal for referring to mails in org mode, this simply gives a nicer
+link/description.
+
+#+begin_src emacs-lisp
+  (defun mu4easy-mail-link-description (msg)
+    "Creating a link description to be used with `org-store-link'.
+  Argument MSG msg at point."
+    (let ((subject (or (plist-get msg :subject)
+                      "No subject"))
+          (date (or (format-time-string mu4e-headers-date-format
+                                       (mu4e-msg-field msg :date))
+                   "No date"))
+          (to-from (mu4e~headers-from-or-to msg)))
+      (format "%s: %s (%s)" to-from subject date)))
+  (setq mu4e-org-link-desc-func 'mu4easy-mail-link-description)
+#+end_src
+
+** column faces
+Just some nice prettyfication
+
+#+begin_src emacs-lisp
+  (use-package mu4e-column-faces
+    :after mu4e
+    :config (mu4e-column-faces-mode))
+#+end_src
+
+** mu4e-alert
+Essential to get desktop notifications.
+
+https://github.com/iqbalansari/mu4e-alert
+#+begin_src emacs-lisp
+  (use-package mu4e-alert
+    :ensure t
+    :after mu4e
+    :config
+    (mu4e-alert-set-default-style 'notifications)
+    (mu4e-alert-enable-mode-line-display)
+    (add-hook 'mu4e-main-mode-hook #'mu4e-alert-enable-notifications))
+#+end_src
+
+** mu4e-goodies
+Stolen from https://github.com/panjie/mu4e-goodies, don't want all their functions
+
+This is not optimal, but it renames to current buffer, so we can visit it afterwards. 
+#+begin_src emacs-lisp
+  (with-eval-after-load 'mu4e
+      (defun mu4e-goodies-detach-msg-view (&optional towin focusnew)  
+        "Detach the current mu4e-view buffer from header to a new frame or window.
+  If towin is t, the detached message view will be presented in a
+  splitted window. Otherwise it will be presented in a new frame.
+  If focusnew is t, the new window/frame will be focused"
+        (interactive)
+        (let* ((buf (current-buffer))
+               (frm (selected-frame))
+               (new-win nil)
+               (new-frm nil))
+          (when (string= (buffer-name buf) mu4e-view-buffer-name)
+            ;; rename it so that it will not be found by mu4e-view
+            (rename-buffer (concat "*mu4e-view*" (mu4e-msg-field (mu4e-message-at-point t) :subject) "*") t)
+            (if towin
+                (setq new-win (split-window-below))
+              (progn
+                (setq new-frm (make-frame))
+                (select-frame-set-input-focus frm)))
+            (mu4e-view (mu4e-message-at-point t))
+            (when focusnew
+              (if towin
+                  (select-window new-win)
+                (select-frame-set-input-focus new-frm))))))
+
+    (define-key mu4e-view-mode-map "\'" 'mu4e-goodies-detach-msg-view)
+    (define-key mu4e-view-mode-map "\"" (lambda () (interactive) (mu4e-goodies-detach-msg-view t nil))))
+#+end_src
+
+** mu4e-overview
+Source file manually changed to work - hence do not =:ensure t=.
+
+#+begin_src emacs-lisp
+  (use-package mu4e-overview
+    :after mu4e
+    :config
+    (define-key mu4e-main-mode-map "o" 'mu4e-overview))
+#+end_src
+
+** mu4e-hydra
+For discover-ability.
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'mu4e
+    (defhydra hydra-mu4e-headers (:color blue :hint nil)
+      "
+   ^General^   | ^Search^           | _!_: read    | _#_: deferred  | ^Switches^
+  -^^----------+-^^-----------------| _?_: unread  | _%_: pattern   |-^^------------------
+  _n_: next    | _s_: search        | _r_: refile  | _&_: custom    | _O_: sorting
+  _p_: prev    | _S_: edit prev qry | _u_: unmk    | _+_: flag      | _P_: threading
+  _]_: n unred | _/_: narrow search | _U_: unmk *  | _-_: unflag    | _Q_: full-search
+  _[_: p unred | _b_: search bkmk   | _d_: trash   | _T_: thr       | _V_: skip dups 
+  _y_: sw view | _B_: edit bkmk     | _D_: delete  | _t_: subthr    | _W_: include-related
+  _R_: reply   | _{_: previous qry  | _m_: move    |-^^-------------+-^^------------------ 
+  _C_: compose | _}_: next query    | _a_: action  | _|_: thru shl  | _`_: update, reindex
+  _F_: forward | _C-+_: show more   | _A_: mk4actn | _H_: help      | _;_: context-switch
+             | _C--_: show less   | _*_: *thing  | _q_: quit hdrs | _j_: jump2maildir "
+
+      ;; general
+      ("n" mu4e-headers-next)
+      ("p" mu4e-headers-previous)
+      ("[" mu4e-select-next-unread)
+      ("]" mu4e-select-previous-unread)
+      ("y" mu4e-select-other-view)
+      ("R" mu4e-compose-reply)
+      ("C" mu4e-compose-new)
+      ("F" mu4e-compose-forward)
+
+      ;; search
+      ("s" mu4e-headers-search)
+      ("S" mu4e-headers-search-edit)
+      ("/" mu4e-headers-search-narrow)
+      ("b" mu4e-headers-search-bookmark)
+      ("B" mu4e-headers-search-bookmark-edit)
+      ("{" mu4e-headers-query-prev)              ; differs from built-in
+      ("}" mu4e-headers-query-next)              ; differs from built-in
+      ("C-+" mu4e-headers-split-view-grow)
+      ("C--" mu4e-headers-split-view-shrink)
+
+      ;; mark stuff 
+      ("!" mu4e-headers-mark-for-read)
+      ("?" mu4e-headers-mark-for-unread)
+      ("r" mu4e-headers-mark-for-refile)
+      ("u" mu4e-headers-mark-for-unmark)
+      ("U" mu4e-mark-unmark-all)
+      ("d" mu4e-headers-mark-for-trash)
+      ("D" mu4e-headers-mark-for-delete)
+      ("m" mu4e-headers-mark-for-move)
+      ("a" mu4e-headers-action)                  ; not really a mark per-se
+      ("A" mu4e-headers-mark-for-action)         
+      ("*" mu4e-headers-mark-for-something)
+
+      ("#" mu4e-mark-resolve-deferred-marks)
+      ("%" mu4e-headers-mark-pattern)
+      ("&" mu4e-headers-mark-custom)
+      ("+" mu4e-headers-mark-for-flag)
+      ("-" mu4e-headers-mark-for-unflag)
+      ("t" mu4e-headers-mark-subthread)
+      ("T" mu4e-headers-mark-thread)
+
+      ;; miscellany
+      ("q" mu4e~headers-quit-buffer)
+      ("H" mu4e-display-manual)
+      ("|" mu4e-view-pipe)                       
+
+      ;; switches
+      ("O" mu4e-headers-change-sorting)
+      ("P" mu4e-headers-toggle-threading)
+      ("Q" mu4e-headers-toggle-full-search)
+      ("V" mu4e-headers-toggle-skip-duplicates)
+      ("W" mu4e-headers-toggle-include-related)
+
+      ;; more miscellany
+      ("`" mu4e-update-mail-and-index)           ; differs from built-in
+      (";" mu4e-context-switch)  
+      ("j" mu4e~headers-jump-to-maildir)
+
+      ("." nil))
+
+    ;; Bind keys as defined above
+    (define-key mu4e-headers-mode-map (kbd "{") 'mu4e-headers-query-next)
+    (define-key mu4e-headers-mode-map (kbd "}") 'mu4e-headers-query-prev)
+    (define-key mu4e-headers-mode-map (kbd "`") 'mu4e-update-mail-and-index)
+    (define-key mu4e-headers-mode-map (kbd ".") 'hydra-mu4e-headers/body)
+    )
+#+end_src
+
+#+RESULTS:
+: hydra-mu4e-headers/body
 
 
 * xkcd
