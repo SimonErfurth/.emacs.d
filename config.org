@@ -2447,8 +2447,6 @@ Currently using mu4e, only set up with Protonmail.
     (when (fboundp 'imagemagick-register-types)
       (imagemagick-register-types))
 
-    (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
-
     ;; Set user agent. Needed for org-msg
     (setq mail-user-agent 'mu4e-user-agent)
 
@@ -2473,6 +2471,24 @@ Currently using mu4e, only set up with Protonmail.
                           (mu4e--server-move docid (mu4e--mark-check-target target) "-N"))))
     (define-key mu4e-headers-mode-map (kbd "L") 'org-store-link)
     (define-key mu4e-view-mode-map    (kbd "L") 'org-store-link)
+
+    (add-hook 'mu4e-headers-mode-hook (lambda () (visual-line-mode 0)))
+
+    ;; bookmarks, mostly just hiding drafts
+    (setq mu4e-bookmarks
+          '(( :name  "Unread messages"
+                     :query "flag:unread AND NOT flag:trashed"
+                     :key ?u)
+            ( :name "Today's messages"
+                    :query "date:today..now AND NOT maildir:/sdu/Drafts AND NOT maildir:/proton/Drafts"
+                    :key ?t)
+            ( :name "Last 7 days"
+                    :query "date:7d..now AND NOT maildir:/sdu/Drafts AND NOT maildir:/proton/Drafts"
+                    :hide-unread t
+                    :key ?w)
+            ( :name "Messages with images"
+                    :query "mime:image/*"
+                    :key ?p)))
 
     ;; Use vertical view-mode. Optimal when I use a designated emacs instance for email
     (setq mu4e-split-view 'vertical
