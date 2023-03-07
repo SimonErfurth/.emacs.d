@@ -1531,6 +1531,7 @@ Loads company-mode, and adds yas-snippets to them
 
 ** lsp
 Language Server Protocol. The new and cool way!
+TODO: With Emacs 29, Eglot is part of the emacs core, so consider a switch.
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
@@ -1552,8 +1553,11 @@ Language Server Protocol. The new and cool way!
     (setq lsp-headerline-breadcrumb-enable nil)
     (setq lsp-semantic-tokens-enable nil)
     (setq lsp-enable-folding nil)
-    (setq lsp-enable-imenu nil)
-    (setq lsp-enable-snippet nil)
+    (setq lsp-enable-imenu t)
+    (setq lsp-ui-imenu-window-width 20)
+    (add-hook 'lsp-ui-imenu-mode-hook (lambda ()
+                                        (visual-line-mode 0)))
+    (setq lsp-ui-enable-snippet nil)
     (setq read-process-output-max (* 1024 1024)) ;; 1MB
     (setq lsp-idle-delay 0.5))
 
