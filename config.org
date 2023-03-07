@@ -1124,16 +1124,17 @@ Inspired by
           (set-marker end-of-paragraph (point)))
         ;; Iterate over sentences, ending them with newlines
         (forward-sentence)
-        (while (< (point) (+ end-of-paragraph 1))
+        (while (< (point) end-of-paragraph)
           (just-one-space)
           (delete-backward-char 1)
           ;; Don't modify comments
           (if (not (nth 4 (syntax-ppss))) 
               (newline))
+          (delete-blank-lines)
           (LaTeX-indent-line)
           (forward-sentence))
-        (backward-sentence)
-        (delete-backward-char 1)
+        (delete-blank-lines)
+        (newline)
         (set-marker end-of-paragraph nil))))
 #+end_src
 
@@ -1846,8 +1847,9 @@ editor. Hold tight.
   (use-package auctex
     :mode ("\\.tex\\'" . LaTeX-mode)
     :ensure t
-    :bind (("H-<tab>" . indent-for-tab-command)
-           ("M-q" . sse/fill-paragraph-sentences))
+    :bind (:map LaTeX-mode-map
+                ("H-<tab>" . indent-for-tab-command)
+                ("M-q" . sse/fill-paragraph-sentences))
     :config
     (setq-default TeX-master nil
                   TeX-engine 'pdflatex)
