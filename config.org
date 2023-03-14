@@ -1848,36 +1848,41 @@ Loads everything we need to make Emacs the very best LaTeX editor.
 AUCTeX is the major-mode that makes Emacs such a fantastic LaTeX
 editor. Hold tight.
 #+BEGIN_SRC emacs-lisp
-  (use-package auctex
+  (use-package tex
     :mode ("\\.tex\\'" . LaTeX-mode)
-    :ensure t
-    :bind (:map LaTeX-mode-map
-                ("H-<tab>" . indent-for-tab-command)
-                ("M-q" . sse/fill-paragraph-sentences))
+    :ensure auctex
+    ;; :bind (:map LaTeX-mode-map
+    ;; 	("H-<tab>" . indent-for-tab-command)
+    ;; 	("M-q" . sse/fill-paragraph-sentences))
     :config
-    (setq-default TeX-master nil
-                  TeX-engine 'pdflatex)
+    )
+
+  ;; For some reason binding these keys doesn't work with :bind
+  (eval-after-load 'tex-mode
+    '(define-key LaTeX-mode-map  (kbd "M-q") 'sse/fill-paragraph-sentences))
+  (eval-after-load 'tex-mode
+    '(define-key LaTeX-mode-map  (kbd "H-<tab>") 'indent-for-tab-command))
+
+  (use-package auctex-latexmk
+    :ensure t
+    :after tex
+    :config
+    (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+    (add-to-list 'safe-local-variable-values
+                 '(LaTeX-command . "latex -shell-escape"))
+    ;; (setq-default TeX-engine 'pdflatex)
     (setq TeX-auto-save t
           TeX-parse-self t
           TeX-PDF-mode t
           TeX-clean-confirm nil
-          TeX-master 'LatexMk
-          TeX-command-default "LatexMk"
           TeX-view-program-selection '((output-pdf "PDF Tools")))
-    (setq TeX-command-extra-options "-shell-escape"))
-
-  (use-package auctex-latexmk
-    :ensure t 
-    :config
-    (setq auctex-latexmk-inherit-TeX-PDF-mode t))
+    (setq-default TeX-command-extra-options "-shell-escape")
+    (setq-default TeX-command-default "LatexMk"))
   (auctex-latexmk-setup)
 
   (add-hook 'TeX-mode-hook 'yas-minor-mode)
   (add-hook 'TeX-mode-hook 'outline-minor-mode)
-  (add-hook 'TeX-mode-hook 'aggressive-indent-mode)
-
-  (add-to-list 'safe-local-variable-values
-               '(LaTeX-command . "latex -shell-escape"))
+  ;; (add-hook 'TeX-mode-hook 'aggressive-indent-mode)
 #+END_SRC
 
 ** lsp
@@ -2473,6 +2478,7 @@ Currently using mu4e, only set up with Protonmail.
     (define-key mu4e-view-mode-map    (kbd "L") 'org-store-link)
 
     (add-hook 'mu4e-headers-mode-hook (lambda () (visual-line-mode 0)))
+    (setq mu4e-search-threads nil)
 
     ;; bookmarks, mostly just hiding drafts
     (setq mu4e-bookmarks
