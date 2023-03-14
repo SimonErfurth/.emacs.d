@@ -21,6 +21,7 @@
         kill-visual-line
         org-cdlatex-math-modify
         org-end-of-line
+        org-metaleft
         org-self-insert-command
         org-yank
         ))

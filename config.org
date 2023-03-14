@@ -541,9 +541,9 @@ folders.
 #+begin_src emacs-lisp
   (define-key helm-map (kbd "<left>") 'helm-previous-source)
   (define-key helm-map (kbd "<right>") 'helm-next-source)
-  (customize-set-variable 'helm-ff-lynx-style-map t)
-  (customize-set-variable 'helm-imenu-lynx-style-map t)
-  (customize-set-variable 'helm-occur-use-ioccur-style-keys t)
+  (setq helm-ff-lynx-style-map t)
+  (setq helm-imenu-lynx-style-map t)
+  (setq helm-occur-use-ioccur-style-keys t)
 #+end_src
 
 ** hydra before other packages
@@ -1695,7 +1695,7 @@ Requires libclang to be installed.
   (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
 #+end_src
 
-*** lua
+*** COMMENT lua
 **** yasnippet
 #+BEGIN_SRC emacs-lisp
   (add-hook 'lua-mode-hook 'yas-minor-mode)
