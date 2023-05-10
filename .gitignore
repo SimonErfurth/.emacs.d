@@ -33,3 +33,7 @@ xkcd/*
 /games/
 /.cache/
 /.lsp-session-v1
+/dirvish/
+/eshell/
+/#recentf#
+/network-security.data
