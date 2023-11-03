@@ -39,7 +39,12 @@ So to sum up, the following need to be done manually.
 
 Additionally, see email section for separate setup.
 
-** Diminish
+** Mac
+Generally mac is similar enough to Linux for most of the above to be relevant.
+Instead of using the hyper modifier (which isn't supported on macos), we use
+simlar enough to, and bind caps-lock to C-M-s, and change all H- prefixes to
+this.
+* Diminish
 Your modeline is sacred, and if you have a lot of modes enabled, as you will if
 you use this configuration, you might end up with a lot of clutter there, the
 package =diminish= disables modes on the mode line but keeps them running, it
@@ -51,6 +56,8 @@ to hide modeline-symbols, hence we load it here.
   (use-package diminish
     :ensure t)
 #+end_src
+
+#+RESULTS:
 
 * Theme
 Clearly the most important part of any configuration!
@@ -77,6 +84,9 @@ Trying this one out, probably going to go back to =solarized-dark=
     (doom-themes-org-config))
 
 #+END_SRC
+
+#+RESULTS:
+: t
 
 ** COMMENT Some customization
 Customization from Uncle Dave.
@@ -141,7 +151,7 @@ Customization from Uncle Dave.
 ** font
 Configures Emacs to use source-code-pro in size 12.
 #+begin_src emacs-lisp
-  (set-frame-font "Source Code Pro 11")
+  ;; (set-frame-font "Source Code Pro 11")
 #+end_src
 
 * Basic Interface Settings
@@ -529,9 +539,9 @@ Completion framework that is used a lot.
     (global-set-key (kbd "C-x B") 'sse-switch-buffer-other-window))
 
   ;; DO NOT CHANGE THIS TO USE-PACKAGE! BREAKS!
-  (require 'helm-config)
-  (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
-  (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+  ;;(require 'helm-config)
+  ;;(define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
+  ;;(define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 #+END_SRC
 
 *** Restore lynx-like behaviour
@@ -772,7 +782,7 @@ And neotree for a nice, tree-style directory structure.
           neo-smart-open t
           neo-theme 'icons)
     :bind
-    (("H-t" . neotree-toggle)
+    (("C-M-s-t" . neotree-toggle)
      :map neotree-mode-map ("b" . 'neotree-select-up-node)))
 #+END_SRC
 
@@ -781,7 +791,7 @@ Further we use ~C-x C-v~ to open a file in other window.
   (global-set-key (kbd "C-x C-v") 'find-file-other-window)
 #+END_SRC
 
-*** dirvish
+*** COMMENT dirvish
 
 #+begin_src emacs-lisp
   (use-package dirvish
@@ -848,12 +858,12 @@ You can also manually invoke =config-reload=.
 ** Text in a buffer
 *** Moving around with hyper
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "H-a") 'left-word)
-  (global-set-key (kbd "H-s") 'right-word)
-  (global-set-key (kbd "H-i") 'previous-line)
-  (global-set-key (kbd "H-k") 'next-line)
-  (global-set-key (kbd "H-l") 'forward-char)
-  (global-set-key (kbd "H-j") 'backward-char)
+  (global-set-key (kbd "C-M-s-a") 'left-word)
+  (global-set-key (kbd "C-M-s-s") 'right-word)
+  (global-set-key (kbd "C-M-s-i") 'previous-line)
+  (global-set-key (kbd "C-M-s-k") 'next-line)
+  (global-set-key (kbd "C-M-s-l") 'forward-char)
+  (global-set-key (kbd "C-M-s-j") 'backward-char)
 #+END_SRC
 
 *** start of code, not line
@@ -938,7 +948,7 @@ now =M-s= is moving by searching characters.
     :ensure t
     :bind
     (("M-s" . avy-goto-char-timer)
-     ("M-H-s" . avy-goto-word-or-subword-1)))
+     ("M-C-M-s-s" . avy-goto-word-or-subword-1)))
 
   (defhydra hydra-avy (:exit t :hint nil)
     "
@@ -981,16 +991,16 @@ TODO: Find out why this is broken.
 *** Kill a line
 And this quickly deletes a line.
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "H-p") 'kill-whole-line)
+  (global-set-key (kbd "C-M-s-p") 'kill-whole-line)
 #+END_SRC
 
 *** Kill a word or char
 Quicker than using ~C-DEL~ and backspace.
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "H-o") 'delete-forward-char)
-  (global-set-key (kbd "H-u") 'delete-backward-char)
-  (global-set-key (kbd "H-w") 'kill-word)
-  (global-set-key (kbd "H-q") 'backward-kill-word)
+  (global-set-key (kbd "C-M-s-o") 'delete-forward-char)
+  (global-set-key (kbd "C-M-s-u") 'delete-backward-char)
+  (global-set-key (kbd "C-M-s-w") 'kill-word)
+  (global-set-key (kbd "C-M-s-q") 'backward-kill-word)
 #+END_SRC
 
 *** Kill region or word
@@ -1042,8 +1052,8 @@ in our undo history we are.
   (use-package goto-chg
     :ensure t
     :bind
-    (("H-/" . goto-last-change)
-     ("H-?" . goto-last-change-reverse)))
+    (("C-M-s-/" . goto-last-change)
+     ("C-M-s-?" . goto-last-change-reverse)))
 #+end_src
 
 *** comment-or-uncomment-region
@@ -1061,12 +1071,12 @@ Inspired by Atom and Sublime, does exactly what one would expect it to.
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
     :ensure t
-    :bind (("H-c H-c" . mc/edit-lines)
-           ("H-." . mc/mark-next-like-this)
-           ("H->" . mc/skip-to-next-like-this)
-           ("H-," . mc/mark-previous-like-this)
-           ("H-<" . mc/skip-to-previous-like-this)
-           ("H-c c" . mc/mark-all-like-this))
+    :bind (("C-M-s-c C-M-s-c" . mc/edit-lines)
+           ("C-M-s-." . mc/mark-next-like-this)
+           ("C-M-s->" . mc/skip-to-next-like-this)
+           ("C-M-s-," . mc/mark-previous-like-this)
+           ("C-M-s-<" . mc/skip-to-previous-like-this)
+           ("C-M-s-c c" . mc/mark-all-like-this))
     :config
     (global-unset-key (kbd "M-<down-mouse-1>"))
     (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click))
@@ -1104,8 +1114,8 @@ Expands progressively larger and larger logical units with repeat presses.
   (use-package move-text
     :load-path "~/.emacs.d/lisp/"
     :bind
-    (("H-f" . move-text-down)
-     ("H-b" . move-text-up)))
+    (("C-M-s-f" . move-text-down)
+     ("C-M-s-b" . move-text-up)))
 #+end_src
      
 *** corral (wrap in paran)
@@ -1114,13 +1124,13 @@ https://github.com/nivekuil/corral
 #+begin_src emacs-lisp
   (use-package corral
     :ensure t
-    :bind (("H-9" . corral-parentheses-backward)
-           ("H-0" . corral-parentheses-forward)
-           ("H-[" . corral-brackets-backward)
-           ("H-]" . corral-brackets-forward)
-           ("H-{" . corral-braces-backward)
-           ("H-}" . corral-braces-forward)
-           ("H-\"" . corral-double-quotes-backward))
+    :bind (("C-M-s-9" . corral-parentheses-backward)
+           ("C-M-s-0" . corral-parentheses-forward)
+           ("C-M-s-[" . corral-brackets-backward)
+           ("C-M-s-]" . corral-brackets-forward)
+           ("C-M-s-{" . corral-braces-backward)
+           ("C-M-s-}" . corral-braces-forward)
+           ("C-M-s-\"" . corral-double-quotes-backward))
     :config
     (setq corral-preserve-point t))
 #+end_src
@@ -1227,7 +1237,7 @@ Homemade function  for duplicating line
       (newline)
       (copy-from-above-command)))
   
-  (global-set-key (kbd "H-d") 'sse/duplicate-line-below)
+  (global-set-key (kbd "C-M-s-d") 'sse/duplicate-line-below)
 #+end_src
 
 * Minor conveniences
@@ -1239,7 +1249,7 @@ Together they create a nice environment for you to work in.
 ** quick-calc
 Use Emacs build in calculator for small calculations
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "H-=") 'quick-calc)
+  (global-set-key (kbd "C-M-s-=") 'quick-calc)
 #+END_SRC
 
 ** Better-defaults
@@ -1340,7 +1350,7 @@ install ~aspell-en~ for this to work.
     :config
     (add-hook 'text-mode-hook 'flyspell-mode)
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-    :bind ("H-x" . ispell-word))
+    :bind ("C-M-s-x" . ispell-word))
 
   (use-package auto-dictionary
     :ensure t
@@ -1360,8 +1370,8 @@ any mode, but rather turned on (and off) when needed.
 #+begin_src emacs-lisp
   (use-package langtool
     :ensure t
-    :bind (("H-c l" . langtool-check)
-           ("H-c d" . langtool-check-done))
+    :bind (("C-M-s-c l" . langtool-check)
+           ("C-M-s-c d" . langtool-check-done))
     :config
     (setq langtool-language-tool-jar "~/kms-config/LanguageTool-5.4/LanguageTool-5.4/languagetool-commandline.jar"
           langtool-default-language "en-US"
@@ -1377,11 +1387,11 @@ leaving Emacs or even your current buffer!
 #+begin_src emacs-lisp
   (use-package powerthesaurus
     :ensure t
-    :bind ("H-Z" . powerthesaurus-lookup-word-dwim))
+    :bind ("C-M-s-Z" . powerthesaurus-lookup-word-dwim))
   
   (use-package define-word
     :ensure t
-    :bind ("H-z" . define-word-at-point)
+    :bind ("C-M-s-z" . define-word-at-point)
     :config
     (setq define-word-default-service 'wordnik)
     (defun url-http-user-agent-string ()
@@ -1580,7 +1590,7 @@ TODO: With Emacs 29, Eglot is part of the emacs core, so consider a switch.
   (use-package lsp-mode
     :ensure t
     :init
-    (setq lsp-keymap-prefix "H-SPC")
+    (setq lsp-keymap-prefix "C-M-s-SPC")
     :hook ((js2-mode . lsp)
            (LaTeX-mode . lsp))
     :commands lsp
@@ -1865,7 +1875,7 @@ are
   (use-package js2-refactor
     :ensure t
     :hook (js2-mode . js2-refactor-mode)
-    :config (js2r-add-keybindings-with-prefix "H-r"))
+    :config (js2r-add-keybindings-with-prefix "C-M-s-r"))
 #+END_SRC
 
 **** yasnippet
@@ -1906,7 +1916,7 @@ editor. Hold tight.
     :mode ("\\.tex\\'" . LaTeX-mode)
     :ensure auctex
     ;; :bind (:map LaTeX-mode-map
-    ;; 	("H-<tab>" . indent-for-tab-command)
+    ;; 	("C-M-s-<tab>" . indent-for-tab-command)
     ;; 	("M-q" . sse/fill-paragraph-sentences))
     :config
     )
@@ -1915,7 +1925,7 @@ editor. Hold tight.
   (eval-after-load 'tex-mode
     '(define-key LaTeX-mode-map  (kbd "M-q") 'sse/fill-paragraph-sentences))
   (eval-after-load 'tex-mode
-    '(define-key LaTeX-mode-map  (kbd "H-<tab>") 'indent-for-tab-command))
+    '(define-key LaTeX-mode-map  (kbd "C-M-s-<tab>") 'indent-for-tab-command))
 
   (use-package auctex-latexmk
     :ensure t
@@ -2084,18 +2094,12 @@ Doesn't work...
 
 * pdf-tools
 #+BEGIN_SRC emacs-lisp
-  (use-package doc-view
-    ;; use doc-view when we're not on Linux. (see pdf-tools)
-    :if (not (eq system-type 'gnu/linux))
-    :init 
-    :config)
-
-  (use-package pdf-tools
+    (use-package pdf-tools
     :ensure t
     :pin manual
     :mode (("\\.pdf$" . pdf-view-mode))
-    ;; if we're not on 'gnu/linux, we use doc-view
-    :if (eq system-type 'gnu/linux)
+    ;; Disabled; I also want pdf tools on macos
+    ;; :if (eq system-type 'gnu/linux)
     :commands (pdf-view-mode)
     :config
     (pdf-tools-install)
@@ -2161,7 +2165,7 @@ It's =magit=!
           git-commit-summary-max-length 72)
     (global-git-commit-mode t) 
     :bind
-    (("H-g" . magit-status)
+    (("C-M-s-g" . magit-status)
      ("C-c g" . magit-file-dispatch))
     :init
     (add-hook 'git-commit-mode-hook 'turn-on-flyspell))
@@ -2498,11 +2502,12 @@ Currently using mu4e, only set up with Protonmail.
   default shipped with ubuntu 20.04. One solution to this is to compile from
   source. load-path is set according to this below.
 
+  https://macowners.club/posts/email-emacs-mu4e-macos/
+
 #+begin_src emacs-lisp
   (use-package mu4e
-    :bind ("H-m" . mu4e)
-    :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
-    :hook (mu4e-main-mode . (lambda () (load-theme 'doom-ayu-dark t)))
+    :bind ("C-M-s-m" . mu4e)
+    :load-path "/usr/local/share/emacs/site-lisp/mu/mu4e/"
     :config
     (setq mu4e-maildir "~/.mail"
           mu4e-attachment-dir "~/Downloads")
@@ -2524,7 +2529,7 @@ Currently using mu4e, only set up with Protonmail.
     (setq mail-user-agent 'mu4e-user-agent)
 
     ;; SENDING EMAIL
-    (setq sendmail-program "/usr/bin/msmtp"
+    (setq sendmail-program "/usr/local/bin/msmtp"
           message-sendmail-f-is-evil t
           message-sendmail-extra-arguments '("--read-envelope-from")
           send-mail-function 'smtpmail-send-it
@@ -2650,6 +2655,9 @@ Currently using mu4e, only set up with Protonmail.
                                                 ))))
            )))
 #+end_src
+
+#+RESULTS:
+: mu4e
 
 Notes: 
 mbsync -a (this is called automatically from mu4e)
@@ -2924,7 +2932,7 @@ the first letter of the course name.
     ("m" (find-file "~/Dropbox/PhD/notes/meetings.org") "Meetings")
     ("a" (find-file "~/Dropbox/PhD/notes/administration.org") "Administration")
     ("p" (find-file "~/Dropbox/PhD/notes/notes.org") "PhD Notes")
-    ("H-a" (find-file "~/Dropbox/PhD/articles/articles.org") "Articles")
+    ("C-M-s-a" (find-file "~/Dropbox/PhD/articles/articles.org") "Articles")
     ("s" (find-file "~/Dropbox/Scientific Assistent/notes/notes.org") "Scientific Assistant Notes")
     ("d" (find-file "~/Dropbox/PhD/Courses/DM803 - Advanced Data Structures/notes/DM803notes.org") "DM803 Notes")
     ;; ("t" (find-file "~/Dropbox/speciale/thesis/thesis.tex") "Thesis")
@@ -2932,7 +2940,7 @@ the first letter of the course name.
     ("w" (find-file "~/serfurth.dk/index.org") "serfurth.dk")
     ("n" (find-file "~/Dropbox/Div/DivNotes.org") "Notes")
     ("RET" nil "done" :color blue))
-  (global-set-key (kbd "H-v") 'hydra-open/body)
+  (global-set-key (kbd "C-M-s-v") 'hydra-open/body)
 #+end_src
 
 * emacs everywhere
@@ -2956,4 +2964,9 @@ https://github.com/tecosaur/emacs-everywhere
     :ensure t)
 #+end_src
 
+* emacs on macos
+- Use https://hyperkey.app/ to remap capslock to C-M-s-. Then change all
+  bindings that are either H- or C-M-s- to C-M-s- prefix. If this doesn't
+  work, karabiner elements can do the same (and more) but isa heavier program.
+- Unbind s-[spc] from changing input source in setting.
 
