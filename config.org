@@ -52,6 +52,14 @@ to hide modeline-symbols, hence we load it here.
     :ensure t)
 #+end_src
 
+* MacOS <2024-09-05 Thu>
+Generally, MacOS is similar enough to Linux, that we can mostly just use the
+Linux dependencies listed above. Instead of using the hyper modifier, which
+deosn't exist on MacOS, we rebind everything to =C-M-s=, and rebind capslock to
+that using hyperkey.app.
+
+And don't forget to unbind C-Spc from changing input source in setting.
+
 * Theme
 Clearly the most important part of any configuration!
 ** A theme
@@ -522,14 +530,14 @@ Completion framework that is used a lot.
       "In other window switch buffer using helm-buffers-list"
       (interactive)
       (let ((other (other-window-for-scrolling))
-            (current (selected-window)))
-        (select-window other)
-        (helm-buffers-list)
-        (select-window current)))
+	    (current (selected-window)))
+	(select-window other)
+	(helm-buffers-list)
+	(select-window current)))
     (global-set-key (kbd "C-x B") 'sse-switch-buffer-other-window))
 
   ;; DO NOT CHANGE THIS TO USE-PACKAGE! BREAKS!
-  (require 'helm-config)
+  ;; (require 'helm-config)
   (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
   (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 #+END_SRC
@@ -2095,7 +2103,8 @@ Doesn't work...
     :pin manual
     :mode (("\\.pdf$" . pdf-view-mode))
     ;; if we're not on 'gnu/linux, we use doc-view
-    :if (eq system-type 'gnu/linux)
+    ;; Disabled - I also use pdf-tools on MacOS, and tbh who uses Windows.
+    ;; :if (eq system-type 'gnu/linux)
     :commands (pdf-view-mode)
     :config
     (pdf-tools-install)
