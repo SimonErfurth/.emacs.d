@@ -482,9 +482,9 @@ Completion framwork that is used a lot.
     (helm-autoresize-mode 1))
 
   ;; DO NOT CHANGE THIS TO USE-PACKAGE! BREAKS!
-  (require 'helm-config)
-  (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
-  (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+  ;;(require 'helm-config)
+  ;;(define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
+  ;;(define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 #+END_SRC
 
 ** hydra before other packages
