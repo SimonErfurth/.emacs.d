@@ -742,9 +742,6 @@ restarting emacs when we want to run language tools. This is a bad solution.
       )
 #+end_src
 
-#+RESULTS:
-
-
 * org
 
 #+BEGIN_SRC emacs-lisp 
