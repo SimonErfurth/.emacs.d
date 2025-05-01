@@ -698,9 +698,14 @@ preamble (i.e. \RR for the reals).
     (add-hook 'org-mode-hook 'latex-unicode-simplified))
 #+end_src
 
-** COMMENT ltex [LangaugeTool for LaTeX]
+** ltex [LangaugeTool for LaTeX]
 Langaugetool spellchecking that works nicely with LaTeX commands.
 https://github.com/emacs-languagetool/eglot-ltex?tab=readme-ov-file
+
+Do note that ltex-ls is not under development, so rather one should use
+ltex-ls-plus, which can be found here https://github.com/ltex-plus/ltex-ls-plus
+When using this, one need to modify the binary `ltex-ls-plus` to be named
+`ltex-ls` in the path.
 
 Currently it does not appear to be possible to choose between this mode, and
 texlab. Hence, we use the work around of commenting in/out this section and
@@ -709,8 +714,12 @@ restarting emacs when we want to run language tools. This is a bad solution.
 #+begin_src emacs-lisp
   (use-package eglot-ltex
     :load-path "~/.emacs.d/lisp/eglot-ltex"
+    :hook (text-mode . (lambda ()
+                         (require 'eglot-ltex)
+                         (eglot-ensure)))
+
     :init
-    (setq eglot-ltex-server-path "/Users/erfurth/ltex-ls-plus-18.3.0/"
+    (setq eglot-ltex-server-path "/Users/erfurth/ltex-ls-plus-18.5.1/"
           eglot-ltex-communication-channel 'stdio)         ; 'stdio or 'tcp
     )
 #+end_src

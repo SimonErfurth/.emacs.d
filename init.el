@@ -50,7 +50,12 @@
  '(org-safe-remote-resources
    '("\\`https://fniessen\\.github\\.io/org-html-themes/org/theme-readtheorg\\.setup\\'"))
  '(package-selected-packages
-   '(rust-mode eglot-ltex evil-nerd-commenter dashboard eglot yasnippet company-bibtex company-quickhelp company rainbow-delimiters smartparens magit pdf-tools cdlatex auctex-latexmk auctex multiple-cursors goto-chg undo-tree define-word projectile highlight-symbol hydra helm which-key doom-themes doom-modeline all-the-icons)))
+   '(all-the-icons auctex-latexmk cdlatex company-bibtex company-quickhelp
+		   dashboard define-word doom-modeline doom-themes eglot-ltex
+		   eglot-ltex-plus evil-nerd-commenter git-gutter-fringe
+		   goto-chg helm highlight-symbol hydra magit multiple-cursors
+		   pdf-tools projectile rainbow-delimiters rust-mode smartparens
+		   undo-tree yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
