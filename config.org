@@ -35,8 +35,9 @@ Keybindings are made assuming the use of hyperkey.app to rebind capslock to =C-M
 ** font
 Currently using JetBrains mono, which requires seperate installation.
 #+begin_src emacs-lisp
-  (set-face-attribute 'default nil :font "JetBrains Mono" :height 120 :weight 'light)
+  (set-face-attribute 'default nil :font "JetBrains Mono" :height 140 :weight 'light)
 #+end_src
+
 ** doom-modeline
 Remember to install nerd-fonts (=M-x nerd-icons-install-fonts=).
 
@@ -108,6 +109,13 @@ liking, I find 10 to be enough.
     )
 #+END_SRC
 
+** macOS style menu bar
+#+begin_src emacs-lisp
+  (use-package menu-bar
+    :config
+    (menu-bar-mode +1))
+#+end_src
+
 * QOL
 Unset =M-m= since we use this as a prefix.
 #+BEGIN_SRC emacs-lisp
@@ -169,11 +177,29 @@ Use Emacs build in calculator for small calculations
   (global-set-key (kbd "C-M-s-=") 'quick-calc)
 #+END_SRC
 
-** split-int0-portraits
+** split-into-portraits
 #+BEGIN_SRC emacs-lisp
   (setq split-height-threshold nil)
   (setq split-width-threshold 160)
 #+END_SRC
+
+** pixel scrollong
+Introduced in Emacs 29.
+
+"New minor mode 'pixel-scroll-precision-mode'. When enabled, and if your mouse
+supports it, you can scroll the display up or down at pixel resolution,
+according to what your mouse wheel reports. Unlike 'pixel-scroll-mode', this
+mode scrolls the display pixel-by-pixel, as opposed to only animating
+line-by-line scrolls."
+#+begin_src emacs-lisp
+  (pixel-scroll-precision-mode)
+#+end_src
+
+** no backup files
+remove all the ~ files all over the place.
+#+begin_src emacs-lisp
+  (setq make-backup-files nil)
+#+end_src
 
 * Navigation
 ** helm
@@ -434,7 +460,8 @@ in our undo history we are.
     :init (global-undo-tree-mode 1)
     :config
     (setq undo-tree-visualizer-timestamps t
-          undo-tree-visualizer-diff t))
+          undo-tree-visualizer-diff t
+  	undo-tree-auto-save-history nil))
 #+END_SRC
 
 ** goto-last-change
@@ -512,6 +539,12 @@ supports prefixes to take multiple lines with us.
     :ensure t
     :bind ("M-;" . evilnc-comment-or-uncomment-lines))
 #+END_SRC
+
+** macOS emoji
+Activates the macOS emoji picker.
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-M-s-e") 'ns-do-show-character-palette)
+#+end_src
 
 * Programming Essentials
 That are also used for text modes.
@@ -714,10 +747,6 @@ restarting emacs when we want to run language tools. This is a bad solution.
 #+begin_src emacs-lisp
   (use-package eglot-ltex
     :load-path "~/.emacs.d/lisp/eglot-ltex"
-    :hook (text-mode . (lambda ()
-                         (require 'eglot-ltex)
-                         (eglot-ensure)))
-
     :init
     (setq eglot-ltex-server-path "/Users/erfurth/ltex-ls-plus-18.5.1/"
           eglot-ltex-communication-channel 'stdio)         ; 'stdio or 'tcp
@@ -749,6 +778,36 @@ restarting emacs when we want to run language tools. This is a bad solution.
       :init
       (add-hook 'rust-mode-hook 'eglot-ensure)
       )
+#+end_src
+
+* python
+Simple python mode, relying on eglot to do the heavy lifting. Currently using
+pyright as language server, and black as code formatter.
+
+`brew install pyright black`.
+#+begin_src emacs-lisp
+  (use-package python
+    :hook (python-mode . eglot-ensure)
+    :config
+    ;; Remove guess indent python message
+    (setq python-indent-guess-indent-offset-verbose nil))
+
+  (use-package blacken
+    :ensure t
+    :defer t
+    :custom
+    (blacken-allow-py36 t)
+    (blacken-skip-string-normalization t)
+    :hook (python-mode-hook . blacken-mode))
+#+end_src
+
+* c++
+Using the clang server
+
+#+begin_src emacs-lisp
+  (use-package c++
+    :hook (c++-mode . eglot-ensure)
+    )
 #+end_src
 
 * org
@@ -788,14 +847,23 @@ The following removes the 'validate' button from the exported page.
 
 #+end_src
 
+* markdown
+Mardown mode is used for gptel.
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :mode ("README\\.md\\'" . gfm-mode)
+    )
+#+end_src
+
 * Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
     :config
     :bind
-    (("C-M-s-g" . magit-status)
-     ("C-c g" . magit-file-dispatch)))
+    (("C-M-s-g" . magit-status)))
 #+END_SRC
 
 ** GitGutter
@@ -811,6 +879,21 @@ Adds symbols to show what has been changed since the last commit.
   (add-hook 'prog-mode-hook 'git-gutter-mode)
   (add-hook 'text-mode-hook 'git-gutter-mode)
 #+END_SRC
+
+* llm's
+gptel seems to be the right choice. Many packages add functionality to this.
+
+#+begin_src emacs-lisp
+  (use-package gptel
+    :ensure t
+    :bind (("C-c g g" . gptel)
+  	 ("C-c g m" . gptel-menu))
+    :config
+    (setq gptel-api-key "YOUR API KEY HERE")
+    (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+    (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+    )
+#+end_src
 
 * Finding select files
 Placed here rather than at a more convenient location due to being very

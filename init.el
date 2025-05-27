@@ -50,12 +50,12 @@
  '(org-safe-remote-resources
    '("\\`https://fniessen\\.github\\.io/org-html-themes/org/theme-readtheorg\\.setup\\'"))
  '(package-selected-packages
-   '(all-the-icons auctex-latexmk cdlatex company-bibtex company-quickhelp
+   '(all-the-icons auctex-latexmk blacken cdlatex company-bibtex company-quickhelp
 		   dashboard define-word doom-modeline doom-themes eglot-ltex
 		   eglot-ltex-plus evil-nerd-commenter git-gutter-fringe
-		   goto-chg helm highlight-symbol hydra magit multiple-cursors
-		   pdf-tools projectile rainbow-delimiters rust-mode smartparens
-		   undo-tree yasnippet)))
+		   goto-chg gptel helm highlight-symbol hydra magit
+		   markdown-mode multiple-cursors pdf-tools projectile
+		   rainbow-delimiters rust-mode smartparens undo-tree yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
