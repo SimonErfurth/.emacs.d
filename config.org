@@ -65,13 +65,17 @@ Remember to install nerd-fonts (=M-x nerd-icons-install-fonts=).
 #+BEGIN_SRC emacs-lisp
   (setq-default fill-column 80)
   (global-visual-line-mode)
+  (global-visual-wrap-prefix-mode)
   (setq line-move-visual t) ;; move via visual lines
 #+END_SRC
 
 ** Show parens
-Highlights matching parentheses when the cursor is just behind one of them.
+Highlights matching parentheses when the cursor is just behind one of them. The
+context setting (Emacs 29) shows the matching line in the echo area when the open
+delimiter is scrolled off-screen.
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
+  (setq show-paren-context-when-offscreen t)
 #+END_SRC
 
 ** All the icons
@@ -127,7 +131,7 @@ Unset =M-m= since we use this as a prefix.
 
 ** Change yes-or-no questions into y-or-n questions
 #+BEGIN_SRC emacs-lisp
-  (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq use-short-answers t)
 #+END_SRC
 
 ** Delete by moving to trash
@@ -153,7 +157,6 @@ Further, we give names to some of the prefixes we have defined
 elsewhere.
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
-    :ensure t
     :diminish (which-key-mode "")
     :config
     (which-key-mode)
@@ -199,6 +202,14 @@ line-by-line scrolls."
 remove all the ~ files all over the place.
 #+begin_src emacs-lisp
   (setq make-backup-files nil)
+#+end_src
+
+** recentf and save-place
+Track recently opened files (used by the dashboard) and reopen files at the
+position where you left them.
+#+begin_src emacs-lisp
+  (recentf-mode 1)
+  (save-place-mode 1)
 #+end_src
 
 * Navigation
@@ -791,15 +802,6 @@ pyright as language server, and black as code formatter.
     :config
     ;; Remove guess indent python message
     (setq python-indent-guess-indent-offset-verbose nil))
-#+end_src
-
-* c++
-Using the clang server
-
-#+begin_src emacs-lisp
-  (use-package c++
-    :hook (c++-mode . eglot-ensure)
-    )
 #+end_src
 
 * org
