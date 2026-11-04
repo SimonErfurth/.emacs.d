@@ -791,14 +791,6 @@ pyright as language server, and black as code formatter.
     :config
     ;; Remove guess indent python message
     (setq python-indent-guess-indent-offset-verbose nil))
-
-  (use-package blacken
-    :ensure t
-    :defer t
-    :custom
-    (blacken-allow-py36 t)
-    (blacken-skip-string-normalization t)
-    :hook (python-mode-hook . blacken-mode))
 #+end_src
 
 * c++
@@ -880,8 +872,15 @@ Adds symbols to show what has been changed since the last commit.
   (add-hook 'text-mode-hook 'git-gutter-mode)
 #+END_SRC
 
-* llm's
+* llm's (gptel)
 gptel seems to be the right choice. Many packages add functionality to this.
+
+The API key is read from the =OPENAI_API_KEY= environment variable so it never
+lives in this (version-controlled) file. Set it in your shell profile, e.g.
+=export OPENAI_API_KEY=sk-...= in =~/.zshrc=. Note: GUI Emacs on macOS does not
+inherit your shell environment unless launched from a terminal or you use the
+=exec-path-from-shell= package; an alternative is to store the key in
+=~/.authinfo.gpg= and use gptel's default auth-source lookup.
 
 #+begin_src emacs-lisp
   (use-package gptel
@@ -889,7 +888,7 @@ gptel seems to be the right choice. Many packages add functionality to this.
     :bind (("C-c g g" . gptel)
   	 ("C-c g m" . gptel-menu))
     :config
-    (setq gptel-api-key "YOUR API KEY HERE")
+    (setq gptel-api-key (getenv "OPENAI_API_KEY"))
     (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
     (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
     )
