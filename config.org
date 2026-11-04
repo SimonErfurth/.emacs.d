@@ -872,26 +872,13 @@ Adds symbols to show what has been changed since the last commit.
   (add-hook 'text-mode-hook 'git-gutter-mode)
 #+END_SRC
 
-* llm's (gptel)
-gptel seems to be the right choice. Many packages add functionality to this.
-
-The API key is read from the =OPENAI_API_KEY= environment variable so it never
-lives in this (version-controlled) file. Set it in your shell profile, e.g.
-=export OPENAI_API_KEY=sk-...= in =~/.zshrc=. Note: GUI Emacs on macOS does not
-inherit your shell environment unless launched from a terminal or you use the
-=exec-path-from-shell= package; an alternative is to store the key in
-=~/.authinfo.gpg= and use gptel's default auth-source lookup.
-
+* llm's 
 #+begin_src emacs-lisp
-  (use-package gptel
-    :ensure t
-    :bind (("C-c g g" . gptel)
-  	 ("C-c g m" . gptel-menu))
+  (use-package claude-code-ide
+    :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+    :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
     :config
-    (setq gptel-api-key (getenv "OPENAI_API_KEY"))
-    (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
-    (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-    )
+    (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
 #+end_src
 
 * Finding select files
